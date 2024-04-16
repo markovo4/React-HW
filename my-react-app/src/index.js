@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import {Menu} from './App.js';
+import {Menu, Profile, FormatDate, HeroSection} from './App.js';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -11,6 +11,9 @@ root.render(
         <Menu/>
         <Menu/>
         <Menu/>
+        <Profile/>
+        <FormatDate/>
+            <HeroSection/>
     </React.StrictMode>
 );
 
