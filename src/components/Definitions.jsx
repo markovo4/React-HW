@@ -15,8 +15,14 @@ class Definitions extends React.Component {
             </dl>
 
         )
+
     }
 
 }
+
+Definitions.defaultProps = [
+    {dt: 'Coffee', dd: 'Black hot drink', id: 1},
+    {dt: 'Milk', dd: 'White cold drink', id: 2},
+];
 
 export default Definitions;
