@@ -14,4 +14,8 @@ class Card extends React.Component {
     }
 }
 
+// Card.defaultProps = {
+//     title: 'title',
+//     text: 'text'
+// }
 export default Card;
