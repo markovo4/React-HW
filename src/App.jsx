@@ -29,7 +29,7 @@ class App extends Component {
             <>
                 <Container>
                     {!showTable && <MyForm onSubmit={this.onSubmitHandler} form={data}/>}
-                    {showTable && <DataTable data={data} onClick={this.handleClick}/>}
+                    {showTable && <DataTable data={data} onClickBack={this.handleClick}/>}
                 </Container>
             </>
         )

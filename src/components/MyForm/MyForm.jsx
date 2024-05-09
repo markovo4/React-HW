@@ -36,7 +36,7 @@ class MyForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            formData: props.formData ? props.formData : {...formDefaultState}
+            formData: props.form ? props.form : {...formDefaultState}
         }
     }
 

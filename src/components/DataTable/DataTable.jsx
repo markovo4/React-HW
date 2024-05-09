@@ -9,7 +9,9 @@ class DataTable extends Component {
         super(props);
     }
 
+
     render() {
+
         const {data, onClickBack} = this.props;
         return (
             <Fragment>
