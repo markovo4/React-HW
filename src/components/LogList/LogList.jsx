@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import {Component} from 'react';
 import Log from "../Log/index.js";
 import {Button} from 'react-bootstrap';
 
@@ -12,6 +12,7 @@ class LogList extends Component {
     }
 
     handleClick = (e) => {
+
         this.setState(prevState => {
             const newValue = e.target.name === 'plus' ? prevState.value + 1 : prevState.value - 1;
             return {
@@ -19,6 +20,7 @@ class LogList extends Component {
                 components: [newValue, ...prevState.components]
             };
         });
+
     };
 
     handleDeleteComponent = (id) => {
@@ -27,26 +29,30 @@ class LogList extends Component {
         }))
     }
 
-
     render() {
         const {components} = this.state;
+
         return (
             <div>
                 <div className="btn-group font-monospace" role="group">
+
                     <Button
                         name={'plus'}
                         variant="outline-success"
                         onClick={this.handleClick}>
                         +
                     </Button>
+
                     <Button
                         name={'minus'}
                         variant="outline-danger"
                         onClick={this.handleClick}>
                         -
                     </Button>
+
                 </div>
                 <div className="list-group">
+
                     {components.map((value, i) => (
                         <Log
                             data={value}
@@ -56,6 +62,7 @@ class LogList extends Component {
                             onDelete={this.handleDeleteComponent}
                         />
                     ))}
+                    
                 </div>
             </div>
         );
