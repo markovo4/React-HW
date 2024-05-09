@@ -12,7 +12,6 @@ class LogList extends Component {
     }
 
     handleClick = (e) => {
-
         this.setState(prevState => {
             const newValue = e.target.name === 'plus' ? prevState.value + 1 : prevState.value - 1;
             return {
@@ -21,6 +20,13 @@ class LogList extends Component {
             };
         });
     };
+
+    handleDeleteComponent = (id) => {
+        this.setState(prevState => ({
+            components: prevState.components.filter((item, index) => index !== id)
+        }))
+    }
+
 
     render() {
         const {components} = this.state;
@@ -42,7 +48,13 @@ class LogList extends Component {
                 </div>
                 <div className="list-group">
                     {components.map((value, i) => (
-                        <Log data={value} key={i} id={i} components={components}/>
+                        <Log
+                            data={value}
+                            key={i}
+                            id={i}
+                            components={components}
+                            onDelete={this.handleDeleteComponent}
+                        />
                     ))}
                 </div>
             </div>

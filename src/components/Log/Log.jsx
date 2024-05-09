@@ -6,13 +6,9 @@ class Log extends Component {
         super(props);
     }
 
-    handleDelete = (e) => {
-        const array = this.props.components;
-        const element = array[e.target.id];
-        const index = array.indexOf(element)
-        array.splice(index, 1)
+    handleDelete = () => {
+        this.props.onDelete(this.props.id)
     }
-
 
     render() {
         const {data, id} = this.props
