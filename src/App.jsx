@@ -1,7 +1,10 @@
+import Component from "./components/Component/index.js";
+
 function App() {
 
     return (
         <>
+            <Component/>
         </>
     )
 }
