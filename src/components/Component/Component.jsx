@@ -9,7 +9,7 @@ class Component extends React.Component {
         }
     }
 
-    toggle = (e) => {
+    toggle = () => {
         this.setState({
             modal: !this.state.modal,
         });
