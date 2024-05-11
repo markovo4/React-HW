@@ -20,9 +20,9 @@ class Component extends React.Component {
             <div>
                 <button type="button" className="modal-open-button btn btn-danger" onClick={this.toggle}>Open</button>
                 <Modal isOpen={this.state.modal}>
-                    <Modal.Header toggle={this.toggle}>Modal title</Modal.Header>
+                    <Modal.Header toggle={this.toggle}>Modal Window</Modal.Header>
                     <Modal.Body>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        This is the modal window that was created by react components
                     </Modal.Body>
                     <Modal.Footer>
                         <button type="button" className="modal-close-button btn btn-secondary"
