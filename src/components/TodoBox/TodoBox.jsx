@@ -4,6 +4,7 @@ import TodoItem from "../TodoItem/index.js";
 import {cloneDeep} from 'lodash';
 
 class TodoBox extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -12,23 +13,26 @@ class TodoBox extends Component {
         };
     }
 
+    handleDelete = (index) => () => {
+        this.setState(prevState => ({
+            notes: prevState.notes.filter((item, i) => i !== index)
+        }));
+    };
+
     handleSubmit = (e) => {
         e.preventDefault();
-        const prevState = cloneDeep(this.state.notes);
+        const prevState = cloneDeep(this.state);
+
+        if (this.state.value.trim() === '') return;
+        
         this.setState({
             value: '',
-            notes: [this.state.value, ...prevState]
+            notes: [prevState.value, ...prevState.notes]
         });
     };
 
     handleChange = (e) => {
         this.setState({value: e.target.value});
-    };
-
-    handleDelete = (index) => {
-        this.setState(prevState => ({
-            notes: prevState.notes.filter((item, i) => i !== index)
-        }));
     };
 
     render() {
@@ -50,7 +54,7 @@ class TodoBox extends Component {
                     </Form>
                 </div>
                 {notes.map((item, index) => (
-                    <TodoItem key={index} task={item} id={index} onRemove={() => this.handleDelete(index)}/>
+                    <TodoItem key={index} task={item} id={index} onRemove={this.handleDelete(index)}/>
                 ))}
             </Fragment>
         );
