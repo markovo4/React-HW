@@ -10,11 +10,11 @@ class PostCatalog extends Component {
         };
     }
 
-    async componentDidMount() {
+    componentDidMount = async () => {
         return this.handleContent();
     }
 
-    async handleContent() {
+    handleContent = async () => {
         try {
             const res = await fetch('https://jsonplaceholder.typicode.com/posts');
             const posts = await res.json();
