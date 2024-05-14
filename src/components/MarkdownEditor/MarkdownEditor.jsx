@@ -15,6 +15,10 @@ class MarkdownEditor extends React.Component {
         this.initEditor();
     }
 
+    componentWillUnmount() {
+        this.editor.destroy();
+    }
+
     initEditor = () => {
         const {onContentChange} = this.props;
 
