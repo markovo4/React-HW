@@ -5,9 +5,6 @@ import PropTypes from "prop-types";
 class MarkdownEditor extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            content: ''
-        }
         this.editorRef = React.createRef();
     }
 
