@@ -10,11 +10,6 @@ function App() {
                 <Weather country={'Canada'}/>
                 <Weather country={'Europe'}/>
                 <Weather country={'USA'}/>
-                <Weather country={'USA'}/>
-                <Weather country={'USA'}/>
-                <Weather country={'USA'}/>
-                <Weather country={'USA'}/>
-                <Weather country={'USA'}/>
             </div>
         </>
     )
