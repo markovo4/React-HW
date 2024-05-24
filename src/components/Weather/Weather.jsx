@@ -3,21 +3,28 @@ import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 
 const Weather = ({country}) => {
-
     const [weather, setWeather] = useState(null);
-    useEffect(() => {
-        fetchWeather();
-    }, [])
+    const [error, setError] = useState(null);
 
-    const fetchWeather = async () => {
-        try {
-            const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=4ce59e619b5d4cbfa13172625242205&q=${country}&aqi=no`);
-            const weather = await response.json();
-            setWeather(weather);
-            console.log(weather);
-        } catch (err) {
-            throw new Error(`Error fetching weather data: ${err}`)
-        }
+    useEffect(() => {
+        const fetchWeather = async () => {
+            try {
+                const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=4ce59e619b5d4cbfa13172625242205&q=${country}&aqi=no`);
+                if (!response.ok) {
+                    throw new Error(`Error fetching weather data: ${response.statusText}`);
+                }
+                const weatherData = await response.json();
+                setWeather(weatherData);
+            } catch (err) {
+                setError(err.message);
+            }
+        };
+
+        fetchWeather();
+    }, [country]);
+
+    if (error) {
+        return <div>Error: {error}</div>;
     }
 
     if (!weather) {

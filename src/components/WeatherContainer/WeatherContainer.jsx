@@ -7,10 +7,11 @@ const WeatherContainer = ({src, city, temp, region, country}) => {
         width: '20rem',
         borderRadius: '30px',
         padding: '15px',
-        minHeight: '15rem',
+        maxHeight: '15rem',
         display: 'flex',
         flexBasis: '30%',
         flexGrow: '100',
+
     }
     return (
 

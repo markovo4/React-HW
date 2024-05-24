@@ -1,18 +1,23 @@
 import Weather from "./components/Weather";
 import './components/WeatherContainer/WeatherContainer.css';
+import Search from "./components/Search";
+import {useState} from "react";
 
 function App() {
+    const [region, setRegion] = useState(null);
+
+    const handleContent = (region) => {
+        setRegion(region);
+    }
 
     return (
         <>
-            <div className={'container1'}>
-                <Weather country={'Ukraine'}/>
-                <Weather country={'Canada'}/>
-                <Weather country={'Europe'}/>
-                <Weather country={'USA'}/>
+            <Search onClick={handleContent}/>
+            <div className="container1">
+                {region && <Weather country={region}/>}
             </div>
         </>
-    )
+    );
 }
 
-export default App
+export default App;
