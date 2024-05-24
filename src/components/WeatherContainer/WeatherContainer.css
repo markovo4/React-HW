@@ -1,0 +1,21 @@
+html {
+    background-color: #0a3622;
+}
+
+
+.container1 {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 20px;
+    border: 1px solid rgba(0, 23, 91, 0.5);
+    border-radius: 30px;
+    background-color: rgba(108, 209, 229, 0.18);
+    min-height: 500px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+.card-custom {
+    background-color: black;
+}
