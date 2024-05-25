@@ -15,7 +15,7 @@ const Weather = ({country}) => {
                 }
                 const weatherData = await response.json();
                 setWeather(weatherData);
-                console.log(weatherData)
+
             } catch (err) {
                 setError(err.message);
             }
@@ -31,18 +31,22 @@ const Weather = ({country}) => {
     if (!weather) {
         return <div>Loading...</div>;
     }
+    const weatherLocation = weather;
 
     return (
-        // {weather.forecast.forecastday.hour.map((hour) =>{
-        //
-        //     })}
-        // <WeatherContainer
-        //     src={weather.current.condition.icon}
-        //     city={weather.location.name}
-        //     temp={weather.current.temp_c}
-        //     region={weather.location.region}
-        //     country={weather.location.country}
-        // />
+        <>
+            {weatherLocation.forecast.forecastday[0].hour.map((weatherData, index) => (
+                <WeatherContainer
+                    key={index}
+                    src={weatherData.condition.icon}
+                    city={weatherLocation.location.name}
+                    temp={weatherData.temp_c}
+                    region={weatherLocation.location.region}
+                    country={weatherLocation.location.country}
+                    time={weatherData.time}
+                />
+            ))}
+        </>
     );
 }
 

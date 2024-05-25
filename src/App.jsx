@@ -1,7 +1,7 @@
 import Weather from "./components/Weather";
 import './components/WeatherContainer/WeatherContainer.css';
 import Search from "./components/Search";
-import {useState} from "react";
+import React, {useState} from "react";
 
 function App() {
     const [region, setRegion] = useState(null);
@@ -11,12 +11,20 @@ function App() {
     }
 
     return (
-        <>
-            <Search onClick={handleContent}/>
-            <div className="container1">
-                {region && <Weather country={region}/>}
+        <React.Fragment>
+            <div className={'container'}>
+                <Search onClick={handleContent}/>
+                <div className={'wrapper'}>
+                    <div className={'aside'}>
+                        {region && <Weather country={region}/>}
+                    </div>
+                    <div className="main">
+                        {region && <Weather country={region}/>}
+                    </div>
+                </div>
             </div>
-        </>
+        </React.Fragment>
+
     );
 }
 
