@@ -1,7 +1,7 @@
 import Card from 'react-bootstrap/Card';
 import PropTypes from "prop-types";
 
-const WeatherContainer = ({src, city, temp, region, country, time}) => {
+const WeatherContainer = ({src, city, temp, region, country, time, currentWeather}) => {
 
     const cardStyle = {
         width: 'auto',
@@ -11,20 +11,22 @@ const WeatherContainer = ({src, city, temp, region, country, time}) => {
         display: 'flex',
         flexBasis: '30%',
         flexGrow: '100',
-        flexDirection: 'row',
+        flexDirection: currentWeather ? 'column' : 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
+        alignItems: currentWeather ? 'flex-start' : 'center',
         margin: '0',
 
     }
     return (
 
         <Card style={cardStyle}>
+            {currentWeather && <h4 style={{color: 'grey'}}>Current Weather in {city}</h4>}
             <Card.Img variant="top" src={src} style={{width: '5rem'}}/>
             <Card.Body style={cardStyle}>
-                <Card.Title style={{margin: '0'}}>{city}, {region}, {country}</Card.Title>
-                <Card.Text style={{margin: '0'}}>{temp} °C</Card.Text>
-                <Card.Text style={{margin: '0'}}>{time}</Card.Text>
+                <Card.Title
+                    style={{margin: '0'}}>{currentWeather ? `${city}, ${country}` : `${city}, ${region}, ${country}`}</Card.Title>
+                <Card.Text style={{margin: '0'}}>Temperature: {temp} °C</Card.Text>
+                <Card.Text style={{margin: '0'}}>Date: {time}</Card.Text>
             </Card.Body>
         </Card>
     )
@@ -34,8 +36,9 @@ WeatherContainer.propTypes = {
     src: PropTypes.string.isRequired,
     city: PropTypes.string.isRequired,
     temp: PropTypes.number.isRequired,
-    region: PropTypes.string.isRequired,
+    region: PropTypes.string,
     country: PropTypes.string.isRequired,
+    time: PropTypes.string.isRequired,
 }
 
 export default WeatherContainer;

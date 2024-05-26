@@ -44,6 +44,7 @@ const Weather = ({country}) => {
                     region={weatherLocation.location.region}
                     country={weatherLocation.location.country}
                     time={weatherData.time}
+                    currentWeather={false}
                 />
             ))}
         </>

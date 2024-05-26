@@ -2,6 +2,7 @@ import Weather from "./components/Weather";
 import './components/WeatherContainer/WeatherContainer.css';
 import Search from "./components/Search";
 import React, {useState} from "react";
+import CurrentWeather from "./components/CurrentWeather";
 
 function App() {
     const [region, setRegion] = useState(null);
@@ -12,11 +13,11 @@ function App() {
 
     return (
         <React.Fragment>
-            <div className={'container'}>
+            <div className={'container p-4'}>
                 <Search onClick={handleContent}/>
                 <div className={'wrapper'}>
                     <div className={'aside'}>
-                        {region && <Weather country={region}/>}
+                        {region && <CurrentWeather country={region}/>}
                     </div>
                     <div className="main">
                         {region && <Weather country={region}/>}
