@@ -6,12 +6,4 @@ export default defineConfig({
     plugins: [
         react()
     ],
-    server: {
-        fs: {
-            strict: false
-        },
-        proxy: {
-            // Proxy API requests if needed
-        }
-    }
 });
