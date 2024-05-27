@@ -8,8 +8,16 @@ const CurrentWeather = ({country}) => {
     useEffect(() => {
         const fetchWeather = async () => {
 
-            const position = await getPosition();
-            const coords = `${position.coords.latitude}, ${position.coords.longitude}`;
+            // This coords method requires further refactoring
+            let coords;
+            try {
+                const position = await getPosition();
+                coords = `${position.coords.latitude}, ${position.coords.longitude}`;
+            } catch (error) {
+                coords = 'Ukraine'
+            }
+            //
+
             const weatherUrl = `https://api.weatherapi.com/v1/forecast.json?`
                 + `key=4ce59e619b5d4cbfa13172625242205`
                 + `&q=${country ? country : coords}`
