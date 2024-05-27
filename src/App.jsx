@@ -15,12 +15,14 @@ function App() {
         <React.Fragment>
             <div className={'container p-4'}>
                 <Search onClick={handleContent}/>
-                <div className={'wrapper'}>
-                    <div className={'aside'}>
-                        {region && <CurrentWeather country={region}/>}
+                <div className={'wrapper '}>
+                    <div className={'aside shadow-lg'}>
+                        <CurrentWeather country={region ? region : ''}/>
                     </div>
-                    <div className="main">
-                        {region && <Weather country={region}/>}
+                    <div className="main shadow-lg">
+
+                        <h4 className={'forecast-title shadow-sm'}>Weather forecast for the next 24 hours</h4>
+                        <Weather country={region ? region : ''}/>
                     </div>
                 </div>
             </div>

@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 const Search = ({onClick}) => {
 
-    const [region, setRegion] = useState('Ukraine');
+    const [region, setRegion] = useState('');
     const handleSubmit = (e) => {
         e.preventDefault();
         onClick(region)
@@ -16,13 +16,18 @@ const Search = ({onClick}) => {
     const handleChange = (e) => {
         setRegion(e.target.value)
     }
+
+    const searchStyle = {
+        border: '2px solid rgba(0, 23, 91, 0.29)'
+    }
     return (
         <Form onSubmit={handleSubmit}>
             <InputGroup className="mb-1">
-                <Button variant={"secondary"} type={'submit'}>
+                <Button variant={"secondary"} type={'submit'} style={searchStyle}>
                     Search for a Weather forecast
                 </Button>
                 <Form.Control
+                    style={searchStyle}
                     onChange={handleChange}
                     value={region}
                 />

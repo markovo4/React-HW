@@ -1,13 +1,13 @@
 import Card from 'react-bootstrap/Card';
 import PropTypes from "prop-types";
 
-const WeatherContainer = ({src, city, temp, region, country, time, currentWeather}) => {
+const WeatherContainer = ({src, city, temp, region, country, time, currentWeather, condition}) => {
 
     const cardStyle = {
         width: 'auto',
         borderRadius: '30px',
         padding: '15px',
-        maxHeight: '15rem',
+        maxHeight: currentWeather ? '23.5rem' : '15rem',
         display: 'flex',
         flexBasis: '30%',
         flexGrow: '100',
@@ -15,6 +15,7 @@ const WeatherContainer = ({src, city, temp, region, country, time, currentWeathe
         justifyContent: 'space-between',
         alignItems: currentWeather ? 'flex-start' : 'center',
         margin: '0',
+        boxShadow: '0 .125rem .25rem .25rem rgba(0, 0, 0, 0.02)',
 
     }
     return (
@@ -26,7 +27,8 @@ const WeatherContainer = ({src, city, temp, region, country, time, currentWeathe
                 <Card.Title
                     style={{margin: '0'}}>{currentWeather ? `${city}, ${country}` : `${city}, ${region}, ${country}`}</Card.Title>
                 <Card.Text style={{margin: '0'}}>Temperature: {temp} °C</Card.Text>
-                <Card.Text style={{margin: '0'}}>Date: {time}</Card.Text>
+                <Card.Text style={{margin: '0'}}>Time: {time}</Card.Text>
+                <Card.Text style={{margin: '0'}}>Condition: {condition}</Card.Text>
             </Card.Body>
         </Card>
     )
@@ -39,6 +41,8 @@ WeatherContainer.propTypes = {
     region: PropTypes.string,
     country: PropTypes.string.isRequired,
     time: PropTypes.string.isRequired,
+    currentWeather: PropTypes.bool.isRequired,
+    condition: PropTypes.string.isRequired,
 }
 
 export default WeatherContainer;

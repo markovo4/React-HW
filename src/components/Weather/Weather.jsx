@@ -7,22 +7,38 @@ const Weather = ({country}) => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+
+
         const fetchWeather = async () => {
+
+            const position = await getPosition();
+            const coords = `${position.coords.latitude}, ${position.coords.longitude}`;
+            const weatherUrl = `https://api.weatherapi.com/v1/forecast.json?`
+                + `key=4ce59e619b5d4cbfa13172625242205`
+                + `&q=${country ? country : coords}`
+                + `&days=1&aqi=no&alerts=no`
+
             try {
-                const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=4ce59e619b5d4cbfa13172625242205&q=${country}&days=1&aqi=no&alerts=no`);
+                const response = await fetch(weatherUrl);
                 if (!response.ok) {
                     throw new Error(`Error fetching weather data: ${response.statusText}`);
                 }
                 const weatherData = await response.json();
                 setWeather(weatherData);
-
             } catch (err) {
                 setError(err.message);
             }
         };
-
         fetchWeather();
+
     }, [country]);
+
+    const getPosition = () => {
+        return new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
+    }
+
 
     if (error) {
         return <div>Error: {error}</div>;
@@ -43,7 +59,8 @@ const Weather = ({country}) => {
                     temp={weatherData.temp_c}
                     region={weatherLocation.location.region}
                     country={weatherLocation.location.country}
-                    time={weatherData.time}
+                    time={weatherData.time.slice(-5)}
+                    condition={weatherData.condition.text}
                     currentWeather={false}
                 />
             ))}
