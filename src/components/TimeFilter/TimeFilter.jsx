@@ -35,6 +35,7 @@ const TimeFilter = ({onTimeFrame}) => {
                     type={'submit'}
                 >Time Frame</Button>
                 <Form.Control
+                    type={'number'}
                     style={searchStyle}
                     name={'from'}
                     aria-label="First name"
@@ -44,6 +45,7 @@ const TimeFilter = ({onTimeFrame}) => {
                     maxLength={2}
                 />
                 <Form.Control
+                    type={'number'}
                     style={searchStyle}
                     name={'to'}
                     aria-label="Last name"
