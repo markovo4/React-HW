@@ -23,12 +23,13 @@ function App() {
                 <div className={'wrapper '}>
                     <div className={'aside shadow-lg'}>
                         <CurrentWeather country={region ? region : ''}/>
-                        <h4 className={'forecast-title shadow-sm'}>Filter</h4>
-                        <TimeFilter onTimeFrame={handleTimeFrame}/>
+                        {/*<h4 className={'forecast-title shadow-sm'}>Filter</h4>*/}
+
                     </div>
                     <div className="main shadow-lg">
 
                         <h4 className={'forecast-title shadow-sm'}>Weather forecast for the next 24 hours</h4>
+                        <TimeFilter onTimeFrame={handleTimeFrame}/>
                         <Weather country={region ? region : ''} timeFrame={timeFrame}/>
                     </div>
                 </div>

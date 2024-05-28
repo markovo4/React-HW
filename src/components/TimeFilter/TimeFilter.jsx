@@ -19,8 +19,8 @@ const TimeFilter = ({onTimeFrame}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         onTimeFrame([from, to])
-        setFrom('00')
-        setTo('23')
+        setFrom('')
+        setTo('')
     }
 
     const searchStyle = {
