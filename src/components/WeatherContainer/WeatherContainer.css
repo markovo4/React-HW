@@ -44,3 +44,11 @@
     border-radius: 20px;
 }
 
+.custom-button {
+    background-color: rgba(0, 23, 91, 0.2);
+}
+
+.custom-button:hover {
+    transition: 0.2s;
+    background-color: rgb(79, 88, 105);
+}

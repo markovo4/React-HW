@@ -18,12 +18,12 @@ const Search = ({onClick}) => {
     }
 
     const searchStyle = {
-        border: '2px solid rgba(0, 23, 91, 0.29)'
+        border: '2px solid rgba(0, 23, 91, 0.29)',
     }
     return (
         <Form onSubmit={handleSubmit}>
             <InputGroup className="mb-1">
-                <Button variant={"secondary"} type={'submit'} style={searchStyle}>
+                <Button className={'custom-button'} type={'submit'} style={searchStyle}>
                     Search for a Weather forecast
                 </Button>
                 <Form.Control

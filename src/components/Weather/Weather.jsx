@@ -2,7 +2,7 @@ import WeatherContainer from "../WeatherContainer";
 import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 
-const Weather = ({country}) => {
+const Weather = ({country, timeFrame}) => {
     const [weather, setWeather] = useState(null);
     const [error, setError] = useState(null);
 
@@ -59,25 +59,29 @@ const Weather = ({country}) => {
 
     return (
         <>
-            {weatherLocation.forecast.forecastday[0].hour.map((weatherData, index) => (
-                <WeatherContainer
-                    key={index}
-                    src={weatherData.condition.icon}
-                    city={weatherLocation.location.name}
-                    temp={weatherData.temp_c}
-                    region={weatherLocation.location.region}
-                    country={weatherLocation.location.country}
-                    time={weatherData.time.slice(-5)}
-                    condition={weatherData.condition.text}
-                    currentWeather={false}
-                />
-            ))}
+            {weatherLocation.forecast.forecastday[0].hour
+                .filter(weatherData => weatherData.time.slice(-5, -3) >= timeFrame[0] && weatherData.time.slice(-5, -3) <= timeFrame[1])
+                .map((weatherData, index) => (
+                    <WeatherContainer
+                        key={index}
+                        src={weatherData.condition.icon}
+                        city={weatherLocation.location.name}
+                        temp={weatherData.temp_c}
+                        region={weatherLocation.location.region}
+                        country={weatherLocation.location.country}
+                        time={weatherData.time.slice(-5)}
+                        condition={weatherData.condition.text}
+                        currentWeather={false}
+                    />
+                ))}
+
         </>
     );
 }
 
 Weather.propTypes = {
     country: PropTypes.string.isRequired,
+    timeFrame: PropTypes.any.isRequired
 }
 
 export default Weather;

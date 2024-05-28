@@ -26,7 +26,7 @@ const WeatherContainer = ({src, city, temp, region, country, time, currentWeathe
             <Card.Body style={cardStyle}>
                 <Card.Title
                     style={{margin: '0'}}>{currentWeather ? `${city}, ${country}` : `${city}, ${region}, ${country}`}</Card.Title>
-                <Card.Text style={{margin: '0'}}>Temperature: {temp} °C</Card.Text>
+                <Card.Text style={{margin: '0'}}>Temp: {temp} °C</Card.Text>
                 <Card.Text style={{margin: '0'}}>Time: {time}</Card.Text>
                 <Card.Text style={{margin: '0'}}>Condition: {condition}</Card.Text>
             </Card.Body>
