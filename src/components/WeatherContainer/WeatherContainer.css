@@ -52,3 +52,6 @@
     background-color: rgb(79, 88, 105);
 }
 
+.chart-container {
+    height: 200px;
+}
