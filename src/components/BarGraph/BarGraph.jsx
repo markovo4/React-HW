@@ -11,15 +11,19 @@ ChartJS.register(
     Legend,
 )
 
+const BarGraph = ({weather}) => {
 
-const BarGraph = ({weatherData}) => {
+    if (!weather) {
+        return <div>Loading...</div>;
+    }
+
     const options = {}
 
     const BarChartData = {
         labels: ['Max Temp', 'Min Temp'],
         datasets: [
             {
-                data: [...weatherData],
+                data: [weather.forecast.forecastday[0].day.maxtemp_c, weather.forecast.forecastday[0].day.mintemp_c],
                 backgroundColor: ['rgba(255, 99, 132, 0.2)'],
                 borderColor: ['rgba(54, 162, 235, 1)'],
                 borderWidth: 1,
@@ -33,10 +37,8 @@ const BarGraph = ({weatherData}) => {
 }
 
 BarGraph.propTypes = {
-    weatherData: PropTypes.array.isRequired,
+    weather: PropTypes.object.isRequired,
 }
 
 export default BarGraph;
-
-// data: [`${weatherData.forecast.forecastday[0].day.maxtemp_c}`, `${weatherData.forecast.forecastday[0].day.mintemp_c}`],
 

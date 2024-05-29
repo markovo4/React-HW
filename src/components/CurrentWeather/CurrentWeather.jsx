@@ -1,51 +1,13 @@
-import {useEffect, useState} from "react";
 import WeatherContainer from "../WeatherContainer";
 import PropTypes from "prop-types";
 
-const CurrentWeather = ({country}) => {
-    const [weather, setWeather] = useState(null);
-
-    useEffect(() => {
-        const fetchWeather = async () => {
-
-            // This coords method requires further refactoring
-            let coords;
-            try {
-                const position = await getPosition();
-                coords = `${position.coords.latitude}, ${position.coords.longitude}`;
-            } catch (error) {
-                coords = 'Ukraine'
-            }
-            //
-
-            const weatherUrl = `https://api.weatherapi.com/v1/forecast.json?`
-                + `key=4ce59e619b5d4cbfa13172625242205`
-                + `&q=${country ? country : coords}`
-                + `&days=1&aqi=no&alerts=no`
-
-            try {
-                const response = await fetch(weatherUrl);
-                const weatherData = await response.json();
-                setWeather(weatherData);
-            } catch (err) {
-                throw new Error(`Error fetching weather data: ${err}`)
-            }
-        }
-
-        fetchWeather();
-    }, [country]);
-
-    const getPosition = () => {
-        return new Promise((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(resolve, reject);
-        });
-    }
+const CurrentWeather = ({weather}) => {
 
     if (!weather) {
         return <div>Loading...</div>;
     }
-    return (
 
+    return (
         <WeatherContainer country={weather.location.country}
                           temp={weather.current.temp_c}
                           src={weather.current.condition.icon}
@@ -58,7 +20,7 @@ const CurrentWeather = ({country}) => {
 }
 
 CurrentWeather.propTypes = {
-    country: PropTypes.string.isRequired,
+    weather: PropTypes.object.isRequired,
 }
 
 export default CurrentWeather;
