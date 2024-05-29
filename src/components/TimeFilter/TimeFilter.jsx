@@ -1,8 +1,9 @@
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import {Button} from "react-bootstrap";
-import {useState} from "react";
+import {Fragment, useState} from "react";
 import PropTypes from "prop-types";
+import {DatePicker, Stack} from "rsuite";
 
 const TimeFilter = ({onTimeFrame}) => {
     const [from, setFrom] = useState('00');
@@ -28,35 +29,41 @@ const TimeFilter = ({onTimeFrame}) => {
     }
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <InputGroup className="mb-3">
-                <Button
-                    className="my-custom-button"
-                    type={'submit'}
-                >Time Frame</Button>
-                <Form.Control
-                    type={'number'}
-                    style={searchStyle}
-                    name={'from'}
-                    aria-label="First name"
-                    placeholder={'From:'}
-                    onChange={handleChange}
-                    value={from}
-                    maxLength={2}
-                />
-                <Form.Control
-                    type={'number'}
-                    style={searchStyle}
-                    name={'to'}
-                    aria-label="Last name"
-                    placeholder={'to:'}
-                    onChange={handleChange}
-                    value={to}
-                    maxLength={2}
+        <Fragment>
+            <Stack spacing={10} direction="row" justifyContent="space-between">
+                <DatePicker format="HH"/>
+                <DatePicker format="HH"/>
+            </Stack>
 
-                />
-            </InputGroup>
-        </Form>
+            <Form onSubmit={handleSubmit}>
+                <InputGroup className="mb-3">
+                    <Button
+                        className="my-custom-button"
+                        type={'submit'}
+                    >Time Frame</Button>
+                    <Form.Control
+                        type={'number'}
+                        style={searchStyle}
+                        name={'from'}
+                        aria-label="First name"
+                        placeholder={'From:'}
+                        onChange={handleChange}
+                        value={from}
+                        maxLength={2}
+                    />
+                    <Form.Control
+                        type={'number'}
+                        style={searchStyle}
+                        name={'to'}
+                        aria-label="Last name"
+                        placeholder={'to:'}
+                        onChange={handleChange}
+                        value={to}
+                        maxLength={2}
+                    />
+                </InputGroup>
+            </Form>
+        </Fragment>
     )
 }
 

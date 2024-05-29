@@ -4,6 +4,7 @@ import App from './App.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './components/TimeFilter/TimeFilter.css';
 import './components/WeatherContainer/WeatherContainer.css';
+import 'rsuite/dist/rsuite-no-reset.min.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
