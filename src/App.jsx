@@ -8,7 +8,7 @@ import BarGraph from "./components/BarGraph";
 function App() {
     const [region, setRegion] = useState(null);
     const [timeFrame, setTimeFrame] = useState(['00', '23'])
-    const [weatherData, setWeatherData] = useState();
+    const [weatherData, setWeatherData] = useState([]);
     const handleContent = (region) => {
         setRegion(region);
     }
@@ -18,7 +18,7 @@ function App() {
     }
 
     const HandleWeatherData = (weatherParam) => {
-        setWeatherData(weatherParam);
+        setWeatherData([weatherParam.forecast.forecastday[0].day.maxtemp_c, weatherParam.forecast.forecastday[0].day.mintemp_c]);
     }
 
     return (

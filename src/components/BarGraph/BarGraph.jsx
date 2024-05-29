@@ -2,8 +2,6 @@ import {Bar} from "react-chartjs-2";
 import {BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip,} from "chart.js";
 import PropTypes from "prop-types";
 
-// import {BarChartData} from './BargraphData.js';
-
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -21,7 +19,7 @@ const BarGraph = ({weatherData}) => {
         labels: ['Max Temp', 'Min Temp'],
         datasets: [
             {
-                data: [`${weatherData.forecast.forecastday[0].day.maxtemp_c}`, `${weatherData.forecast.forecastday[0].day.mintemp_c}`],
+                data: [...weatherData],
                 backgroundColor: ['rgba(255, 99, 132, 0.2)'],
                 borderColor: ['rgba(54, 162, 235, 1)'],
                 borderWidth: 1,
@@ -35,10 +33,10 @@ const BarGraph = ({weatherData}) => {
 }
 
 BarGraph.propTypes = {
-    weatherData: PropTypes.any.isRequired,
+    weatherData: PropTypes.array.isRequired,
 }
 
 export default BarGraph;
 
-// data: [weatherData.forecast.forecastday[0].day.maxtemp_c, weatherData.forecast.forecastday[0].day.mintemp_c],
+// data: [`${weatherData.forecast.forecastday[0].day.maxtemp_c}`, `${weatherData.forecast.forecastday[0].day.mintemp_c}`],
 
