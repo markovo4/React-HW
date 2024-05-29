@@ -2,7 +2,7 @@ import WeatherContainer from "../WeatherContainer";
 import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 
-const Weather = ({country, timeFrame}) => {
+const Weather = ({country, timeFrame, onLoad}) => {
     const [weather, setWeather] = useState(null);
     const [error, setError] = useState(null);
 
@@ -33,6 +33,7 @@ const Weather = ({country, timeFrame}) => {
                 }
                 const weatherData = await response.json();
                 setWeather(weatherData);
+                onLoad(weatherData)
             } catch (err) {
                 setError(err.message);
             }
@@ -81,7 +82,8 @@ const Weather = ({country, timeFrame}) => {
 
 Weather.propTypes = {
     country: PropTypes.string.isRequired,
-    timeFrame: PropTypes.any.isRequired
+    timeFrame: PropTypes.any.isRequired,
+    onLoad: PropTypes.func.isRequired,
 }
 
 export default Weather;

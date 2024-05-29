@@ -3,10 +3,12 @@ import Search from "./components/Search";
 import React, {useState} from "react";
 import CurrentWeather from "./components/CurrentWeather";
 import TimeFilter from "./components/TimeFilter";
+import BarGraph from "./components/BarGraph";
 
 function App() {
     const [region, setRegion] = useState(null);
     const [timeFrame, setTimeFrame] = useState(['00', '23'])
+    const [weatherData, setWeatherData] = useState();
     const handleContent = (region) => {
         setRegion(region);
     }
@@ -15,6 +17,9 @@ function App() {
         setTimeFrame(...time)
     }
 
+    const HandleWeatherData = (weatherParam) => {
+        setWeatherData(weatherParam);
+    }
 
     return (
         <React.Fragment>
@@ -24,13 +29,14 @@ function App() {
                     <div className={'aside shadow-lg'}>
                         <CurrentWeather country={region ? region : ''}/>
                         {/*<h4 className={'forecast-title shadow-sm'}>Filter</h4>*/}
+                        <BarGraph weatherData={weatherData}/>
 
                     </div>
                     <div className="main shadow-lg">
 
                         <h4 className={'forecast-title shadow-sm'}>Weather forecast for the next 24 hours</h4>
                         <TimeFilter onTimeFrame={handleTimeFrame}/>
-                        <Weather country={region ? region : ''} timeFrame={timeFrame}/>
+                        <Weather country={region ? region : ''} timeFrame={timeFrame} onLoad={HandleWeatherData}/>
                     </div>
                 </div>
             </div>
