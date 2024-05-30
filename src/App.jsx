@@ -58,8 +58,8 @@ function App() {
 
     }
 
-    const handleTimeFrame = (...time) => {
-        setTimeFrame(...time)
+    const handleTimeFrame = (time) => {
+        setTimeFrame(time)
     }
 
     return (
