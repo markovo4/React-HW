@@ -5,8 +5,11 @@ import PropTypes from "prop-types";
 Chart.register(RadialLinearScale, Legend, ArcElement, Title, Tooltip)
 const PolarAreaGraph = ({weather}) => {
 
+    if (!weather) {
+        return <div>Loading...</div>
+    }
+
     const labels = ['Wind Speed km/h', 'Humidity %', 'Atmospheric Pressure inHg'];
-    console.log(weather)
     const data = {
         labels: labels,
         legend: 'Weather stats',

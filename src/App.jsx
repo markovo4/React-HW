@@ -20,7 +20,7 @@ function App() {
                 const position = await getPosition();
                 coords = `${position.coords.latitude}, ${position.coords.longitude}`;
             } catch (error) {
-                console.log(error)
+                return console.log(error)
             }
 
             const weatherUrl = `https://api.weatherapi.com/v1/forecast.json?`
@@ -30,13 +30,18 @@ function App() {
 
             try {
                 const response = await fetch(weatherUrl);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
                 const weatherData = await response.json();
+
                 setWeather(weatherData);
             } catch (err) {
-                throw new Error(`Error fetching weather data: ${err}`)
+                return console.dir(`Error fetching weather data: ${err}`)
             }
         }
-
         fetchWeather();
     }, [region]);
 
@@ -47,16 +52,14 @@ function App() {
     }
 
     const handleContent = (region) => {
-        setRegion(region);
-        console.log(weather);
+        if (region) {
+            setRegion(region)
+        }
+
     }
 
     const handleTimeFrame = (...time) => {
         setTimeFrame(...time)
-    }
-
-    if (!weather) {
-        return <div>Loading...</div>;
     }
 
     return (
@@ -83,5 +86,4 @@ function App() {
     );
 }
 
-// onLoad={HandleWeatherData}
 export default App;
