@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import CurrentWeather from "./components/CurrentWeather";
 import TimeFilter from "./components/TimeFilter";
 import BarGraph from "./components/BarGraph";
+import PolarAreaGraph from "./components/PolarAreaGraph";
 
 function App() {
     const [region, setRegion] = useState(null);
@@ -65,8 +66,8 @@ function App() {
                 <div className={'wrapper '}>
                     <div className={'aside shadow-lg'}>
                         {weather && <CurrentWeather weather={weather}/>}
-                        {/*<h4 className={'forecast-title shadow-sm'}>Filter</h4>*/}
                         {weather && <BarGraph weather={weather}/>}
+                        {weather && <PolarAreaGraph weather={weather}/>}
 
                     </div>
                     <div className="main shadow-lg">

@@ -17,20 +17,26 @@ const BarGraph = ({weather}) => {
         return <div>Loading...</div>;
     }
 
-    const options = {maintainAspectRatio: false}
+    const options = {
+        maintainAspectRatio: false,
+
+    }
 
     const BarChartData = {
-        labels: ['Max Temp', 'Min Temp'],
+        labels: ['Max Temp', 'Feels Like', 'Min Temp'],
         datasets: [
             {
                 data: [
                     weather.forecast.forecastday[0].day.maxtemp_c,
-                    weather.forecast.forecastday[0].day.mintemp_c
+                    weather.current.feelslike_c,
+                    weather.forecast.forecastday[0].day.mintemp_c,
                 ],
+                label: "Temp",
                 backgroundColor: ['rgba(0,196,255,0.69)'],
-                height: 100,
                 borderColor: ['rgba(54, 162, 235, 1)'],
-                borderWidth: 0,
+                hoverBackgroundColor: "rgba(0,255,233,0.4)",
+                hoverBorderColor: "rgb(126,241,228)",
+                borderWidth: 2,
             }
         ]
     }

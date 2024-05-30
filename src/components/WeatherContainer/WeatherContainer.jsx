@@ -25,10 +25,20 @@ const WeatherContainer = ({src, city, temp, region, country, time, currentWeathe
             <Card.Img variant="top" src={src} style={{width: '5rem'}}/>
             <Card.Body style={cardStyle}>
                 <Card.Title
-                    style={{margin: '0'}}>{currentWeather ? `${city}, ${country}` : `${city}, ${region}, ${country}`}</Card.Title>
-                <Card.Text style={{margin: '0'}}>Temp: {temp} °C</Card.Text>
-                <Card.Text style={{margin: '0'}}>Time: {time}</Card.Text>
-                <Card.Text style={{margin: '0'}}>Condition: {condition}</Card.Text>
+                    style={{margin: '0', maxWidth: currentWeather ? 'unset' : '300px'}}>
+                    {currentWeather ? `${city}, ${country}` : `${city}, ${region}, ${country}`}</Card.Title>
+                <Card.Text style={{
+                    margin: '0',
+                    maxWidth: currentWeather ? 'unset' : '110px'
+                }}><b>Temp </b><br/>{temp} °C</Card.Text>
+                <Card.Text style={{margin: '0', maxWidth: currentWeather ? 'unset' : '60px'}}><b>Time </b><br/>{time}
+                </Card.Text>
+                <Card.Text
+                    style={{
+                        margin: '0',
+                        maxWidth: currentWeather ? 'unset' : '120px'
+                    }}><b>Condition </b><br/>{condition}
+                </Card.Text>
             </Card.Body>
         </Card>
     )
