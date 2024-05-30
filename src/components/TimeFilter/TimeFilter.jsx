@@ -3,63 +3,53 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import {Button} from "react-bootstrap";
 import {Fragment, useState} from "react";
 import PropTypes from "prop-types";
-import {DatePicker, Stack} from "rsuite";
+import {DatePicker} from 'rsuite';
 
 const TimeFilter = ({onTimeFrame}) => {
-    const [from, setFrom] = useState('00');
-    const [to, setTo] = useState('23');
+    const [from, setFrom] = useState(null);
+    const [to, setTo] = useState(null);
 
-    const handleChange = (e) => {
-        if (e.target.name === 'from') {
-            setFrom(e.target.value);
-        } else {
-            setTo(e.target.value);
-        }
+    const handleChangeFrom = (date) => {
+        setFrom(date)
+    }
+
+    const handleChangeTo = (date) => {
+        setTo(date)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onTimeFrame([from, to])
-        setFrom('')
-        setTo('')
-    }
+        if (!from || !to) return;
 
-    const searchStyle = {
-        border: '1px solid rgba(0, 23, 91, 0.2)',
+        const fromHours = from.getHours();
+        const toHours = to.getHours();
+
+        onTimeFrame([fromHours, toHours])
+        setFrom(null)
+        setTo(null)
     }
 
     return (
         <Fragment>
-            <Stack spacing={10} direction="row" justifyContent="space-between">
-                <DatePicker format="HH"/>
-                <DatePicker format="HH"/>
-            </Stack>
-
             <Form onSubmit={handleSubmit}>
                 <InputGroup className="mb-3">
                     <Button
                         className="my-custom-button"
                         type={'submit'}
-                    >Time Frame</Button>
-                    <Form.Control
-                        type={'number'}
-                        style={searchStyle}
-                        name={'from'}
-                        aria-label="First name"
-                        placeholder={'From:'}
-                        onChange={handleChange}
+                    >Apply Time Frame</Button>
+
+                    <DatePicker
+                        className={'my-custom-time-picker left'}
+                        format="HH"
                         value={from}
-                        maxLength={2}
+                        onChange={handleChangeFrom}
                     />
-                    <Form.Control
-                        type={'number'}
-                        style={searchStyle}
-                        name={'to'}
-                        aria-label="Last name"
-                        placeholder={'to:'}
-                        onChange={handleChange}
+
+                    <DatePicker
+                        className={'my-custom-time-picker right'}
+                        format="HH"
                         value={to}
-                        maxLength={2}
+                        onChange={handleChangeTo}
                     />
                 </InputGroup>
             </Form>

@@ -11,3 +11,22 @@
     background-color: rgb(79, 88, 105);
     border: 2px solid rgba(0, 23, 91, 0.29);
 }
+
+.my-custom-time-picker {
+    flex-grow: 1;
+}
+
+.left {
+
+}
+
+.rs-input-group.rs-input-group-inside .rs-input {
+    padding: 11px;
+}
+
+.rs-picker-date > .rs-input-group {
+    border-radius: 0;
+    border: 0;
+}
+
+
