@@ -5,6 +5,7 @@ import CurrentWeather from "./components/CurrentWeather";
 import TimeFilter from "./components/TimeFilter";
 import BarGraph from "./components/BarGraph";
 import PolarAreaGraph from "./components/PolarAreaGraph";
+import SearchUkraineCities from "./components/SearchUkraineCities";
 
 function App() {
     const [region, setRegion] = useState(null);
@@ -55,7 +56,6 @@ function App() {
         if (region) {
             setRegion(region)
         }
-
     }
 
     const handleTimeFrame = (time) => {
@@ -66,6 +66,8 @@ function App() {
         <React.Fragment>
             <div className={'container p-4'}>
                 <Search onClick={handleContent}/>
+                <h5 className={'custom-title'}>Or select your city of Ukraine</h5>
+                <SearchUkraineCities onClick={handleContent}/>
                 <div className={'wrapper '}>
                     <div className={'aside shadow-lg'}>
                         {weather && <CurrentWeather weather={weather}/>}
