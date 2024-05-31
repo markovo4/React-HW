@@ -10,10 +10,13 @@ const SearchUkraineCities = ({onClick}) => {
     useEffect(() => {
         const getData = async () => {
             const dataResp = await getCitiesOfUkraine;
-            const data = dataResp.map((item) => ({
-                label: item.city,
-                value: item.city,
-            }))
+            const data = dataResp.map((item) => (
+
+                {
+                    label: item.city,
+                    value: item.city,
+                }
+            ))
             setData(data);
         }
         getData();
