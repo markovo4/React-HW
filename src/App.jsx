@@ -5,7 +5,6 @@ import CurrentWeather from "./components/CurrentWeather";
 import TimeFilter from "./components/TimeFilter";
 import BarGraph from "./components/BarGraph";
 import PolarAreaGraph from "./components/PolarAreaGraph";
-import SearchUkraineCities from "./components/SearchUkraineCities";
 
 function App() {
     const [region, setRegion] = useState(null);
@@ -21,7 +20,9 @@ function App() {
                 const position = await getPosition();
                 coords = `${position.coords.latitude}, ${position.coords.longitude}`;
             } catch (error) {
-                return console.log(error)
+                if (error.code === 1) {
+                    coords = 'Ukraine';
+                }
             }
 
             const weatherUrl = `https://api.weatherapi.com/v1/forecast.json?`
@@ -67,7 +68,7 @@ function App() {
             <div className={'container p-4'}>
                 <Search onClick={handleContent}/>
                 <h5 className={'custom-title'}>Or select your city of Ukraine</h5>
-                <SearchUkraineCities onClick={handleContent}/>
+                {/*<SearchUkraineCities onClick={handleContent}/>*/}
                 <div className={'wrapper '}>
                     <div className={'aside shadow-lg'}>
                         {weather && <CurrentWeather weather={weather}/>}
