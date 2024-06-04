@@ -1,15 +1,20 @@
-import TodoList from "./components/TodoList";
-import {Container} from "react-bootstrap";
+import {Container, Nav} from "react-bootstrap";
+import React from "react";
+import NavRoutes from "./components/NavRoutes";
 
 function App() {
 
     return (
-        <main>
+        <React.Fragment>
+            Menu: <Nav/>
+            <hr/>
             <h1 className={'text-center mt-5 mb-5'}>{'TODO LIST'}</h1>
+
             <Container>
-                <TodoList/>
+
+                <NavRoutes/>
             </Container>
-        </main>
+        </React.Fragment>
     )
 }
 

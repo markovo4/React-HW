@@ -1,16 +1,31 @@
 import {Button, Card, Container} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {useState} from "react";
+import {getNotes, setNotes} from "../LocalStorage/index.js";
 
+const DATA_KEY = 'data';
 const TodoItem = ({title, subtitle, id, onDelete}) => {
     const [check, setCheck] = useState(false);
 
-    const handleCheck = () => {
+    const handleToggle = (e) => {
+
+        const targetId = e.target.id;
+        const notes = getNotes(DATA_KEY)
+        
+        const updatedNotes = notes.map((note) => {
+            if (note.itemId.toString() === targetId) {
+                return {...note, completed: !check}
+            }
+            return note;
+        })
+        setNotes(DATA_KEY, updatedNotes);
         setCheck(!check)
     }
+
     const handleClick = (e) => {
         onDelete(e.target.id)
     }
+
     return (
         <Card className={'gap-2 p-3 shadow-sm'} style={{border: '1px solid rgba(1, 1, 1, 0.1)'}}>
             <Card.Title>{check ? <s>{title}</s> : title}</Card.Title>
@@ -21,7 +36,7 @@ const TodoItem = ({title, subtitle, id, onDelete}) => {
                     type={'checkbox'}
                     className={'btn-check'}
                     autoComplete={'off'}
-                    onClick={handleCheck}
+                    onClick={handleToggle}
                     id={id}
                 />
                 <label
@@ -34,7 +49,6 @@ const TodoItem = ({title, subtitle, id, onDelete}) => {
                     onClick={handleClick}
                 >Delete</Button>
             </Container>
-
         </Card>
     )
 }
