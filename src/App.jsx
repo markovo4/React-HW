@@ -1,6 +1,7 @@
-import {Container, Nav} from "react-bootstrap";
+import {Container} from "react-bootstrap";
+import Nav from "./components/Nav";
 import React from "react";
-import NavRoutes from "./components/NavRoutes";
+import RouterMapping from "./routes/RouterMapping/index.js";
 
 function App() {
 
@@ -11,8 +12,7 @@ function App() {
             <h1 className={'text-center mt-5 mb-5'}>{'TODO LIST'}</h1>
 
             <Container>
-
-                <NavRoutes/>
+                <RouterMapping/>
             </Container>
         </React.Fragment>
     )

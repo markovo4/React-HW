@@ -1,27 +1,39 @@
-import {getNotes} from "../LocalStorage/index.js";
 import {Link} from "react-router-dom";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {getNotes} from "../LocalStorage";
+import PageNoteFound from "../../routes/PageNotFound";
 
 const Nav = () => {
     const DATA_KEY = 'data';
+    const [notes, setNotes] = useState([]);
 
-    const notes = getNotes(DATA_KEY)
+    useEffect(() => {
+        const fetchNotes = () => {
+            setNotes(getNotes(DATA_KEY));
+        }
+        const intervalId = setInterval(() => {
+            fetchNotes();
+        }, 1000)
+
+        return () => {
+            clearInterval(intervalId);
+        }
+    }, []);
+
     return (
         <React.Fragment>
-            <nav>
-                <Link to={'/'}>Home Page</Link>
-
-                <Link to={'/notes'}>Notes</Link>
+            <nav className={'d-flex gap-2'}>
+                <Link to={'/'}>Home Page</Link> |
+                {notes.map((note, index) => (
+                    <Link key={index} to={`/notes/${index}`}>
+                        Task: {note.title}
+                    </Link>
+                ))}
                 
-                {notes.map((note, index) => {
-                    return (<Link
-                        key={index}
-                        to={`/notes/${note.itemId}`}
-                    >{index}</Link>)
-                })}
+                <Link to={'*'} element={<PageNoteFound/>}/>
             </nav>
         </React.Fragment>
-    )
+    );
 }
 
 export default Nav;
