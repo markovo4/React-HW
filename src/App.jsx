@@ -7,8 +7,7 @@ function App() {
 
     return (
         <React.Fragment>
-            Menu: <Nav/>
-            <hr/>
+            <Nav classname={'custom-nav'}/>
             <h1 className={'text-center mt-5 mb-5'}>{'TODO LIST'}</h1>
 
             <Container>

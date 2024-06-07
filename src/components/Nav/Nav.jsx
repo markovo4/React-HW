@@ -22,14 +22,14 @@ const Nav = () => {
 
     return (
         <React.Fragment>
-            <nav className={'d-flex gap-2'}>
-                <Link to={'/'}>Home Page</Link> |
+            <nav className={'d-flex gap-4 bg-dark p-3 shadow-lg'}>
+                <Link className={'nav-links'} to={'/'}>Home Page</Link> ||
                 {notes.map((note, index) => (
-                    <Link key={index} to={`/notes/${index}`}>
+                    <Link className={'nav-links'} key={index} to={`/notes/${index}`}>
                         Task: {note.title}
                     </Link>
                 ))}
-                
+
                 <Link to={'*'} element={<PageNoteFound/>}/>
             </nav>
         </React.Fragment>

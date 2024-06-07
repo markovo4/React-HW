@@ -10,9 +10,9 @@ const SingleNote = () => {
 
     return (
         <Container className={'shadow-lg card p-5 d-flex gap-2'}>
-            <h2>Task: {note.title}</h2>
-            <h3>Description: {note.subtitle}</h3>
-            <h3>Completed: {`${note.completed}`}</h3>
+            <h3><b>Task:</b> {note.title}</h3>
+            <h5><b>Description:</b> {note.subtitle}</h5>
+            <h5 style={{color: note.completed ? 'green' : 'red'}}><b>Completed:</b> {`${note.completed}`}</h5>
         </Container>
     )
 }
