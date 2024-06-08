@@ -1,7 +1,7 @@
 import {Button, Card, Container} from "react-bootstrap";
 import PropTypes from "prop-types";
 import {useState} from "react";
-import {getNotes, setNotes} from "../LocalStorage/index.js";
+import {getNotes, setNotes} from "../../functions/LocalStorage/index.js";
 
 const DATA_KEY = 'data';
 const TodoItem = ({title, subtitle, id, onDelete}) => {
@@ -11,7 +11,7 @@ const TodoItem = ({title, subtitle, id, onDelete}) => {
 
         const targetId = e.target.id;
         const notes = getNotes(DATA_KEY)
-        
+
         const updatedNotes = notes.map((note) => {
             if (note.itemId.toString() === targetId) {
                 return {...note, completed: !check}

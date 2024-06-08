@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import React, {useEffect, useState} from "react";
-import {getNotes} from "../LocalStorage";
+import {getNotes} from "../../functions/LocalStorage";
 import PageNoteFound from "../../routes/PageNotFound";
 
 const Nav = () => {

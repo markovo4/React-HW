@@ -1,5 +1,5 @@
 import {useParams} from "react-router-dom";
-import {getNotes} from "../../components/LocalStorage/index.js";
+import {getNotes} from "../../functions/LocalStorage/index.js";
 import {Container} from "react-bootstrap";
 
 const SingleNote = () => {

@@ -1,8 +1,8 @@
 import {Button, Container, Form, FormGroup} from "react-bootstrap";
 import {useEffect, useState} from 'react';
 import TodoItem from "../TodoItem";
-import {idGenerator} from "../IdGenerator";
-import {getNotes, setNotes} from "../LocalStorage/index.js";
+import {idGenerator} from "../../functions/IdGenerator";
+import {getNotes, setNotes} from "../../functions/LocalStorage/index.js";
 import {isEmpty} from 'lodash';
 
 const TodoList = () => {
