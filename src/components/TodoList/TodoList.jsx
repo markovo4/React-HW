@@ -17,6 +17,7 @@ const TodoList = () => {
         const notes = getNotes(DATA_KEY)
         if (!isEmpty(notes)) {
             const savedId = notes.at(-1).itemId
+
             setIterator(idGenerator(savedId))
             setNotesList([...notes].reverse())
         }
@@ -26,12 +27,12 @@ const TodoList = () => {
         try {
             const notesData = getNotes(DATA_KEY);
             const filteredNotes = notesData.filter((note) => note.itemId !== index);
+
             setNotes(DATA_KEY, filteredNotes)
             setNotesList([...filteredNotes].reverse())
         } catch (err) {
             console.dir('Failed to delete the note', err)
         }
-
     }
 
     const handleDeleteAll = () => {
@@ -77,7 +78,7 @@ const TodoList = () => {
 
         handleClear()
     }
-    
+
     return (
         <Container className="d-flex">
             <Container className="w-50">

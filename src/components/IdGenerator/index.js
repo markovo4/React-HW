@@ -1,3 +1,3 @@
-import {idGenerator} from "./IdGenerator.jsx";
+import {idGenerator} from "./IdGenerator.js";
 
 export {idGenerator};

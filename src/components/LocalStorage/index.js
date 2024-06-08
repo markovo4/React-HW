@@ -1,3 +1,3 @@
-import {getNotes, setNotes} from "./LocalStorage.jsx";
+import {getNotes, setNotes} from "./LocalStorage.js";
 
 export {getNotes, setNotes}

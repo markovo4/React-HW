@@ -23,7 +23,9 @@ const Nav = () => {
     return (
         <React.Fragment>
             <nav className={'d-flex gap-4 bg-dark p-3 shadow-lg'}>
+
                 <Link className={'nav-links'} to={'/'}>Home Page</Link> ||
+
                 {notes.map((note, index) => (
                     <Link className={'nav-links'} key={index} to={`/notes/${index}`}>
                         Task: {note.title}
