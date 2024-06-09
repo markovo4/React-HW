@@ -1,24 +1,18 @@
-import {Button, Container, Form, FormGroup} from "react-bootstrap";
+import {Container} from "react-bootstrap";
 import {useEffect, useState} from 'react';
 import TodoItem from "../TodoItem";
-import {idGenerator} from "../../functions/IdGenerator";
 import {getNotes, setNotes} from "../../functions/LocalStorage/index.js";
 import {isEmpty} from 'lodash';
+import TodoForm from "../TodoForm/index.js";
 
 const TodoList = () => {
     const [notesList, setNotesList] = useState([]);
-    const [title, setTitle] = useState('');
-    const [subtitle, setSubtitle] = useState('');
-    const [iterator, setIterator] = useState(idGenerator(0));
     const DATA_KEY = 'data';
 
 
     useEffect(() => {
         const notes = getNotes(DATA_KEY)
         if (!isEmpty(notes)) {
-            const savedId = notes.at(-1).itemId
-
-            setIterator(idGenerator(savedId))
             setNotesList([...notes].reverse())
         }
     }, [])
@@ -45,28 +39,7 @@ const TodoList = () => {
         }
     }
 
-    const handleClear = () => {
-        setTitle('')
-        setSubtitle('')
-    }
-
-    const handleChange = (e) => {
-        const {name, value} = e.target;
-        name === 'title' ? setTitle(value) : setSubtitle(value);
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (title.trim() === '' || subtitle.trim() === '') return;
-
-        const newItemId = iterator.next().value;
-        const newNote = {
-            title,
-            subtitle,
-            itemId: newItemId,
-            completed: false
-        };
-
+    const handleCreate = (newNote) => {
         try {
             const previousNotes = getNotes(DATA_KEY)
             const updatedNotes = previousNotes ? [...previousNotes, newNote] : [newNote]
@@ -75,50 +48,16 @@ const TodoList = () => {
         } catch (err) {
             console.dir('Failed to save the note', err)
         }
-
-        handleClear()
     }
 
     return (
         <Container className="d-flex">
             <Container className="w-50">
-                <Form onSubmit={handleSubmit}>
-                    <FormGroup>
-                        <Form.Label>Task title</Form.Label>
-                        <Form.Control
-                            placeholder="Title"
-                            value={title}
-                            onChange={handleChange}
-                            name="title"
-                        />
-                        <Form.Label>Task body</Form.Label>
-                        <Form.Control
-                            as="textarea"
-                            placeholder="Task body"
-                            style={{height: '200px'}}
-                            value={subtitle}
-                            onChange={handleChange}
-                            name="subtitle"
-                        />
-                        <div className="d-flex flex-wrap justify-content-lg-between p-2 gap-2">
-                            <div className="d-flex gap-2 flex-grow-0">
-                                <Button
-                                    className="w-50"
-                                    type="submit"
-                                    name="new-note"
-                                >Create Task</Button>
-                                <Button
-                                    className="btn-warning w-50"
-                                    onClick={handleClear}
-                                >Clear</Button>
-                            </div>
-                            <Button
-                                className="btn-danger"
-                                onClick={handleDeleteAll}
-                            >Delete all Tasks</Button>
-                        </div>
-                    </FormGroup>
-                </Form>
+                <TodoForm
+                    onAddNote={handleCreate}
+                    onDeleteAll={handleDeleteAll}
+                />
+
             </Container>
             <Container className="d-flex flex-wrap col-8 justify-content-evenly gap-4">
                 {notesList.map((note, index) => (
