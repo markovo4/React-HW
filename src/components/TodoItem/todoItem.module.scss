@@ -1,0 +1,32 @@
+.container {
+  min-height: 200px;
+  flex-basis: 50%;
+  flex-grow: 1;
+  background-color: rgba(50, 4, 126, 0.18);
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 300px;
+  flex-grow: 1;
+}
+
+.bold {
+  font-weight: bolder;
+  font-size: 16px;
+}
+
+.boldTitle {
+  font-weight: bolder;
+  font-size: 20px;
+}
+
+.separator {
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.13);
+}

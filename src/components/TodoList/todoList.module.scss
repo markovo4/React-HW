@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box;
+}
+
+.bold {
+  font-weight: bold;
+  color: rgba(63, 1, 93, 0.73);
+  margin-bottom: 200px;
+  text-shadow: 0.5px 0.5px 10px rgba(154, 3, 255, 0.53);
+}
+
+.container {
+  display: flex;
+  padding-top: 100px;
+  gap: 20px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+}

@@ -1,0 +1,39 @@
+html {
+  background-color: #e5f1f6;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  padding: 50px 50px;
+  min-width: 500px;
+  height: 300px;
+  background-color: rgba(161, 0, 255, 0.08);
+  gap: 20px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 50%;
+}
+
+.container {
+  margin: 0 auto;
+  width: 900px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.bold {
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.63);
+}
+
+/*# sourceMappingURL=loginForm.module.css.map */
