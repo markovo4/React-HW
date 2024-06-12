@@ -2,18 +2,44 @@ import BaseTemplate from "../../templates/BaseTemplate";
 import {useNavigate, useParams} from "react-router-dom";
 import {getTodos, setTodos} from "../../utils/functions/LocalStorage";
 import {useEffect, useMemo, useState} from "react";
-import TodoItem from "../../components/TodoItem";
-import ProgrammingNavigation from "../ProgrammingNavigation/index.js";
+// import ProgrammingNavigation from "../ProgrammingNavigation/index.js";
+import styles from './singleTodoItem.module.scss';
+import {Button, FormGroup, Typography} from "@mui/material";
+import FormCheckBox from "../../components/UI/FormCheckBox.jsx";
+import {useFormik} from "formik";
+
 
 const SingleTodoItem = () => {
     const [todo, setTodo] = useState({});
-    const [empty, setEmpty] = useState(false)
+    const [completed, setCompleted] = useState(false);
+    const [pending, setPending] = useState(false);
+    const [edit, setEdit] = useState(false);
     const navigate = useNavigate();
     const DATA_KEY = 'data';
 
-
     const index = useParams().todoId;
     const todos = getTodos(DATA_KEY);
+
+    let formik = useFormik({
+        initialValues: {
+            title: todo.title || '',
+            description: todo.description || '',
+        },
+        onSubmit: (values) => {
+            if (values.title.trim() === '' || values.description.trim() === '') return;
+
+            const updatedTodos = todos.map((todo) => {
+                if (todo.itemId.toString() === index) {
+                    return {...todo, title: values.title, description: values.description};
+                }
+                return todo;
+            })
+            setTodos(DATA_KEY, updatedTodos);
+
+            setTodo({...todo, title: values.title, description: values.description})
+            setEdit(!edit);
+        }
+    })
 
     const todoMap = useMemo(() => {
         const map = new Map();
@@ -28,14 +54,33 @@ const SingleTodoItem = () => {
         const foundTodo = todoMap.get(index);
         if (foundTodo) {
             setTodo(foundTodo);
+            setCompleted(foundTodo.completed);
+            setPending(foundTodo.pending);
         }
     }, []);
+
+
+    const handleToggle = (e) => {
+        const {id, name} = e.target;
+
+        const updatedTodos = todos.map((todo) => {
+            if (todo.itemId.toString() === id) {
+                return name === 'completed' ? {...todo, completed: !completed} : {...todo, pending: !pending}
+            }
+            return todo;
+        })
+        setTodos(DATA_KEY, updatedTodos);
+        name === 'completed' ? setCompleted(!completed) : setPending(!pending)
+    }
+
+    const handleEdit = () => {
+        setEdit(!edit);
+    }
 
     const handleDelete = (todoId) => () => {
         try {
             const filteredNotes = todos.filter((todo) => todo.itemId.toString() !== todoId);
             setTodos(DATA_KEY, filteredNotes)
-            setEmpty(!empty)
             navigate('/')
         } catch (err) {
             console.dir('Failed to delete the note', err)
@@ -43,14 +88,104 @@ const SingleTodoItem = () => {
     }
     return (
         <BaseTemplate>
-            <ProgrammingNavigation/>
-            {!empty && <TodoItem
-                onDelete={handleDelete(index)}
-                description={todo.description}
-                id={parseInt(index)}
-                title={todo.title}
-            />}
+            <div className={styles.container}>
+                <div className={styles.wrapper}>
+                    {edit && <form className={styles.form} onSubmit={formik.handleSubmit}>
+                        <Typography variant="h5">
+                            Title:
+                        </Typography>
+                        <input
+                            onChange={formik.handleChange}
+                            value={formik.values.title}
+                            name={'title'}
+                            id={'title'}
+                            type={'text'}
+                        />
+                        <Typography variant="h5">
+                            Description:
+                        </Typography>
+                        <textarea
+                            id={'description'}
+                            name={'description'}
+                            placeholder={'Description of To-Do...'}
+                            onChange={formik.handleChange}
+                            value={formik.values.description}
+                        />
 
+                        <hr className={styles.separatorHor}/>
+
+                        <div className={styles.buttonGroup}>
+                            {edit && <FormGroup>
+                                <Button
+                                    id={index}
+                                    color={'success'}
+                                    variant={'contained'}
+                                    type={'submit'}
+                                >Save Changes</Button>
+                            </FormGroup>}
+                            {edit && <FormGroup>
+                                <Button
+                                    id={index}
+                                    color={'warning'}
+                                    variant={'contained'}
+                                    onClick={handleEdit}
+                                >Cancel Changes</Button>
+                            </FormGroup>}
+                        </div>
+
+                    </form>}
+                    {!edit && <Typography variant="h5">
+                        {completed ? <s>{todo.title}</s> : todo.title}
+                    </Typography>}
+
+                    {!edit && <hr className={styles.separatorHor}/>}
+                    {!edit && <Typography variant="body1">
+                        {completed ? <s>{todo.description}</s> : todo.description}
+                    </Typography>}
+                    {!edit && <hr className={styles.separatorHor}/>}
+
+                    {!edit && <div className={styles.checkBoxGroup}>
+                        <FormCheckBox
+                            name={'pending'}
+                            color="warning"
+                            onClick={handleToggle}
+                            id={index.toString()}
+                            label="Pending"
+                            check={pending}
+                        />
+                        <hr className={styles.separatorVert}/>
+                        <FormCheckBox
+                            name={'completed'}
+                            color="secondary"
+                            onClick={handleToggle}
+                            id={index.toString()}
+                            label="Completed"
+                            check={completed}
+                        />
+                    </div>}
+
+                    {!edit && <div className={styles.buttonGroup}>
+                        <FormGroup>
+                            <Button
+                                id={index}
+                                color={'secondary'}
+                                variant={'contained'}
+                                onClick={handleEdit}
+                            >Edit</Button>
+                        </FormGroup>
+                        <FormGroup>
+                            <Button
+                                id={index}
+                                color={'error'}
+                                variant={'contained'}
+                                onClick={handleDelete(index)}
+                            >Delete to-do</Button>
+                        </FormGroup>
+
+                    </div>}
+
+                </div>
+            </div>
         </BaseTemplate>
     )
 }
