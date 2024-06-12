@@ -2,10 +2,11 @@ import HomePage from "../HomePage";
 import PageNotFound from "../PageNotFound";
 import LoginPage from "../LoginPage";
 import routerNames from "./RouterNames.js";
+import SingleTodoItem from "../SingleTodoItem";
 
 
 const routerConfig = () => {
-    const pageComponents = [HomePage, PageNotFound, LoginPage];
+    const pageComponents = [HomePage, PageNotFound, LoginPage, SingleTodoItem];
     const routeKeys = Object.keys(routerNames);
 
     if (pageComponents.length !== routeKeys.length) {
