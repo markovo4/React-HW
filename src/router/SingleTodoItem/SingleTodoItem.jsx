@@ -141,8 +141,6 @@ const SingleTodoItem = () => {
                                 </FormGroup>}
                             </div>
                         </form>}
-
-
                         {!edit && <Typography variant="h5">
                             {completed ? <s>{todo.title}</s> : todo.title}
                         </Typography>}
