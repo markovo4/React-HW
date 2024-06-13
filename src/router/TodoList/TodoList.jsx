@@ -7,6 +7,8 @@ import styles from "../../components/TodoList/todoList.module.scss";
 import ProgrammingNavigation from "../ProgrammingNavigation";
 import BaseTemplateHeader from "../../templates/BaseTemplateHeader/index.js";
 import Nav from "../../components/Nav/Nav.jsx";
+import {isEmpty} from 'lodash';
+import {Typography} from "@mui/material";
 
 const TodoList = () => {
     const DATA_KEY = 'data';
@@ -22,6 +24,13 @@ const TodoList = () => {
             </BaseTemplateHeader>
 
             <BaseTemplate>
+
+                {isEmpty(todoList) &&
+                    <Typography
+                        variant={'h1'}
+                        className={styledList.title}
+                    ><b className={styledList.bold}>No ToDos were Added yet!</b></Typography>}
+
                 <div className={styledList.container}>
                     <div className={styles.wrapper}>
                         {todoList.map((todo, index) => {

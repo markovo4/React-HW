@@ -1,0 +1,30 @@
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 60px;
+  border: 3px solid rgba(30, 0, 89, 0.51);
+  border-radius: 20px;
+  padding: 15px;
+  z-index: 99;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.71);
+  background-color: rgba(255, 254, 254, 0.79);
+}
+
+.background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.29);
+}
+
+/*# sourceMappingURL=modalSuccess.module.css.map */

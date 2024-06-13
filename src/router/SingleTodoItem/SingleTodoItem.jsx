@@ -9,12 +9,14 @@ import FormCheckBox from "../../components/UI/FormCheckBox.jsx";
 import {useFormik} from "formik";
 import BaseTemplateHeader from "../../templates/BaseTemplateHeader/index.js";
 import Nav from "../../components/Nav/index.js";
+import ModalSuccess from "../../components/ModalSuccess/index.js";
 
 const SingleTodoItem = () => {
     const [todo, setTodo] = useState({});
     const [completed, setCompleted] = useState(false);
     const [pending, setPending] = useState(false);
     const [edit, setEdit] = useState(false);
+    const [display, setDisplay] = useState(false);
     const navigate = useNavigate();
     const DATA_KEY = 'data';
 
@@ -47,7 +49,7 @@ const SingleTodoItem = () => {
             setTodos(DATA_KEY, updatedTodos);
 
             setTodo({...todo, title: values.title, description: values.description})
-            setEdit(!edit);
+
         }
     })
 
@@ -60,6 +62,19 @@ const SingleTodoItem = () => {
         }
     }, []);
 
+
+    const handleSave = () => {
+
+        setDisplay(true)
+
+        const modalTimeoutId = setTimeout(() => {
+            setDisplay(false)
+
+            clearTimeout(modalTimeoutId);
+            setEdit(!edit);
+        }, 2000);
+
+    }
 
     const handleToggle = (e) => {
         const {id, name} = e.target;
@@ -123,12 +138,17 @@ const SingleTodoItem = () => {
                             <hr className={styles.separatorHor}/>
 
                             <div className={styles.buttonGroup}>
+
                                 {edit && <FormGroup>
+                                    <ModalSuccess
+                                        display={display}
+                                    />
                                     <Button
                                         id={index}
                                         color={'success'}
                                         variant={'contained'}
                                         type={'submit'}
+                                        onClick={handleSave}
                                     >Save Changes</Button>
                                 </FormGroup>}
                                 {edit && <FormGroup>
