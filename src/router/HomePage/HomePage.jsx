@@ -1,13 +1,22 @@
 import BaseTemplate from "../../templates/BaseTemplate";
 import TodoList from "../../components/TodoList";
-// import ProgrammingNavigation from "../ProgrammingNavigation";
+import React from "react";
+import ProgrammingNavigation from "../ProgrammingNavigation";
+import BaseTemplateHeader from "../../templates/BaseTemplateHeader";
+import Nav from "../../components/Nav/index.js";
 
 const HomePage = () => {
     return (
-        <BaseTemplate>
-            {/*<ProgrammingNavigation/>*/}
-            <TodoList/>
-        </BaseTemplate>
+        <React.Fragment>
+            <BaseTemplateHeader>
+                <Nav/>
+                <ProgrammingNavigation/>
+            </BaseTemplateHeader>
+            <BaseTemplate>
+
+                <TodoList/>
+            </BaseTemplate>
+        </React.Fragment>
     )
 }
 

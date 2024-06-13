@@ -18,9 +18,9 @@ const LoginForm = () => {
         initialValues: {...formInitValues},
         validationSchema,
         onSubmit: (values, {resetForm}) => {
-            setCookies('login', `${values.login}`, 0.001);
-            setCookies('password', `${values.password}`, 0.001);
-            setCookies('LoggedIn', 'true', 0.001);
+            setCookies('login', `${values.login}`, 0.01);
+            setCookies('password', `${values.password}`, 0.01);
+            setCookies('LoggedIn', 'true', 0.01);
             resetForm();
             navigation('/');
         }

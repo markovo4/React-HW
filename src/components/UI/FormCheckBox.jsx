@@ -16,7 +16,7 @@ FormCheckBox.propTypes = {
     color: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     id: PropTypes.any.isRequired,
-    onClick: PropTypes.func.isRequired,
+    onClick: PropTypes.func,
     check: PropTypes.bool.isRequired,
 }
 export default FormCheckBox;

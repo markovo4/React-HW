@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import {useNavigate} from "react-router-dom";
 import FormCheckBox from "../UI/FormCheckBox.jsx";
 
-const TodoItem = ({title, description, id, onDelete}) => {
+const TodoItem = ({title, description, id, onDelete, view}) => {
     const navigate = useNavigate();
     const DATA_KEY = 'data';
 
@@ -40,7 +40,7 @@ const TodoItem = ({title, description, id, onDelete}) => {
 
 
     const handleClick = (e) => {
-        navigate(`/todos/${e.target.id}`)
+        view ? navigate(`/todosView/${e.target.id}`) : navigate(`/todos/${e.target.id}`)
     }
 
     const handleDelete = (e) => {
@@ -87,21 +87,20 @@ const TodoItem = ({title, description, id, onDelete}) => {
 
                 <FormGroup>
                     <Button
-
                         color={'secondary'}
                         variant={'text'}
                         onClick={handleClick}
                     ><b id={id} className={styles.bold}>View To-do</b></Button>
                 </FormGroup>
 
-                <FormGroup>
+                {onDelete && <FormGroup>
                     <Button
                         id={id}
                         color={'error'}
                         variant={'text'}
                         onClick={handleDelete}
                     ><b className={styles.bold}>Delete to-do</b></Button>
-                </FormGroup>
+                </FormGroup>}
             </div>
         </div>
     )
@@ -113,5 +112,6 @@ TodoItem.propTypes = {
     description: PropTypes.string,
     id: PropTypes.number,
     onDelete: PropTypes.func,
+    view: PropTypes.bool,
 }
 export default TodoItem;

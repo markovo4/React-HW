@@ -3,6 +3,8 @@ const routerNames = {
     pageNotFound: '*',
     loginPage: 'login',
     singleTodoItem: 'todos/:todoId',
+    todoList: 'todos',
+    singleTodoViewOnly: 'todosView/:todoId',
 }
 
 Object.freeze(routerNames);

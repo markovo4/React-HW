@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
+import styles from './BaseTemplate.module.scss';
 
-const BaseTemplate = ({className = null, children}) => {
-    return <main className={className}>
+const BaseTemplate = ({children}) => {
+    return <main className={styles.main}>
         {children}
     </main>
 }

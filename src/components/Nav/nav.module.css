@@ -1,0 +1,21 @@
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+  font-family: roboto, sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+/*# sourceMappingURL=nav.module.css.map */

@@ -52,9 +52,8 @@ const TodoList = () => {
     }
 
     return (
-        <div>
+        <div className={styles.list}>
             <Typography
-                className={styles.bold}
                 variant={'h4'}
                 align={'center'}
             >

@@ -43,6 +43,25 @@
 .form {
   display: flex;
   flex-direction: column;
-  max-height: 300px;
   gap: 20px;
+}
+
+.title {
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: rgb(207, 206, 248);
+  font-size: 20px;
+
+}
+
+.description {
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: rgb(207, 206, 248);
+  max-height: 90px;
+  min-height: 50px;
+  max-width: 1092px;
+  font-size: 18px;
 }
