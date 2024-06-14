@@ -1,4 +1,4 @@
-import {Button, FormGroup, Typography} from "@mui/material";
+import {Typography} from "@mui/material";
 import styles from './loginForm.module.scss';
 import {useFormik} from "formik";
 import validationSchema from "./validSchema.js";
@@ -6,6 +6,7 @@ import {getCookies, setCookies} from "../../utils/functions/Cookies/index.js";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import FormInput from "../UI/FormInput.jsx";
+import FormButton from "../UI/FormButton.jsx";
 
 const formInitValues = {
     login: '',
@@ -30,7 +31,7 @@ const LoginForm = () => {
         if (window.location.pathname === '/login' && getCookies('LoggedIn')) {
             navigation('/')
         }
-    })
+    }, [])
 
     return (
         <div className={styles.container}>
@@ -64,9 +65,13 @@ const LoginForm = () => {
                         id={'password'}
                         type={'password'}
                     />
-                    <FormGroup>
-                        <Button type={'submit'} variant="contained" color={'secondary'}>Log In</Button>
-                    </FormGroup>
+                    <FormButton
+                        color={'secondary'}
+                        variant={'contained'}
+                        text={'Log In'}
+                        type={'submit'}
+                    />
+
                 </div>
             </form>
         </div>

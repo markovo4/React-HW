@@ -1,60 +1,34 @@
-import BaseTemplate from "../../templates/BaseTemplate";
-import {useNavigate, useParams} from "react-router-dom";
-import {getTodos, setTodos} from "../../utils/functions/LocalStorage";
 import React, {useEffect, useMemo, useState} from "react";
-import ProgrammingNavigation from "../ProgrammingNavigation/index.js";
-import styles from './singleTodoItem.module.scss';
-import {Button, FormGroup, Typography} from "@mui/material";
-import FormCheckBox from "../../components/UI/FormCheckBox.jsx";
+import {useNavigate, useParams} from "react-router-dom";
 import {useFormik} from "formik";
-import BaseTemplateHeader from "../../templates/BaseTemplateHeader/index.js";
-import Nav from "../../components/Nav/index.js";
-import ModalSuccess from "../../components/ModalSuccess/index.js";
+import {Button, FormGroup, Typography} from "@mui/material";
+import BaseTemplate from "../../templates/BaseTemplate";
+import BaseTemplateHeader from "../../templates/BaseTemplateHeader";
+import Nav from "../../components/Nav";
+import ProgrammingNavigation from "../ProgrammingNavigation";
+import ModalSuccess from "../../components/ModalSuccess";
+import FormCheckBox from "../../components/UI/FormCheckBox";
+import styles from './singleTodoItem.module.scss';
+import {getTodos, setTodos} from "../../utils/functions/LocalStorage";
 
 const SingleTodoItem = () => {
-    const [todo, setTodo] = useState({});
-    const [completed, setCompleted] = useState(false);
-    const [pending, setPending] = useState(false);
-    const [edit, setEdit] = useState(false);
-    const [display, setDisplay] = useState(false);
     const navigate = useNavigate();
+    const {todoId} = useParams();
     const DATA_KEY = 'data';
 
-    const index = useParams().todoId;
     const todos = getTodos(DATA_KEY);
-
     const todoMap = useMemo(() => {
-        const map = new Map();
-        todos.forEach((todo) => {
-            map.set(todo.itemId.toString(), todo);
-        })
-        return map
-    }, [todos])
+        return new Map(todos.map(todo => [todo.itemId.toString(), todo]));
+    }, [todos]);
 
-
-    let formik = useFormik({
-        initialValues: {
-            title: todoMap.get(index).title || '',
-            description: todoMap.get(index).description || '',
-        },
-        onSubmit: (values) => {
-            if (values.title.trim() === '' || values.description.trim() === '') return;
-
-            const updatedTodos = todos.map((todo) => {
-                if (todo.itemId.toString() === index) {
-                    return {...todo, title: values.title, description: values.description};
-                }
-                return todo;
-            })
-            setTodos(DATA_KEY, updatedTodos);
-
-            setTodo({...todo, title: values.title, description: values.description})
-
-        }
-    })
+    const [todo, setTodo] = useState(() => todoMap.get(todoId) || {});
+    const [completed, setCompleted] = useState(todo.completed || false);
+    const [pending, setPending] = useState(todo.pending || false);
+    const [edit, setEdit] = useState(false);
+    const [display, setDisplay] = useState(false);
 
     useEffect(() => {
-        const foundTodo = todoMap.get(index);
+        const foundTodo = todoMap.get(todoId);
         if (foundTodo) {
             setTodo(foundTodo);
             setCompleted(foundTodo.completed);
@@ -62,46 +36,59 @@ const SingleTodoItem = () => {
         }
     }, []);
 
+    const formik = useFormik({
+        initialValues: {
+            title: todo.title || '',
+            description: todo.description || '',
+        },
+        onSubmit: (values) => {
+            if (!values.title.trim() || !values.description.trim()) return;
+
+            const updatedTodos = todos.map(todo =>
+                todo.itemId.toString() === todoId
+                    ? {...todo, title: values.title, description: values.description}
+                    : todo
+            );
+            setTodos(DATA_KEY, updatedTodos);
+            setTodo(prevTodo => ({...prevTodo, title: values.title, description: values.description}));
+            handleSave();
+        }
+    });
 
     const handleSave = () => {
-
-        setDisplay(true)
-
+        setDisplay(true);
         const modalTimeoutId = setTimeout(() => {
-            setDisplay(false)
-
+            setDisplay(false);
+            setEdit(false);
             clearTimeout(modalTimeoutId);
-            setEdit(!edit);
-        }, 2000);
-
-    }
+        }, 1500);
+    };
 
     const handleToggle = (e) => {
-        const {id, name} = e.target;
-
-        const updatedTodos = todos.map((todo) => {
-            if (todo.itemId.toString() === id) {
-                return name === 'completed' ? {...todo, completed: !completed} : {...todo, pending: !pending}
-            }
-            return todo;
-        })
+        const {name} = e.target;
+        const updatedTodos = todos.map(todo =>
+            todo.itemId.toString() === todoId
+                ? {...todo, [name]: name === 'completed' ? !completed : !pending}
+                : todo
+        );
         setTodos(DATA_KEY, updatedTodos);
-        name === 'completed' ? setCompleted(!completed) : setPending(!pending)
-    }
+        if (name === 'completed') {
+            setCompleted(!completed);
+        } else {
+            setPending(!pending);
+        }
+    };
 
     const handleEdit = () => {
-        setEdit(!edit);
-    }
+        setEdit(prevEdit => !prevEdit);
+    };
 
-    const handleDelete = (todoId) => () => {
-        try {
-            const filteredNotes = todos.filter((todo) => todo.itemId.toString() !== todoId);
-            setTodos(DATA_KEY, filteredNotes)
-            navigate('/')
-        } catch (err) {
-            console.dir('Failed to delete the note', err)
-        }
-    }
+    const handleDelete = () => {
+        const filteredTodos = todos.filter(todo => todo.itemId.toString() !== todoId);
+        setTodos(DATA_KEY, filteredTodos);
+        navigate('/');
+    };
+
     return (
         <React.Fragment>
             <BaseTemplateHeader>
@@ -111,110 +98,106 @@ const SingleTodoItem = () => {
             <BaseTemplate>
                 <div className={styles.container}>
                     <div className={styles.wrapper}>
-                        {edit && <form className={styles.form} onSubmit={formik.handleSubmit}>
-                            <Typography variant="h5">
-                                Title:
-                            </Typography>
-                            <input
-                                onChange={formik.handleChange}
-                                value={formik.values.title}
-                                name={'title'}
-                                id={'title'}
-                                type={'text'}
-                                className={styles.title}
-                            />
-                            <Typography variant="h5">
-                                Description:
-                            </Typography>
-                            <textarea
-                                id={'description'}
-                                name={'description'}
-                                placeholder={'Description of To-Do...'}
-                                onChange={formik.handleChange}
-                                value={formik.values.description}
-                                className={styles.description}
-                            />
-
-                            <hr className={styles.separatorHor}/>
-
-                            <div className={styles.buttonGroup}>
-
-                                {edit && <FormGroup>
-                                    <ModalSuccess
-                                        display={display}
+                        {edit ? (
+                            <form className={styles.form} onSubmit={formik.handleSubmit}>
+                                <Typography variant="h5">Title:</Typography>
+                                <input
+                                    onChange={formik.handleChange}
+                                    value={formik.values.title}
+                                    name="title"
+                                    id="title"
+                                    type="text"
+                                    className={styles.title}
+                                />
+                                <Typography variant="h5">Description:</Typography>
+                                <textarea
+                                    id="description"
+                                    name="description"
+                                    placeholder="Description of To-Do..."
+                                    onChange={formik.handleChange}
+                                    value={formik.values.description}
+                                    className={styles.description}
+                                />
+                                <hr className={styles.separatorHor}/>
+                                <div className={styles.buttonGroup}>
+                                    <FormGroup>
+                                        <ModalSuccess display={display}/>
+                                        <Button
+                                            color="success"
+                                            variant="contained"
+                                            type="submit"
+                                            onClick={handleSave}
+                                        >
+                                            Save Changes
+                                        </Button>
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Button
+                                            color="warning"
+                                            variant="contained"
+                                            onClick={handleEdit}
+                                        >
+                                            Cancel Changes
+                                        </Button>
+                                    </FormGroup>
+                                </div>
+                            </form>
+                        ) : (
+                            <>
+                                <Typography variant="h5">
+                                    {completed ? <s>{todo.title}</s> : todo.title}
+                                </Typography>
+                                <hr className={styles.separatorHor}/>
+                                <Typography variant="body1">
+                                    {completed ? <s>{todo.description}</s> : todo.description}
+                                </Typography>
+                                <hr className={styles.separatorHor}/>
+                                <div className={styles.checkBoxGroup}>
+                                    <FormCheckBox
+                                        name="pending"
+                                        color="warning"
+                                        onClick={handleToggle}
+                                        id={todoId.toString()}
+                                        label="Pending"
+                                        check={pending}
                                     />
-                                    <Button
-                                        id={index}
-                                        color={'success'}
-                                        variant={'contained'}
-                                        type={'submit'}
-                                        onClick={handleSave}
-                                    >Save Changes</Button>
-                                </FormGroup>}
-                                {edit && <FormGroup>
-                                    <Button
-                                        id={index}
-                                        color={'warning'}
-                                        variant={'contained'}
-                                        onClick={handleEdit}
-                                    >Cancel Changes</Button>
-                                </FormGroup>}
-                            </div>
-                        </form>}
-                        {!edit && <Typography variant="h5">
-                            {completed ? <s>{todo.title}</s> : todo.title}
-                        </Typography>}
-
-                        {!edit && <hr className={styles.separatorHor}/>}
-                        {!edit && <Typography variant="body1">
-                            {completed ? <s>{todo.description}</s> : todo.description}
-                        </Typography>}
-                        {!edit && <hr className={styles.separatorHor}/>}
-
-                        {!edit && <div className={styles.checkBoxGroup}>
-                            <FormCheckBox
-                                name={'pending'}
-                                color="warning"
-                                onClick={handleToggle}
-                                id={index.toString()}
-                                label="Pending"
-                                check={pending}
-                            />
-                            <hr className={styles.separatorVert}/>
-                            <FormCheckBox
-                                name={'completed'}
-                                color="secondary"
-                                onClick={handleToggle}
-                                id={index.toString()}
-                                label="Completed"
-                                check={completed}
-                            />
-                        </div>}
-                        {!edit && <div className={styles.buttonGroup}>
-                            <FormGroup>
-                                <Button
-                                    id={index}
-                                    color={'secondary'}
-                                    variant={'contained'}
-                                    onClick={handleEdit}
-                                >Edit</Button>
-                            </FormGroup>
-                            <FormGroup>
-                                <Button
-                                    id={index}
-                                    color={'error'}
-                                    variant={'contained'}
-                                    onClick={handleDelete(index)}
-                                >Delete to-do</Button>
-                            </FormGroup>
-
-                        </div>}
-
+                                    <hr className={styles.separatorVert}/>
+                                    <FormCheckBox
+                                        name="completed"
+                                        color="secondary"
+                                        onClick={handleToggle}
+                                        id={todoId.toString()}
+                                        label="Completed"
+                                        check={completed}
+                                    />
+                                </div>
+                                <div className={styles.buttonGroup}>
+                                    <FormGroup>
+                                        <Button
+                                            color="secondary"
+                                            variant="contained"
+                                            onClick={handleEdit}
+                                        >
+                                            Edit
+                                        </Button>
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Button
+                                            color="error"
+                                            variant="contained"
+                                            onClick={handleDelete}
+                                        >
+                                            Delete To-Do
+                                        </Button>
+                                    </FormGroup>
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
             </BaseTemplate>
         </React.Fragment>
-    )
-}
+    );
+};
 
 export default SingleTodoItem;

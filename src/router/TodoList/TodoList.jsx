@@ -1,21 +1,23 @@
-import BaseTemplate from "../../templates/BaseTemplate";
 import React, {useEffect, useState} from "react";
 import {getTodos} from "../../utils/functions/LocalStorage";
 import TodoItem from "../../components/TodoItem";
-import styledList from './list.module.scss'
+import styledList from './list.module.scss';
 import styles from "../../components/TodoList/todoList.module.scss";
 import ProgrammingNavigation from "../ProgrammingNavigation";
-import BaseTemplateHeader from "../../templates/BaseTemplateHeader/index.js";
-import Nav from "../../components/Nav/Nav.jsx";
+import BaseTemplateHeader from "../../templates/BaseTemplateHeader";
+import BaseTemplate from "../../templates/BaseTemplate";
+import Nav from "../../components/Nav/Nav";
 import {isEmpty} from 'lodash';
 import {Typography} from "@mui/material";
 
 const TodoList = () => {
     const DATA_KEY = 'data';
-    const [todoList, setTodoList] = useState([])
+    const [todoList, setTodoList] = useState([]);
+
     useEffect(() => {
-        setTodoList(getTodos(DATA_KEY))
-    }, [])
+        setTodoList(getTodos(DATA_KEY));
+    }, []);
+
     return (
         <React.Fragment>
             <BaseTemplateHeader>
@@ -24,31 +26,28 @@ const TodoList = () => {
             </BaseTemplateHeader>
 
             <BaseTemplate>
-
-                {isEmpty(todoList) &&
-                    <Typography
-                        variant={'h1'}
-                        className={styledList.title}
-                    ><b className={styledList.bold}>No ToDos were Added yet!</b></Typography>}
-
-                <div className={styledList.container}>
-                    <div className={styles.wrapper}>
-                        {todoList.map((todo, index) => {
-                                return (<TodoItem
-                                    key={index}
+                {isEmpty(todoList) ? (
+                    <Typography variant="h1" className={styledList.title}>
+                        <b className={styledList.bold}>No ToDos were added yet!</b>
+                    </Typography>
+                ) : (
+                    <div className={styledList.container}>
+                        <div className={styles.wrapper}>
+                            {todoList.map((todo) => (
+                                <TodoItem
+                                    key={todo.itemId}
                                     title={todo.title}
                                     description={todo.description}
                                     id={todo.itemId}
                                     view={true}
-                                />)
-                            }
-                        )}
+                                />
+                            ))}
+                        </div>
                     </div>
-                </div>
-
+                )}
             </BaseTemplate>
         </React.Fragment>
-    )
-}
+    );
+};
 
 export default TodoList;

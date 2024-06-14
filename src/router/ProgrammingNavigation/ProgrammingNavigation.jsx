@@ -1,10 +1,11 @@
 import {useNavigate} from "react-router-dom";
 import {clearCookies, getCookies} from "../../utils/functions/Cookies/index.js";
 import {useEffect} from "react";
-import {Button} from '@mui/material';
+import FormButton from "../../components/UI/FormButton.jsx";
 
 const ProgrammingNavigation = () => {
     const navigation = useNavigate();
+    
     useEffect(() => {
         if (window.location.pathname !== '/login' && !getCookies('LoggedIn')) {
             navigation('/login')
@@ -18,11 +19,12 @@ const ProgrammingNavigation = () => {
         navigation('/login')
     }
     return (
-        <Button
+        <FormButton
+            text={'Log Out'}
             color={'error'}
             variant={'contained'}
             onClick={handleClick}
-        >Log Out</Button>
+        />
     )
 }
 

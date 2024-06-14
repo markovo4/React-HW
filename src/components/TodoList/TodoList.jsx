@@ -1,55 +1,45 @@
 import {Typography} from "@mui/material";
-import styles from './todoList.module.scss'
+import styles from './todoList.module.scss';
 import TodoForm from "../TodoForm";
 import TodoItem from "../TodoItem";
 import {clearTodos, getTodos, setTodos} from "../../utils/functions/LocalStorage";
-import {isEmpty} from "lodash";
 import {useEffect, useState} from "react";
 
-const TodoList = () => {
-    const [notesList, setNotesList] = useState([]);
-    const DATA_KEY = 'data';
+const DATA_KEY = 'data';
 
+const TodoList = () => {
+    const [notesList, setNotesList] = useState(() => {
+        const notes = getTodos(DATA_KEY);
+        return notes ? [...notes].reverse() : [];
+    });
 
     useEffect(() => {
-        const notes = getTodos(DATA_KEY)
-        if (!isEmpty(notes)) {
-            setNotesList([...notes].reverse())
+        const notes = getTodos(DATA_KEY);
+        if (notes) {
+            setNotesList([...notes].reverse());
         }
-    }, [])
+    }, []);
 
-    const handleDelete = (index) => () => {
-        try {
-            const notesData = getTodos(DATA_KEY);
-            const filteredNotes = notesData.filter((note) => note.itemId !== index);
+    const handleDelete = (id) => () => {
+        const notesData = getTodos(DATA_KEY);
+        const filteredNotes = notesData.filter((note) => note.itemId !== id);
 
-            setTodos(DATA_KEY, filteredNotes)
-            setNotesList([...filteredNotes].reverse())
-        } catch (err) {
-            console.dir('Failed to delete the note', err)
-        }
-    }
+        setTodos(DATA_KEY, filteredNotes);
+        setNotesList([...filteredNotes].reverse());
+    };
 
     const handleDeleteAll = () => {
-        try {
-            clearTodos();
-            setTodos(DATA_KEY, []);
-            setNotesList([]);
-        } catch (err) {
-            console.dir('Failed to delete all notes', err);
-        }
-    }
+        clearTodos();
+        setNotesList([]);
+    };
 
     const handleCreate = (newNote) => {
-        try {
-            const previousNotes = getTodos(DATA_KEY)
-            const updatedNotes = previousNotes ? [...previousNotes, newNote] : [newNote]
-            setTodos(DATA_KEY, updatedNotes)
-            setNotesList([...updatedNotes].reverse())
-        } catch (err) {
-            console.dir('Failed to save the note', err)
-        }
-    }
+        const previousNotes = getTodos(DATA_KEY) || [];
+        const updatedNotes = [...previousNotes, newNote];
+
+        setTodos(DATA_KEY, updatedNotes);
+        setNotesList([...updatedNotes].reverse());
+    };
 
     return (
         <div className={styles.list}>
@@ -65,9 +55,9 @@ const TodoList = () => {
                     onAddTodo={handleCreate}
                 />
                 <div className={styles.wrapper}>
-                    {notesList.map((note, index) => (
+                    {notesList.map((note) => (
                         <TodoItem
-                            key={index}
+                            key={note.itemId}
                             title={note.title}
                             description={note.description}
                             id={note.itemId}
@@ -77,9 +67,7 @@ const TodoList = () => {
                 </div>
             </div>
         </div>
-
-
-    )
-}
+    );
+};
 
 export default TodoList;
