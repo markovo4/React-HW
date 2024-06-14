@@ -1,3 +1,3 @@
-import SingleTodoItem from "./SingleTodoItem.jsx";
+import SingleTodoItemEdit from "./SingleTodoItemEdit.jsx";
 
-export default SingleTodoItem;
+export default SingleTodoItemEdit;

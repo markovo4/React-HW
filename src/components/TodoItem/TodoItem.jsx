@@ -1,10 +1,11 @@
 import styles from './todoItem.module.scss';
-import {Button, FormGroup, Typography} from "@mui/material";
-import {useEffect, useMemo, useState} from "react";
+import {Typography} from "@mui/material";
+import {useMemo, useState} from "react";
 import PropTypes from "prop-types";
 import {useNavigate} from "react-router-dom";
-import FormCheckBox from "../UI/FormCheckBox.jsx";
 import {getTodos, setTodos} from "../../utils/functions/LocalStorage/index.js";
+import FormSelect from "../UI/FormSelect.jsx";
+import FormButton from "../UI/FormButton.jsx";
 
 const TodoItem = ({title, description, id, onDelete, view}) => {
     const navigate = useNavigate();
@@ -15,104 +16,75 @@ const TodoItem = ({title, description, id, onDelete, view}) => {
         return todos.find(todo => todo.itemId.toString() === id.toString()) || {};
     }, [id]);
 
-    const [completed, setCompleted] = useState(initialTodo.completed || false);
-    const [pending, setPending] = useState(initialTodo.pending || false);
+    const [status, setStatus] = useState(initialTodo.status || 'Not-Completed');
 
-    useEffect(() => {
-        setCompleted(initialTodo.completed || false);
-        setPending(initialTodo.pending || false);
-    }, [initialTodo]);
-
-    const handleToggle = (e) => {
-        const {id, name} = e.target;
-        const todos = getTodos(DATA_KEY);
-
-        const updatedTodos = todos.map(todo => {
-            if (todo.itemId.toString() === id) {
-                return name === 'completed' ? {...todo, completed: !completed} : {...todo, pending: !pending};
-            }
-            return todo;
-        });
+    const handleSelect = (e) => {
+        const updatedStatus = e.target.value;
+        const updatedTodos = getTodos(DATA_KEY).map(todo =>
+            todo.itemId.toString() === id.toString() ? {...todo, status: updatedStatus} : todo
+        );
 
         setTodos(DATA_KEY, updatedTodos);
-        name === 'completed' ? setCompleted(!completed) : setPending(!pending);
+        setStatus(updatedStatus);
     };
 
-    const handleClick = (e) => {
-        const targetId = e.currentTarget.id;
-        view ? navigate(`/todosView/${targetId}`) : navigate(`/todos/${targetId}`);
+    const handleClick = () => {
+        navigate(view ? `/todosView/${id}` : `/todos/${id}`);
     };
 
-    const handleDelete = (e) => {
-        const targetId = e.currentTarget.id;
-        onDelete(targetId);
+    const handleDelete = () => {
+        onDelete(id);
     };
 
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
                 <Typography variant="h6">
-                    {completed ? <b className={styles.boldTitle}><s>{title}</s></b> :
-                        <b className={styles.boldTitle}>{title}</b>}
+                    <b className={styles.boldTitle}>{title}</b>
                 </Typography>
                 <hr className={styles.separator}/>
 
                 <Typography variant="body1">
-                    {completed ? <s>{description}</s> : description}
+                    {description}
                 </Typography>
                 <hr className={styles.separator}/>
 
-                <FormCheckBox
-                    name="pending"
-                    color="warning"
-                    onClick={handleToggle}
+                <FormSelect
+                    view={view}
+                    status={status}
+                    onSelect={handleSelect}
                     id={id.toString()}
-                    label="Pending"
-                    check={pending}
-                />
-
-                <FormCheckBox
-                    name="completed"
-                    color="secondary"
-                    onClick={handleToggle}
-                    id={id.toString()}
-                    label="Completed"
-                    check={completed}
                 />
 
                 <hr className={styles.separator}/>
 
-                <FormGroup>
-                    <Button
-                        color="secondary"
-                        variant="text"
+                <div className={styles.buttonContainer}>
+                    <FormButton
+                        color={"secondary"}
+                        variant={"contained"}
+                        text={'View'}
                         onClick={handleClick}
                         id={id.toString()}
-                    >
-                        <b>View To-do</b>
-                    </Button>
-                </FormGroup>
+                    />
 
-                {onDelete && (
-                    <FormGroup>
-                        <Button
-                            id={id.toString()}
-                            color="error"
-                            variant="text"
+                    {onDelete &&
+                        <FormButton
+                            color={"error"}
+                            variant={"contained"}
+                            text={'Delete'}
                             onClick={handleDelete}
-                        >
-                            <b>Delete to-do</b>
-                        </Button>
-                    </FormGroup>
-                )}
+                            id={id.toString()}
+                        />}
+                </div>
+
             </div>
         </div>
     );
 };
 
 TodoItem.propTypes = {
-    title: PropTypes.string,
-    description: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
     id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     onDelete: PropTypes.func,
     view: PropTypes.bool,

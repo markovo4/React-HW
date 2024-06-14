@@ -1,3 +1,3 @@
-import SingleTodoViewOnly from "./SingleTodoViewOnly.jsx";
+import SingleTodoItemView from "./SingleTodoItemView.jsx";
 
-export default SingleTodoViewOnly;
+export default SingleTodoItemView;

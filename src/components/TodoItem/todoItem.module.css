@@ -1,4 +1,7 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   min-height: 200px;
   flex-basis: 50%;
   flex-grow: 1;
@@ -23,7 +26,14 @@
 
 .separator {
   background-color: transparent;
+  width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.13);
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
 }
 
 /*# sourceMappingURL=todoItem.module.css.map */

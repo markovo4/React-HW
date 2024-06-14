@@ -9,7 +9,8 @@ const Nav = () => {
     const DATA_KEY = 'data';
 
     useEffect(() => {
-        setTodos(getTodos(DATA_KEY));
+        const todosList = getTodos(DATA_KEY) || []
+        setTodos(todosList);
     }, []);
 
     return (

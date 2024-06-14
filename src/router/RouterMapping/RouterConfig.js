@@ -2,13 +2,13 @@ import HomePage from "../HomePage";
 import PageNotFound from "../PageNotFound";
 import LoginPage from "../LoginPage";
 import routerNames from "./RouterNames.js";
-import SingleTodoItem from "../SingleTodoItem";
+import SingleTodoItemEdit from "../SingleTodoItem/index.js";
 import TodoList from "../TodoList";
-import SingleTodoViewOnly from "../SingleTodoViewOnly";
+import SingleTodoItemView from "../SingleTodoViewOnly/index.js";
 
 
 const routerConfig = () => {
-    const pageComponents = [HomePage, PageNotFound, LoginPage, SingleTodoItem, TodoList, SingleTodoViewOnly];
+    const pageComponents = [HomePage, PageNotFound, LoginPage, SingleTodoItemEdit, TodoList, SingleTodoItemView];
     const routeKeys = Object.keys(routerNames);
 
     if (pageComponents.length !== routeKeys.length) {

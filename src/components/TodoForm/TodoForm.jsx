@@ -37,8 +37,7 @@ const TodoForm = ({onAddTodo, onDeleteAll}) => {
                 title: values.title,
                 description: values.description,
                 itemId: newItemId,
-                completed: false,
-                pending: false,
+                status: 'Not-Completed',
             };
             onAddTodo(newTodo);
             resetForm();
