@@ -4,7 +4,6 @@ import TodoForm from "../TodoForm";
 import TodoItem from "../TodoItem";
 import {clearTodos, getTodos, setTodos} from "../../utils/functions/LocalStorage";
 import {useEffect, useState} from "react";
-import FormButton from "../UI/FormButton.jsx";
 
 
 const TodoList = () => {
@@ -49,18 +48,13 @@ const TodoList = () => {
             >
                 <b className={styles.bold}>CREATE TO-DO NOTE</b>
             </Typography>
-            
+
             <div className={styles.container}>
                 <TodoForm
                     onDeleteAll={handleDeleteAll}
                     onAddTodo={handleCreate}
                 />
-                <FormButton
-                    color="error"
-                    variant="outlined"
-                    onClick={handleDeleteAll}
-                    text="Delete all to-dos"
-                />
+
                 <div className={styles.wrapper}>
                     {notesList.map((note) => (
                         <TodoItem
