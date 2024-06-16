@@ -1,12 +1,13 @@
 import {Typography} from "@mui/material";
 import styles from './loginForm.module.scss';
 import {useFormik} from "formik";
-import validationSchema from "./validSchema.js";
+import validationSchema from "./validationSchema.js";
 import {getCookies, setCookies} from "../../utils/functions/Cookies/index.js";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import FormInput from "../UI/FormInput.jsx";
 import FormButton from "../UI/FormButton.jsx";
+import routerNames from "../../router/RouterMapping/RouterNames.js";
 
 const formInitValues = {
     login: '',
@@ -14,6 +15,8 @@ const formInitValues = {
 }
 
 const LoginForm = () => {
+    const {homePage: homePage} = routerNames;
+
     const navigation = useNavigate();
     const formik = useFormik({
         initialValues: {...formInitValues},
@@ -23,13 +26,13 @@ const LoginForm = () => {
             setCookies('password', `${values.password}`, 0.01);
             setCookies('LoggedIn', 'true', 0.01);
             resetForm();
-            navigation('/');
+            navigation(homePage);
         }
     })
 
     useEffect(() => {
         if (window.location.pathname === '/login' && getCookies('LoggedIn')) {
-            navigation('/')
+            navigation(homePage)
         }
     }, [])
 

@@ -2,7 +2,7 @@ import HomePage from "../HomePage";
 import PageNotFound from "../PageNotFound";
 import LoginPage from "../LoginPage";
 import routerNames from "./RouterNames.js";
-import SingleTodoItemEdit from "../SingleTodoItem/index.js";
+import SingleTodoItemEdit from "../SingleTodoItemEdit/index.js";
 import TodoList from "../TodoList";
 import SingleTodoItemView from "../SingleTodoViewOnly/index.js";
 

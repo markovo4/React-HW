@@ -2,13 +2,15 @@ import {useNavigate} from "react-router-dom";
 import {clearCookies, getCookies} from "../../utils/functions/Cookies/index.js";
 import {useEffect} from "react";
 import FormButton from "../../components/UI/FormButton.jsx";
+import routerNames from "../RouterMapping/RouterNames.js";
 
 const ProgrammingNavigation = () => {
     const navigation = useNavigate();
-    
+    const {loginPage: loginPage} = routerNames;
+
     useEffect(() => {
         if (window.location.pathname !== '/login' && !getCookies('LoggedIn')) {
-            navigation('/login')
+            navigation(loginPage)
         }
     }, [])
 
@@ -16,7 +18,7 @@ const ProgrammingNavigation = () => {
         clearCookies('login')
         clearCookies('password')
         clearCookies('LoggedIn')
-        navigation('/login')
+        navigation(loginPage)
     }
     return (
         <FormButton
