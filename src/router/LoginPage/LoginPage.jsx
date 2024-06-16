@@ -1,11 +1,11 @@
-import LoginTemplate from "../../templates/LoginTemplate";
 import LoginForm from "../../components/LoginForm";
+import BaseTemplate from "../../templates/BaseTemplate";
 
 const LoginPage = () => {
     return (
-        <LoginTemplate>
+        <BaseTemplate>
             <LoginForm/>
-        </LoginTemplate>
+        </BaseTemplate>
     )
 }
 

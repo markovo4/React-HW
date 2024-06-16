@@ -1,34 +1,30 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {getTodos} from "../../utils/functions/LocalStorage/index.js";
+import {getTodos} from "../../utils/functions/LocalStorage";
 import {Typography} from "@mui/material";
 import styles from './singleTodoItem.module.scss';
 import FormSelect from "../../components/UI/FormSelect.jsx";
-import BaseTemplateHeader from "../../templates/BaseTemplateHeader/index.js";
-import Nav from "../../components/Nav/index.js";
-import ProgrammingNavigation from "../ProgrammingNavigation/index.js";
-import BaseTemplate from "../../templates/BaseTemplate/index.js";
+import BaseTemplateHeader from "../../templates/BaseTemplateHeader";
+import Nav from "../../components/Nav";
+import ProgrammingNavigation from "../ProgrammingNavigation";
+import BaseTemplate from "../../templates/BaseTemplate";
 
 const SingleTodoItemView = () => {
-    const [todo, setTodo] = useState({});
+    const [todoView, setTodoView] = useState({});
     const [status, setStatus] = useState('Not-Completed');
-    const DATA_KEY = 'data';
 
     const {todoId} = useParams();
-    const todos = getTodos(DATA_KEY);
+    const todos = getTodos();
 
-    const todoMap = useMemo(() => {
-        const map = new Map();
-        todos.forEach(todo => {
-            map.set(todo.itemId.toString(), todo);
-        });
-        return map;
-    }, [todos]);
 
     useEffect(() => {
-        const foundTodo = todoMap.get(todoId);
+        const foundTodo = todos.find(todo => todo.itemId.toString() === todoId) || {
+            title: '',
+            description: '',
+            status: 'Not-Completed'
+        }
         if (foundTodo) {
-            setTodo(foundTodo);
+            setTodoView(foundTodo);
             setStatus(foundTodo.status || 'Not-Completed');
         }
     }, [todoId]);
@@ -43,11 +39,11 @@ const SingleTodoItemView = () => {
                 <div className={styles.container}>
                     <div className={styles.wrapper}>
                         <Typography variant="h5">
-                            {todo.title}
+                            {todoView.title}
                         </Typography>
                         <hr className={styles.separatorHor}/>
                         <Typography variant="body1">
-                            {todo.description}
+                            {todoView.description}
                         </Typography>
                         <hr className={styles.separatorHor}/>
                         <div className={styles.checkBoxGroup}>

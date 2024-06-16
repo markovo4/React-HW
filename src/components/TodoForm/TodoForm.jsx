@@ -4,6 +4,7 @@ import {FormGroup} from "@mui/material";
 import PropTypes from "prop-types";
 import {isEmpty} from "lodash";
 
+import validationSchema from "../../utils/validations/validationSchema.js";
 import FormInput from "../UI/FormInput";
 import FormButton from "../UI/FormButton";
 import {idGenerator} from "../../utils/functions/IdGenerator";
@@ -17,10 +18,9 @@ const formInitValues = {
 
 const TodoForm = ({onAddTodo, onDeleteAll}) => {
     const [iterator, setIterator] = useState(idGenerator(0));
-    const DATA_KEY = 'data';
 
     useEffect(() => {
-        const notes = getTodos(DATA_KEY);
+        const notes = getTodos();
         if (!isEmpty(notes)) {
             const savedId = notes.at(-1).itemId;
             setIterator(idGenerator(savedId));
@@ -28,14 +28,13 @@ const TodoForm = ({onAddTodo, onDeleteAll}) => {
     }, []);
 
     const formik = useFormik({
-        initialValues: formInitValues,
+        initialValues: {...formInitValues},
+        validationSchema,
         onSubmit: (values, {resetForm}) => {
-            if (!values.title.trim() || !values.description.trim()) return;
-
             const newItemId = iterator.next().value;
             const newTodo = {
-                title: values.title,
-                description: values.description,
+                title: values.title.trim(),
+                description: values.description.trim(),
                 itemId: newItemId,
                 status: 'Not-Completed',
             };

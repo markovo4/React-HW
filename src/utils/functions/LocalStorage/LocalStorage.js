@@ -1,9 +1,11 @@
-export function getTodos(key) {
-    return JSON.parse(localStorage.getItem(key));
+import {DATA_KEY} from "../../constants/constants.js";
+
+export function getTodos() {
+    return JSON.parse(localStorage.getItem(DATA_KEY));
 }
 
-export function setTodos(key, notes) {
-    return localStorage.setItem(key, JSON.stringify(notes));
+export function setTodos(notes) {
+    return localStorage.setItem(DATA_KEY, JSON.stringify(notes));
 }
 
 export function clearTodos() {

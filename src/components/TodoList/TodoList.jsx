@@ -4,27 +4,27 @@ import TodoForm from "../TodoForm";
 import TodoItem from "../TodoItem";
 import {clearTodos, getTodos, setTodos} from "../../utils/functions/LocalStorage";
 import {useEffect, useState} from "react";
+import FormButton from "../UI/FormButton.jsx";
 
-const DATA_KEY = 'data';
 
 const TodoList = () => {
     const [notesList, setNotesList] = useState(() => {
-        const notes = getTodos(DATA_KEY);
+        const notes = getTodos();
         return notes ? [...notes].reverse() : [];
     });
 
     useEffect(() => {
-        const notes = getTodos(DATA_KEY);
+        const notes = getTodos();
         if (notes) {
             setNotesList([...notes].reverse());
         }
     }, []);
 
     const handleDelete = (id) => () => {
-        const notesData = getTodos(DATA_KEY);
+        const notesData = getTodos();
         const filteredNotes = notesData.filter((note) => note.itemId !== id);
 
-        setTodos(DATA_KEY, filteredNotes);
+        setTodos(filteredNotes);
         setNotesList([...filteredNotes].reverse());
     };
 
@@ -34,10 +34,10 @@ const TodoList = () => {
     };
 
     const handleCreate = (newNote) => {
-        const previousNotes = getTodos(DATA_KEY) || [];
+        const previousNotes = getTodos() || [];
         const updatedNotes = [...previousNotes, newNote];
 
-        setTodos(DATA_KEY, updatedNotes);
+        setTodos(updatedNotes);
         setNotesList([...updatedNotes].reverse());
     };
 
@@ -49,10 +49,17 @@ const TodoList = () => {
             >
                 <b className={styles.bold}>CREATE TO-DO NOTE</b>
             </Typography>
+            
             <div className={styles.container}>
                 <TodoForm
                     onDeleteAll={handleDeleteAll}
                     onAddTodo={handleCreate}
+                />
+                <FormButton
+                    color="error"
+                    variant="outlined"
+                    onClick={handleDeleteAll}
+                    text="Delete all to-dos"
                 />
                 <div className={styles.wrapper}>
                     {notesList.map((note) => (
@@ -65,6 +72,7 @@ const TodoList = () => {
                         />
                     ))}
                 </div>
+
             </div>
         </div>
     );

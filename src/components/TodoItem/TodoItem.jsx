@@ -1,30 +1,32 @@
 import styles from './todoItem.module.scss';
 import {Typography} from "@mui/material";
-import {useMemo, useState} from "react";
+import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {useNavigate} from "react-router-dom";
 import {getTodos, setTodos} from "../../utils/functions/LocalStorage/index.js";
 import FormSelect from "../UI/FormSelect.jsx";
 import FormButton from "../UI/FormButton.jsx";
+import {cloneDeep} from "lodash";
 
 const TodoItem = ({title, description, id, onDelete, view}) => {
+    const [initialTodo, setInitialTodo] = useState({})
     const navigate = useNavigate();
-    const DATA_KEY = 'data';
 
-    const initialTodo = useMemo(() => {
-        const todos = getTodos(DATA_KEY);
-        return todos.find(todo => todo.itemId.toString() === id.toString()) || {};
-    }, [id]);
+    useEffect(() => {
+        const todos = getTodos();
+        const ListOfTodos = cloneDeep(todos)
+        setInitialTodo(ListOfTodos.find(todo => todo.itemId.toString() === id.toString()) || {})
+    }, [id])
 
     const [status, setStatus] = useState(initialTodo.status || 'Not-Completed');
 
     const handleSelect = (e) => {
         const updatedStatus = e.target.value;
-        const updatedTodos = getTodos(DATA_KEY).map(todo =>
+        const updatedTodos = getTodos().map(todo =>
             todo.itemId.toString() === id.toString() ? {...todo, status: updatedStatus} : todo
         );
 
-        setTodos(DATA_KEY, updatedTodos);
+        setTodos(updatedTodos);
         setStatus(updatedStatus);
     };
 
@@ -48,7 +50,6 @@ const TodoItem = ({title, description, id, onDelete, view}) => {
                     {description}
                 </Typography>
                 <hr className={styles.separator}/>
-
                 <FormSelect
                     view={view}
                     status={status}

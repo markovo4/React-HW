@@ -7,16 +7,16 @@ import ProgrammingNavigation from "../ProgrammingNavigation";
 import BaseTemplateHeader from "../../templates/BaseTemplateHeader";
 import BaseTemplate from "../../templates/BaseTemplate";
 import Nav from "../../components/Nav/Nav";
-import {isEmpty} from 'lodash';
+import {cloneDeep, isEmpty} from 'lodash';
 import {Typography} from "@mui/material";
 
 const TodoList = () => {
-    const DATA_KEY = 'data';
-    const [todoList, setTodoList] = useState([]);
+    const [todoList, setTodoList] = useState(getTodos() || []);
 
     useEffect(() => {
-        setTodoList(getTodos(DATA_KEY));
-    }, []);
+        const listOfTodos = cloneDeep(todoList);
+        setTodoList(listOfTodos.reverse())
+    }, [])
 
     return (
         <React.Fragment>

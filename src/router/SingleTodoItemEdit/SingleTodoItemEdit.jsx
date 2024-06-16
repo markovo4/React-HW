@@ -1,55 +1,51 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {useFormik} from "formik";
 import {Typography} from "@mui/material";
-import ModalSuccess from "../../components/ModalSuccess/index.js";
+import ModalSuccess from "../../components/ModalSuccess";
 import styles from './singleTodoItem.module.scss';
-import {getTodos, setTodos} from "../../utils/functions/LocalStorage/index.js";
+import {getTodos, setTodos} from "../../utils/functions/LocalStorage";
 import FormSelect from "../../components/UI/FormSelect.jsx";
 import FormButton from "../../components/UI/FormButton.jsx";
-import BaseTemplateHeader from "../../templates/BaseTemplateHeader/index.js";
-import Nav from "../../components/Nav/index.js";
-import ProgrammingNavigation from "../ProgrammingNavigation/index.js";
-import BaseTemplate from "../../templates/BaseTemplate/index.js";
+import BaseTemplateHeader from "../../templates/BaseTemplateHeader";
+import Nav from "../../components/Nav";
+import ProgrammingNavigation from "../ProgrammingNavigation";
+import BaseTemplate from "../../templates/BaseTemplate";
+import routerNames from "../RouterMapping/RouterNames.js";
+import validationSchema from "../../utils/validations/validationSchema.js";
+import {cloneDeep} from "lodash";
 
 const SingleTodoItemEdit = () => {
     const navigate = useNavigate();
+    const {homePage: homePage} = routerNames;
     const {todoId} = useParams();
-    const DATA_KEY = 'data';
 
-    const todos = getTodos(DATA_KEY);
-    const todoMap = useMemo(() => {
-        const map = new Map();
-        todos.forEach((todo) => {
-            if (todo.itemId) {
-                map.set(todo.itemId.toString(), todo);
-            }
-        });
-        return map;
-    }, [todos]);
+    const todos = getTodos();
 
-    const initialTodo = todoMap.get(todoId) || {title: '', description: '', status: 'Not-Completed'};
-    const [todo, setTodo] = useState(initialTodo);
-    const [status, setStatus] = useState(initialTodo.status);
+    const [todoEdit, setTodoEdit] = useState(todos.find(todo => todo.itemId.toString() === todoId) || {
+        title: '',
+        description: '',
+        status: 'Not-Completed'
+    });
+
+    const [status, setStatus] = useState(todoEdit.status);
     const [edit, setEdit] = useState(false);
     const [display, setDisplay] = useState(false);
 
     useEffect(() => {
-        const foundTodo = todoMap.get(todoId);
-        if (foundTodo) {
-            setTodo(foundTodo);
-            setStatus(foundTodo.status);
+        if (todoEdit) {
+            const todoEditCopy = cloneDeep(todoEdit)
+            setTodoEdit(todoEditCopy)
         }
     }, [todoId]);
 
     const formik = useFormik({
         initialValues: {
-            title: todo.title || '',
-            description: todo.description || '',
+            title: todoEdit.title || '',
+            description: todoEdit.description || '',
         },
-        enableReinitialize: true,
+        validationSchema,
         onSubmit: (values) => {
-            if (!values.title.trim() || !values.description.trim()) return;
 
             const updatedTodos = todos.map(todo => {
                 if (todo.itemId.toString() === todoId) {
@@ -57,40 +53,45 @@ const SingleTodoItemEdit = () => {
                 }
                 return todo;
             });
-            setTodos(DATA_KEY, updatedTodos);
-            setTodo(prevTodo => ({...prevTodo, title: values.title, description: values.description}));
+            setTodos(updatedTodos);
+            setTodoEdit(prevTodo => ({...prevTodo, title: values.title, description: values.description}));
             handleSave();
         }
     });
 
     const handleSave = () => {
         setDisplay(true);
-        setTimeout(() => {
+
+        const timeoutId = setTimeout(() => {
             setDisplay(false);
             setEdit(false);
-        }, 1500);
+            clearTimeout(timeoutId);
+        }, 1000);
+
     };
 
     const handleSelect = (e) => {
         const newStatus = e.target.value;
+
         const updatedTodos = todos.map(todo => {
             if (todo.itemId.toString() === todoId) {
                 return {...todo, status: newStatus};
             }
             return todo;
         });
-        setTodos(DATA_KEY, updatedTodos);
+
+        setTodos(updatedTodos);
         setStatus(newStatus);
     };
 
     const handleEdit = () => {
-        setEdit(prevEdit => !prevEdit);
+        setEdit(!edit);
     };
 
     const handleDelete = () => {
         const filteredTodos = todos.filter(todo => todo.itemId.toString() !== todoId);
-        setTodos(DATA_KEY, filteredTodos);
-        navigate('/');
+        setTodos(filteredTodos);
+        navigate(homePage);
     };
 
     return (
@@ -141,9 +142,9 @@ const SingleTodoItemEdit = () => {
                             </form>
                         ) : (
                             <>
-                                <Typography variant="h5">{todo.title}</Typography>
+                                <Typography variant="h5">{todoEdit.title}</Typography>
                                 <hr className={styles.separatorHor}/>
-                                <Typography variant="body1">{todo.description}</Typography>
+                                <Typography variant="body1">{todoEdit.description}</Typography>
                                 <hr className={styles.separatorHor}/>
                                 <FormSelect
                                     onSelect={handleSelect}
