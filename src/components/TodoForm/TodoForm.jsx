@@ -16,16 +16,6 @@ const formInitValues = {
     description: '',
 };
 
-function StyledInput(props) {
-    return null;
-}
-
-StyledInput.propTypes = {placeholder: PropTypes.string};
-
-function HelperText() {
-    return null;
-}
-
 const TodoForm = ({onAddTodo, onDeleteAll}) => {
     const [iterator, setIterator] = useState(idGenerator(0));
 

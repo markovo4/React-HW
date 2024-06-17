@@ -27,8 +27,8 @@ const TodoList = () => {
 
             <BaseTemplate>
                 {isEmpty(todoList) ? (
-                    <Typography variant="h1" className={styledList.title}>
-                        <b className={styledList.bold}>No ToDos were added yet!</b>
+                    <Typography variant="h2" className={styledList.title}>
+                        <b className={styledList.bold}>No ToDos!</b>
                     </Typography>
                 ) : (
                     <div className={styledList.container}>
