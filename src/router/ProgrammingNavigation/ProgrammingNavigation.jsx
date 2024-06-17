@@ -1,8 +1,9 @@
 import {useNavigate} from "react-router-dom";
 import {clearCookies, getCookies} from "../../utils/functions/Cookies/index.js";
 import {useEffect} from "react";
-import FormButton from "../../components/UI/FormButton.jsx";
 import routerNames from "../RouterMapping/RouterNames.js";
+import LogoutIcon from '@mui/icons-material/Logout';
+import {Button} from "@mui/material";
 
 const ProgrammingNavigation = () => {
     const navigation = useNavigate();
@@ -21,12 +22,12 @@ const ProgrammingNavigation = () => {
         navigation(loginPage)
     }
     return (
-        <FormButton
-            text={'Log Out'}
+        <Button
             color={'error'}
             variant={'contained'}
             onClick={handleClick}
-        />
+            startIcon={<LogoutIcon/>}
+        >Log Out</Button>
     )
 }
 

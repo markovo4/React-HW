@@ -4,9 +4,10 @@ import TodoForm from "../TodoForm";
 import TodoItem from "../TodoItem";
 import {clearTodos, getTodos, setTodos} from "../../utils/functions/LocalStorage";
 import {useEffect, useState} from "react";
-
+import {useSnackbar} from "notistack";
 
 const TodoList = () => {
+    const {enqueueSnackbar} = useSnackbar();
     const [notesList, setNotesList] = useState(() => {
         const notes = getTodos();
         return notes ? [...notes].reverse() : [];
@@ -19,12 +20,13 @@ const TodoList = () => {
         }
     }, []);
 
-    const handleDelete = (id) => () => {
+    const handleDelete = (id, title, variant) => () => {
         const notesData = getTodos();
         const filteredNotes = notesData.filter((note) => note.itemId !== id);
 
         setTodos(filteredNotes);
         setNotesList([...filteredNotes].reverse());
+        enqueueSnackbar(`${title} Todo has been deleted`, {variant})
     };
 
     const handleDeleteAll = () => {
@@ -32,21 +34,23 @@ const TodoList = () => {
         setNotesList([]);
     };
 
-    const handleCreate = (newNote) => {
+    const handleCreate = (newNote, variant) => {
         const previousNotes = getTodos() || [];
         const updatedNotes = [...previousNotes, newNote];
 
         setTodos(updatedNotes);
         setNotesList([...updatedNotes].reverse());
+        enqueueSnackbar("Todo is Added Successfully", {variant})
+
     };
 
     return (
         <div className={styles.list}>
             <Typography
-                variant={'h4'}
+                variant="h6"
                 align={'center'}
             >
-                <b className={styles.bold}>CREATE TO-DO NOTE</b>
+                <b className={styles.bold}>CREATE TO-DO</b>
             </Typography>
 
             <div className={styles.container}>
@@ -62,7 +66,7 @@ const TodoList = () => {
                             title={note.title}
                             description={note.description}
                             id={note.itemId}
-                            onDelete={handleDelete(note.itemId)}
+                            onDelete={handleDelete(note.itemId, note.title, 'warning')}
                         />
                     ))}
                 </div>

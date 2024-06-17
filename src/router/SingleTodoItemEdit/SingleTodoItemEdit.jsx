@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {useFormik} from "formik";
 import {Typography} from "@mui/material";
-import ModalSuccess from "../../components/ModalSuccess";
 import styles from './singleTodoItem.module.scss';
 import {getTodos, setTodos} from "../../utils/functions/LocalStorage";
 import FormSelect from "../../components/UI/FormSelect.jsx";
@@ -14,9 +13,16 @@ import BaseTemplate from "../../templates/BaseTemplate";
 import routerNames from "../RouterMapping/RouterNames.js";
 import validationSchema from "../../utils/validations/validationSchema.js";
 import {cloneDeep} from "lodash";
+import {useSnackbar} from "notistack";
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import DeleteIcon from "@mui/icons-material/Delete";
+import DoneIcon from '@mui/icons-material/Done';
+import CloseIcon from '@mui/icons-material/Close';
 
 const SingleTodoItemEdit = () => {
     const navigate = useNavigate();
+    const {enqueueSnackbar} = useSnackbar();
+
     const {homePage: homePage} = routerNames;
     const {todoId} = useParams();
 
@@ -30,7 +36,6 @@ const SingleTodoItemEdit = () => {
 
     const [status, setStatus] = useState(todoEdit.status);
     const [edit, setEdit] = useState(false);
-    const [display, setDisplay] = useState(false);
 
     useEffect(() => {
         if (todoEdit) {
@@ -39,11 +44,13 @@ const SingleTodoItemEdit = () => {
         }
     }, [todoId]);
 
+    const initialTodoValues = {
+        title: todoEdit.title || '',
+        description: todoEdit.description || '',
+    }
+
     const formik = useFormik({
-        initialValues: {
-            title: todoEdit.title || '',
-            description: todoEdit.description || '',
-        },
+        initialValues: {...initialTodoValues},
         validationSchema,
         onSubmit: (values) => {
 
@@ -55,19 +62,13 @@ const SingleTodoItemEdit = () => {
             });
             setTodos(updatedTodos);
             setTodoEdit(prevTodo => ({...prevTodo, title: values.title, description: values.description}));
-            handleSave();
+            handleSave('success');
         }
     });
 
-    const handleSave = () => {
-        setDisplay(true);
-
-        const timeoutId = setTimeout(() => {
-            setDisplay(false);
-            setEdit(false);
-            clearTimeout(timeoutId);
-        }, 1000);
-
+    const handleSave = (variant) => {
+        enqueueSnackbar("Changes Saved!", {variant})
+        setEdit(false);
     };
 
     const handleSelect = (e) => {
@@ -88,8 +89,15 @@ const SingleTodoItemEdit = () => {
         setEdit(!edit);
     };
 
-    const handleDelete = () => {
+    const handleAbortChanges = (variant) => () => {
+        setEdit(!edit);
+        enqueueSnackbar("Changes Aborted!", {variant})
+        formik.resetForm()
+    }
+
+    const handleDelete = (variant) => () => {
         const filteredTodos = todos.filter(todo => todo.itemId.toString() !== todoId);
+        enqueueSnackbar(`${todoEdit.title} Todo has been Deleted!`, {variant})
         setTodos(filteredTodos);
         navigate(homePage);
     };
@@ -125,18 +133,17 @@ const SingleTodoItemEdit = () => {
                                 />
                                 <hr className={styles.separatorHor}/>
                                 <div className={styles.buttonGroup}>
-                                    <ModalSuccess display={display}/>
                                     <FormButton
                                         color={"success"}
                                         variant={"contained"}
                                         type={"submit"}
-                                        text={'Save Changes'}
+                                        icon={<DoneIcon/>}
                                     />
                                     <FormButton
                                         color={"warning"}
                                         variant={"contained"}
-                                        text={'Cancel Changes'}
-                                        onClick={handleEdit}
+                                        icon={<CloseIcon/>}
+                                        onClick={handleAbortChanges('info')}
                                     />
                                 </div>
                             </form>
@@ -155,14 +162,14 @@ const SingleTodoItemEdit = () => {
                                     <FormButton
                                         color={"secondary"}
                                         variant={"contained"}
-                                        text={'Edit'}
                                         onClick={handleEdit}
+                                        icon={<EditNoteIcon/>}
                                     />
                                     <FormButton
                                         color={"error"}
                                         variant={"contained"}
-                                        text={'Delete To-Do'}
-                                        onClick={handleDelete}
+                                        icon={<DeleteIcon/>}
+                                        onClick={handleDelete('warning')}
                                     />
                                 </div>
                             </>

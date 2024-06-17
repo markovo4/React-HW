@@ -1,7 +1,7 @@
 .header {
-  height: 50px;
-  padding: 30px;
-  background-color: rgba(29, 0, 44, 0.91);
+  min-height: 50px;
+  padding: 2px 20px;
+  background-color: rgb(101, 5, 121);
   display: flex;
   align-items: center;
   justify-content: space-between;

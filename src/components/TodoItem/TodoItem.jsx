@@ -7,15 +7,17 @@ import {getTodos, setTodos} from "../../utils/functions/LocalStorage/index.js";
 import FormSelect from "../UI/FormSelect.jsx";
 import FormButton from "../UI/FormButton.jsx";
 import {cloneDeep} from "lodash";
+import DeleteIcon from '@mui/icons-material/Delete';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 const TodoItem = ({title, description, id, onDelete, view}) => {
-    const [initialTodo, setInitialTodo] = useState({})
+    const todos = getTodos();
+    const [initialTodo, setInitialTodo] = useState(todos.find(todo => todo.itemId.toString() === id.toString()) || {})
     const navigate = useNavigate();
 
     useEffect(() => {
-        const todos = getTodos();
-        const ListOfTodos = cloneDeep(todos)
-        setInitialTodo(ListOfTodos.find(todo => todo.itemId.toString() === id.toString()) || {})
+        const initialTodoCopy = cloneDeep(initialTodo)
+        setInitialTodo(initialTodoCopy)
     }, [id])
 
     const [status, setStatus] = useState(initialTodo.status || 'Not-Completed');
@@ -35,7 +37,7 @@ const TodoItem = ({title, description, id, onDelete, view}) => {
     };
 
     const handleDelete = () => {
-        onDelete(id);
+        onDelete();
     };
 
     return (
@@ -63,18 +65,18 @@ const TodoItem = ({title, description, id, onDelete, view}) => {
                     <FormButton
                         color={"secondary"}
                         variant={"contained"}
-                        text={'View'}
                         onClick={handleClick}
                         id={id.toString()}
+                        icon={<RemoveRedEyeIcon/>}
                     />
 
                     {onDelete &&
                         <FormButton
                             color={"error"}
                             variant={"contained"}
-                            text={'Delete'}
                             onClick={handleDelete}
                             id={id.toString()}
+                            icon={<DeleteIcon/>}
                         />}
                 </div>
 

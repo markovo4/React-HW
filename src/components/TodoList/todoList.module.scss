@@ -5,15 +5,13 @@
 .bold {
   font-weight: bold;
   font-size: 50px;
-  color: rgba(63, 1, 93, 0.73);
-  margin-bottom: 200px;
-  text-shadow: 0.5px 0.5px 10px rgba(154, 3, 255, 0.53);
+  color: rgba(0, 0, 0, 0.52);
 }
 
 .container {
   display: flex;
-  padding-top: 100px;
-  gap: 20px;
+  padding-top: 50px;
+  gap: 40px;
 }
 
 .wrapper {
@@ -24,5 +22,5 @@
 }
 
 .list {
-  padding-top: 100px;
+  padding-top: 50px;
 }

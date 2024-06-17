@@ -1,13 +1,15 @@
-import {Typography} from "@mui/material";
+import {Fab, Typography} from "@mui/material";
 import styles from './loginForm.module.scss';
 import {useFormik} from "formik";
-import validationSchema from "./validationSchema.js";
-import {getCookies, setCookies} from "../../utils/functions/Cookies/index.js";
+import validationSchema from "./validationSchema";
+import {getCookies, setCookies} from "../../utils/functions/Cookies/index";
 import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
-import FormInput from "../UI/FormInput.jsx";
-import FormButton from "../UI/FormButton.jsx";
-import routerNames from "../../router/RouterMapping/RouterNames.js";
+import {useEffect, useState} from "react";
+import FormInput from "../UI/FormInput";
+import FormButton from "../UI/FormButton";
+import routerNames from "../../router/RouterMapping/RouterNames";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const formInitValues = {
     login: '',
@@ -16,6 +18,8 @@ const formInitValues = {
 
 const LoginForm = () => {
     const {homePage: homePage} = routerNames;
+
+    const [showPass, setShowPass] = useState(false)
 
     const navigation = useNavigate();
     const formik = useFormik({
@@ -36,6 +40,10 @@ const LoginForm = () => {
         }
     }, [])
 
+    const handleClick = () => {
+        setShowPass(!showPass)
+    }
+
     return (
         <div className={styles.container}>
 
@@ -44,7 +52,7 @@ const LoginForm = () => {
                     variant={'h4'}
                     align={'center'}
                 >
-                    <b className={styles.bold}>Welcome to To-Do App!</b>
+                    <b className={styles.bold}>Sign in</b>
                 </Typography>
 
                 <div className={styles.wrapper}>
@@ -66,8 +74,18 @@ const LoginForm = () => {
                         label={'Password:'}
                         name={'password'}
                         id={'password'}
-                        type={'password'}
+                        type={!showPass ? 'password' : 'text'}
                     />
+                    <div className={styles.display}>
+                        <Fab
+                            onClick={handleClick}
+                            size="small"
+                            variant="extended"
+                            color="secondary">
+                            {showPass ? <RemoveRedEyeIcon/> : <VisibilityOffIcon/>}
+                        </Fab>
+                    </div>
+
                     <FormButton
                         color={'secondary'}
                         variant={'contained'}

@@ -16,6 +16,16 @@ const formInitValues = {
     description: '',
 };
 
+function StyledInput(props) {
+    return null;
+}
+
+StyledInput.propTypes = {placeholder: PropTypes.string};
+
+function HelperText() {
+    return null;
+}
+
 const TodoForm = ({onAddTodo, onDeleteAll}) => {
     const [iterator, setIterator] = useState(idGenerator(0));
 
@@ -38,7 +48,7 @@ const TodoForm = ({onAddTodo, onDeleteAll}) => {
                 itemId: newItemId,
                 status: 'Not-Completed',
             };
-            onAddTodo(newTodo);
+            onAddTodo(newTodo, 'success');
             resetForm();
         },
     });
@@ -72,24 +82,27 @@ const TodoForm = ({onAddTodo, onDeleteAll}) => {
                         value={formik.values.description}
                     />
                 </FormGroup>
-                <FormButton
-                    color="secondary"
-                    variant="outlined"
-                    type="submit"
-                    text="Create To-Do"
-                />
-                <FormButton
-                    color="warning"
-                    variant="outlined"
-                    onClick={handleClear}
-                    text="Clear All Text-fields"
-                />
-                <FormButton
-                    color="error"
-                    variant="outlined"
-                    onClick={handleDeleteAll}
-                    text="Delete all to-dos"
-                />
+                <div className={styles.buttonWrapper}>
+                    <FormButton
+                        color="secondary"
+                        variant="contained"
+                        type="submit"
+                        text="Create"
+                    />
+                    <FormButton
+                        color="warning"
+                        variant="contained"
+                        onClick={handleClear}
+                        text="Clear"
+                    />
+                    <FormButton
+                        color="error"
+                        variant="contained"
+                        onClick={handleDeleteAll}
+                        text="Delete all"
+                    />
+                </div>
+
             </div>
         </form>
     );

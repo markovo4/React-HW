@@ -16,8 +16,8 @@ const Nav = () => {
         <BaseTemplateHeader>
             <nav className={styles.navigation}>
                 <Link className={styles.link} to="/">Home Page</Link>
-                <Link className={styles.link} to="/login"/>
-                <Link className={styles.link} to="*"/>
+                <Link className={styles.hidden} to="/login"/>
+                <Link className={styles.hidden} to="*"/>
                 <Link className={styles.link} to="/todos">Todos</Link>
 
                 {todos.map((todo, index) => (

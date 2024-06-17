@@ -9,8 +9,8 @@ html {
   justify-content: center;
   border-radius: 20px;
   padding: 50px 50px;
-  min-width: 500px;
-  height: 300px;
+  min-width: 700px;
+  height: 400px;
   background-color: rgba(161, 0, 255, 0.08);
   gap: 20px;
 }
@@ -19,7 +19,9 @@ html {
   display: flex;
   flex-direction: column;
   gap: 30px;
-  width: 50%;
+  width: 75%;
+  padding: 0 50px;
+  position: relative;
 }
 
 .container {
@@ -34,6 +36,12 @@ html {
 .bold {
   font-weight: bold;
   color: rgba(0, 0, 0, 0.63);
+}
+
+.display {
+  position: absolute;
+  bottom: 2px;
+  right: 0px;
 }
 
 /*# sourceMappingURL=loginForm.module.css.map */

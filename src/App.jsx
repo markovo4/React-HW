@@ -1,11 +1,14 @@
 import React from 'react';
 import RouterMapping from "./router/RouterMapping/RouterMapping.jsx";
+import {SnackbarProvider} from "notistack";
 
 function App() {
 
     return (
         <React.Fragment>
-            <RouterMapping/>
+            <SnackbarProvider maxSnack={2}>
+                <RouterMapping/>
+            </SnackbarProvider>
         </React.Fragment>
     )
 }
