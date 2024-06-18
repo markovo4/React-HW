@@ -4,6 +4,7 @@ import {useEffect} from "react";
 import routerNames from "../RouterMapping/RouterNames.js";
 import LogoutIcon from '@mui/icons-material/Logout';
 import {Button} from "@mui/material";
+import BaseTemplateHeader from "../../templates/BaseTemplateHeader";
 
 const ProgrammingNavigation = () => {
     const navigation = useNavigate();
@@ -22,12 +23,14 @@ const ProgrammingNavigation = () => {
         navigation(loginPage)
     }
     return (
-        <Button
-            color={'error'}
-            variant={'contained'}
-            onClick={handleClick}
-            startIcon={<LogoutIcon/>}
-        >Log Out</Button>
+        <BaseTemplateHeader>
+            <Button
+                color={'error'}
+                variant={'contained'}
+                onClick={handleClick}
+                startIcon={<LogoutIcon/>}
+            >Log Out</Button>
+        </BaseTemplateHeader>
     )
 }
 
