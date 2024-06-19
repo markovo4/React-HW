@@ -13,7 +13,6 @@ const HomePage = () => {
                 <ProgrammingNavigation/>
             </BaseTemplateHeader>
             <BaseTemplate>
-
                 <TodoList/>
             </BaseTemplate>
         </React.Fragment>

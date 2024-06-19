@@ -32,12 +32,14 @@ const TodoForm = ({onAddTodo, onDeleteAll}) => {
         validationSchema,
         onSubmit: (values, {resetForm}) => {
             const newItemId = iterator.next().value;
+
             const newTodo = {
                 title: values.title.trim(),
                 description: values.description.trim(),
                 itemId: newItemId,
                 status: 'Not-Completed',
             };
+
             onAddTodo(newTodo, 'success');
             resetForm();
         },

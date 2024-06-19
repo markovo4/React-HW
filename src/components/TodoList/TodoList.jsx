@@ -5,18 +5,18 @@ import TodoItem from "../TodoItem";
 import {clearTodos, getTodos, setTodos} from "../../utils/functions/LocalStorage";
 import {useEffect, useState} from "react";
 import {useSnackbar} from "notistack";
+import {cloneDeep} from "lodash";
 
 const TodoList = () => {
+    const todos = getTodos();
+
     const {enqueueSnackbar} = useSnackbar();
-    const [notesList, setNotesList] = useState(() => {
-        const notes = getTodos();
-        return notes ? [...notes].reverse() : [];
-    });
+    const [todosList, setTodosList] = useState(todos ? [...todos].reverse() : []);
 
     useEffect(() => {
-        const notes = getTodos();
-        if (notes) {
-            setNotesList([...notes].reverse());
+        if (todos) {
+            const todosCopy = cloneDeep(todos)
+            setTodosList(todosCopy);
         }
     }, []);
 
@@ -25,13 +25,13 @@ const TodoList = () => {
         const filteredNotes = notesData.filter((note) => note.itemId !== id);
 
         setTodos(filteredNotes);
-        setNotesList([...filteredNotes].reverse());
+        setTodosList([...filteredNotes].reverse());
         enqueueSnackbar(`${title} Todo has been deleted`, {variant})
     };
 
     const handleDeleteAll = () => {
         clearTodos();
-        setNotesList([]);
+        setTodosList([]);
     };
 
     const handleCreate = (newNote, variant) => {
@@ -39,7 +39,7 @@ const TodoList = () => {
         const updatedNotes = [...previousNotes, newNote];
 
         setTodos(updatedNotes);
-        setNotesList([...updatedNotes].reverse());
+        setTodosList([...updatedNotes].reverse());
         enqueueSnackbar("Todo is Added Successfully", {variant})
 
     };
@@ -60,7 +60,7 @@ const TodoList = () => {
                 />
 
                 <div className={styles.wrapper}>
-                    {notesList.map((note) => (
+                    {todosList.map((note) => (
                         <TodoItem
                             key={note.itemId}
                             title={note.title}

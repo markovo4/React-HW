@@ -18,7 +18,7 @@ const TodoItem = ({title, description, id, onDelete, view}) => {
     useEffect(() => {
         const initialTodoCopy = cloneDeep(initialTodo)
         setInitialTodo(initialTodoCopy)
-    }, [id])
+    }, [])
 
     const [status, setStatus] = useState(initialTodo.status || 'Not-Completed');
 
