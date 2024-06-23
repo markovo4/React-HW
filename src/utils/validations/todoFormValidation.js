@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-const validationSchema = Yup.object({
+const todoFormValidation = Yup.object({
     title: Yup.string()
         .trim()
         .required('Required'),
@@ -9,4 +9,4 @@ const validationSchema = Yup.object({
         .required('Required')
 })
 
-export default validationSchema;
+export default todoFormValidation;

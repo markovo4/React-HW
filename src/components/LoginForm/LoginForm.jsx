@@ -1,15 +1,15 @@
 import {Fab, Typography} from "@mui/material";
 import styles from './loginForm.module.scss';
 import {useFormik} from "formik";
-import validationSchema from "./validationSchema";
-import {getCookies, setCookies} from "../../utils/functions/Cookies/index";
+import loginFormValidation from "../../utils/validations/loginFormValidation";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import FormInput from "../UI/FormInput";
 import FormButton from "../UI/FormButton";
-import routerNames from "../../router/RouterMapping/RouterNames";
+import routerNames from "../../routes/router/RouterMapping/RouterNames";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import Cookies from 'js-cookie';
 
 const formInitValues = {
     login: '',
@@ -23,18 +23,16 @@ const LoginForm = () => {
     const navigation = useNavigate();
     const formik = useFormik({
         initialValues: {...formInitValues},
-        validationSchema,
+        validationSchema: loginFormValidation,
         onSubmit: (values, {resetForm}) => {
-            setCookies('login', `${values.login}`, 0.01);
-            setCookies('password', `${values.password}`, 0.01);
-            setCookies('LoggedIn', 'true', 0.01);
+            Cookies.set('LoggedIn', 'true');
             resetForm();
             navigation(homePage);
         }
     })
 
     useEffect(() => {
-        if (window.location.pathname === '/login' && getCookies('LoggedIn')) {
+        if (window.location.pathname === '/login' && Cookies.get('LoggedIn')) {
             navigation(homePage)
         }
     }, [])

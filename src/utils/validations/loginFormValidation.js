@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-const validationSchema = Yup.object({
+const loginFormValidation = Yup.object({
     login: Yup.string()
         .min(3, 'Must be at least 3 characters')
         .trim()
@@ -12,4 +12,4 @@ const validationSchema = Yup.object({
         .required('Required')
 })
 
-export default validationSchema;
+export default loginFormValidation;

@@ -16,7 +16,7 @@ const TodoList = () => {
     useEffect(() => {
         if (todos) {
             const todosCopy = cloneDeep(todos)
-            setTodosList(todosCopy);
+            setTodosList([...todosCopy].reverse());
         }
     }, []);
 
@@ -43,6 +43,7 @@ const TodoList = () => {
         enqueueSnackbar("Todo is Added Successfully", {variant})
 
     };
+
 
     return (
         <div className={styles.list}>

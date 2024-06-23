@@ -1,10 +1,10 @@
-import HomePage from "../HomePage";
-import PageNotFound from "../PageNotFound";
-import LoginPage from "../LoginPage";
+import HomePage from "../../pages/HomePage/index.js";
+import PageNotFound from "../../pages/PageNotFound/index.js";
+import LoginPage from "../../pages/LoginPage/index.js";
 import routerNames from "./RouterNames.js";
-import SingleTodoItemEdit from "../SingleTodoItemEdit/index.js";
-import TodoList from "../TodoList";
-import SingleTodoItemView from "../SingleTodoViewOnly/index.js";
+import SingleTodoItemEdit from "../../pages/SingleTodoItemEdit/index.js";
+import TodoList from "../../pages/TodoList/index.js";
+import SingleTodoItemView from "../../pages/SingleTodoViewOnly/index.js";
 
 
 const routerConfig = () => {
@@ -25,7 +25,7 @@ const routerConfig = () => {
         }
     })
 
-    return routerConfig
+    return routerConfig;
 }
 
 export default routerConfig;

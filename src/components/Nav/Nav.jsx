@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {getTodos} from "../../utils/functions/LocalStorage";
-import BaseTemplateHeader from "../../templates/BaseTemplateHeader";
+import BaseTemplate from "../../templates/BaseTemplate";
 import styles from './nav.module.scss';
 
 const Nav = () => {
@@ -13,7 +13,7 @@ const Nav = () => {
     }, []);
 
     return (
-        <BaseTemplateHeader>
+        <BaseTemplate.Header>
             <nav className={styles.navigation}>
                 <Link className={styles.link} to="/">Home Page</Link>
                 <Link className={styles.hidden} to="/login"/>
@@ -27,7 +27,7 @@ const Nav = () => {
                     </React.Fragment>
                 ))}
             </nav>
-        </BaseTemplateHeader>
+        </BaseTemplate.Header>
     );
 };
 

@@ -21,6 +21,7 @@
     "bootstrap": "^5.3.3",
     "formik": "^2.4.6",
     "gh-pages": "^6.1.1",
+    "js-cookie": "^3.0.5",
     "lodash": "^4.17.21",
     "notistack": "^3.0.1",
     "prop-types": "^15.8.1",
@@ -31,6 +32,8 @@
     "reset-css": "^5.0.2",
     "sass": "^1.77.4",
     "styled-components": "^6.1.11",
+    "uuid": "^10.0.0",
+    "uuidv4": "^6.2.13",
     "yup": "^1.4.0"
   },
   "devDependencies": {

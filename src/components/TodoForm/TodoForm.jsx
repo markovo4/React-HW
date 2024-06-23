@@ -2,14 +2,11 @@ import {useEffect, useState} from "react";
 import {useFormik} from "formik";
 import {FormGroup} from "@mui/material";
 import PropTypes from "prop-types";
-import {isEmpty} from "lodash";
-
-import validationSchema from "../../utils/validations/validationSchema.js";
+import todoFormValidation from "../../utils/validations/todoFormValidation";
 import FormInput from "../UI/FormInput";
 import FormButton from "../UI/FormButton";
-import {idGenerator} from "../../utils/functions/IdGenerator";
-import {getTodos} from "../../utils/functions/LocalStorage";
 import styles from './todoForm.module.scss';
+import {v4 as uuidv4} from 'uuid';
 
 const formInitValues = {
     title: '',
@@ -17,26 +14,20 @@ const formInitValues = {
 };
 
 const TodoForm = ({onAddTodo, onDeleteAll}) => {
-    const [iterator, setIterator] = useState(idGenerator(0));
+    const [currentId, setCurrentId] = useState(uuidv4())
 
     useEffect(() => {
-        const notes = getTodos();
-        if (!isEmpty(notes)) {
-            const savedId = notes.at(-1).itemId;
-            setIterator(idGenerator(savedId));
-        }
-    }, []);
+        setCurrentId(uuidv4())
+    }, [onAddTodo]);
 
     const formik = useFormik({
         initialValues: {...formInitValues},
-        validationSchema,
+        validationSchema: todoFormValidation,
         onSubmit: (values, {resetForm}) => {
-            const newItemId = iterator.next().value;
-
             const newTodo = {
                 title: values.title.trim(),
                 description: values.description.trim(),
-                itemId: newItemId,
+                itemId: currentId,
                 status: 'Not-Completed',
             };
 

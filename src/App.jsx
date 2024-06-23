@@ -1,5 +1,5 @@
 import React from 'react';
-import RouterMapping from "./router/RouterMapping/RouterMapping.jsx";
+import RouterMapping from "./routes/router/RouterMapping/RouterMapping.jsx";
 import {SnackbarProvider} from "notistack";
 
 function App() {
