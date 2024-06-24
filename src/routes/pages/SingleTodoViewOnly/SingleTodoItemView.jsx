@@ -1,12 +1,12 @@
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {getTodos} from "../../../utils/functions/LocalStorage/index.js";
+import {getTodos} from "../../../utils/functions/LocalStorage";
 import {Typography} from "@mui/material";
 import styles from './singleTodoItem.module.scss';
-import FormSelect from "../../../components/UI/FormSelect.jsx";
-import Nav from "../../../components/Nav/index.js";
-import LogoutButton from "../../../components/LogoutButton/index.js";
-import BaseTemplate from "../../../templates/BaseTemplate/index.js";
+import FormSelect from "../../../components/UI/FormSelect";
+import Nav from "../../../components/Nav";
+import LogoutButton from "../../../components/LogoutButton";
+import BaseTemplate from "../../../templates/BaseTemplate";
 
 const SingleTodoItemView = () => {
     const [todoView, setTodoView] = useState({});

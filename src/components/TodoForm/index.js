@@ -1,3 +1,3 @@
-import TodoForm from "./TodoForm.jsx";
+import TodoForm from "./TodoForm";
 
 export default TodoForm;

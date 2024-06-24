@@ -1,3 +1,3 @@
-import SingleTodoItemView from "./SingleTodoItemView.jsx";
+import SingleTodoItemView from "./SingleTodoItemView";
 
 export default SingleTodoItemView;

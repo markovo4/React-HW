@@ -1,7 +1,7 @@
-import BaseTemplate from "../../../templates/BaseTemplate/index.js";
-import TodoList from "../../../components/TodoList/index.js";
-import LogoutButton from "../../../components/LogoutButton/index.js";
-import Nav from "../../../components/Nav/index.js";
+import BaseTemplate from "../../../templates/BaseTemplate";
+import TodoList from "../../../components/TodoList";
+import LogoutButton from "../../../components/LogoutButton";
+import Nav from "../../../components/Nav";
 
 const HomePage = () => {
     return (

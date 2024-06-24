@@ -1,5 +1,5 @@
-import LoginForm from "../../../components/LoginForm/index.js";
-import LoginTemplate from "../../../templates/LoginTemplate/index.js";
+import LoginForm from "../../../components/LoginForm";
+import LoginTemplate from "../../../templates/LoginTemplate";
 
 const LoginPage = () => {
     return (

@@ -1,4 +1,4 @@
-import {DATA_KEY} from "../../constants/constants.js";
+import {DATA_KEY} from "../../constants/constants";
 
 export function getTodos() {
     return JSON.parse(localStorage.getItem(DATA_KEY));

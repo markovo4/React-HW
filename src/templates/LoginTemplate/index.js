@@ -1,3 +1,3 @@
-import LoginTemplate from './LoginTemplate.jsx';
+import LoginTemplate from './LoginTemplate';
 
 export default LoginTemplate;

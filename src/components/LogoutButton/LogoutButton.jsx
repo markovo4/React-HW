@@ -1,8 +1,8 @@
 import {useNavigate} from "react-router-dom";
-import routerNames from "../../routes/router/RouterMapping/RouterNames.js";
+import routerNames from "../../routes/router/RouterMapping/RouterNames";
 import LogoutIcon from '@mui/icons-material/Logout';
 import {Button} from "@mui/material";
-import BaseTemplate from "../../templates/BaseTemplate/index.js";
+import BaseTemplate from "../../templates/BaseTemplate";
 import Cookies from "js-cookie";
 
 const LogoutButton = () => {

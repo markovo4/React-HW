@@ -1,4 +1,4 @@
-import routerConfig from "./RouterConfig.js";
+import routerConfig from "./RouterConfig";
 import {Route, Routes} from "react-router-dom";
 
 const RouterMapping = () => {

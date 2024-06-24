@@ -1,11 +1,11 @@
 import {useEffect, useState} from "react";
-import {getTodos} from "../../../utils/functions/LocalStorage/index.js";
-import TodoItem from "../../../components/TodoItem/index.js";
+import {getTodos} from "../../../utils/functions/LocalStorage";
+import TodoItem from "../../../components/TodoItem";
 import styledList from './list.module.scss';
 import styles from "../../../components/TodoList/todoList.module.scss";
-import LogoutButton from "../../../components/LogoutButton/index.js";
-import BaseTemplate from "../../../templates/BaseTemplate/index.js";
-import Nav from "../../../components/Nav/Nav.jsx";
+import LogoutButton from "../../../components/LogoutButton";
+import BaseTemplate from "../../../templates/BaseTemplate";
+import Nav from "../../../components/Nav";
 import {cloneDeep, isEmpty} from 'lodash';
 import {Typography} from "@mui/material";
 

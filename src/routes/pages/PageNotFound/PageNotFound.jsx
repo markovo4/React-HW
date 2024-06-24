@@ -1,6 +1,6 @@
-import BaseTemplate from "../../../templates/BaseTemplate/index.js";
-import LogoutButton from "../../../components/LogoutButton/index.js";
-import Nav from "../../../components/Nav/index.js";
+import BaseTemplate from "../../../templates/BaseTemplate";
+import LogoutButton from "../../../components/LogoutButton";
+import Nav from "../../../components/Nav";
 import styles from './pageNotFound.module.scss';
 
 const PageNotFound = () => {

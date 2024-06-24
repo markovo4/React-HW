@@ -1,3 +1,3 @@
-import TodoList from "./TodoList.jsx";
+import TodoList from "./TodoList";
 
 export default TodoList;

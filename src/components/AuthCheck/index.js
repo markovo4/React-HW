@@ -1,3 +1,3 @@
-import AuthCheck from "./AuthCheck.jsx";
+import AuthCheck from "./AuthCheck";
 
 export default AuthCheck;

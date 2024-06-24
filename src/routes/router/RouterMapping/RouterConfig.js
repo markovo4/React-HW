@@ -1,10 +1,10 @@
-import HomePage from "../../pages/HomePage/index.js";
-import PageNotFound from "../../pages/PageNotFound/index.js";
-import LoginPage from "../../pages/LoginPage/index.js";
-import routerNames from "./RouterNames.js";
-import SingleTodoItemEdit from "../../pages/SingleTodoItemEdit/index.js";
-import TodoList from "../../pages/TodoList/index.js";
-import SingleTodoItemView from "../../pages/SingleTodoViewOnly/index.js";
+import HomePage from "../../pages/HomePage";
+import PageNotFound from "../../pages/PageNotFound";
+import LoginPage from "../../pages/LoginPage";
+import routerNames from "./RouterNames";
+import SingleTodoItemEdit from "../../pages/SingleTodoItemEdit";
+import TodoList from "../../pages/TodoList";
+import SingleTodoItemView from "../../pages/SingleTodoViewOnly";
 
 
 const routerConfig = () => {

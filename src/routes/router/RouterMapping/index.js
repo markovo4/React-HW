@@ -1,3 +1,3 @@
-import RouterMapping from "./RouterMapping.jsx";
+import RouterMapping from "./RouterMapping";
 
 export default RouterMapping;

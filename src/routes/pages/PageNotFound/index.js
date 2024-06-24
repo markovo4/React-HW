@@ -1,3 +1,3 @@
-import PageNotFound from "./PageNotFound.jsx";
+import PageNotFound from "./PageNotFound";
 
 export default PageNotFound;

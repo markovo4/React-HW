@@ -1,3 +1,3 @@
-import BaseTemplate from "./BaseTemplate.jsx";
+import BaseTemplate from "./BaseTemplate";
 
 export default BaseTemplate;

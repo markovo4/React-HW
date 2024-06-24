@@ -3,9 +3,9 @@ import {Typography} from "@mui/material";
 import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {useNavigate} from "react-router-dom";
-import {getTodos, setTodos} from "../../utils/functions/LocalStorage/index.js";
-import FormSelect from "../UI/FormSelect.jsx";
-import FormButton from "../UI/FormButton.jsx";
+import {getTodos, setTodos} from "../../utils/functions/LocalStorage";
+import FormSelect from "../UI/FormSelect";
+import FormButton from "../UI/FormButton";
 import {cloneDeep} from "lodash";
 import DeleteIcon from '@mui/icons-material/Delete';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
@@ -52,7 +52,7 @@ const TodoItem = ({title, description, id, onDelete, view}) => {
                     {description}
                 </Typography>
                 <hr className={styles.separator}/>
-                
+
                 <FormSelect
                     view={view}
                     status={status}
