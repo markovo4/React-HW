@@ -3,7 +3,7 @@ import styles from './loginForm.module.scss';
 import {useFormik} from "formik";
 import loginFormValidation from "../../utils/validations/loginFormValidation";
 import {useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import FormInput from "../UI/FormInput";
 import FormButton from "../UI/FormButton";
 import routerNames from "../../routes/router/RouterMapping/RouterNames";
@@ -30,12 +30,6 @@ const LoginForm = () => {
             navigation(homePage);
         }
     })
-
-    useEffect(() => {
-        if (window.location.pathname === '/login' && Cookies.get('LoggedIn')) {
-            navigation(homePage)
-        }
-    }, [])
 
     const handleClick = () => {
         setShowPass(!showPass)

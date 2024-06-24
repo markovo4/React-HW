@@ -1,15 +1,15 @@
-import React from 'react';
-import RouterMapping from "./routes/router/RouterMapping/RouterMapping.jsx";
+import RouterMapping from "./routes/router/RouterMapping/RouterMapping";
 import {SnackbarProvider} from "notistack";
+import AuthCheck from "./components/AuthCheck";
 
 function App() {
 
     return (
-        <React.Fragment>
+        <AuthCheck>
             <SnackbarProvider maxSnack={2}>
                 <RouterMapping/>
             </SnackbarProvider>
-        </React.Fragment>
+        </AuthCheck>
     )
 }
 

@@ -52,6 +52,7 @@ const TodoItem = ({title, description, id, onDelete, view}) => {
                     {description}
                 </Typography>
                 <hr className={styles.separator}/>
+                
                 <FormSelect
                     view={view}
                     status={status}

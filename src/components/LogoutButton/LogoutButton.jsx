@@ -4,17 +4,16 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import {Button} from "@mui/material";
 import BaseTemplate from "../../templates/BaseTemplate/index.js";
 import Cookies from "js-cookie";
-import {useEffect} from "react";
 
 const LogoutButton = () => {
     const navigation = useNavigate();
     const {loginPage: loginPage} = routerNames;
 
-    useEffect(() => {
-        if (window.location.pathname !== loginPage && !Cookies.get('LoggedIn')) {
-            navigation(loginPage);
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (window.location.pathname !== loginPage && !Cookies.get('LoggedIn')) {
+    //         navigation(loginPage);
+    //     }
+    // }, []);
 
     const handleClick = () => {
         Cookies.remove('LoggedIn')
