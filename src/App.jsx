@@ -1,4 +1,4 @@
-import RouterMapping from "./routes/router/RouterMapping/RouterMapping";
+import RouterMapping from "./routes/router/RouterMapping";
 import {SnackbarProvider} from "notistack";
 import AuthCheck from "./components/AuthCheck";
 
