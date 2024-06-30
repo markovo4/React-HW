@@ -9,7 +9,7 @@ const CreateOrder = () => {
 
     useEffect(() => {
         dispatch(fetchProducts())
-    }, []);
+    }, [dispatch]);
 
     return (
         products && products.map((item, index) => {
