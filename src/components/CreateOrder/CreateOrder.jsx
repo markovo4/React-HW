@@ -1,4 +1,3 @@
-// import {getProducts} from "../../utils/products";
 import SingleProduct from "../SingleProduct";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
