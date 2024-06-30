@@ -1,0 +1,29 @@
+.wrapper {
+  display: flex;
+  width: 368px;
+  margin: 0 auto;
+}
+
+.numInput {
+  width: inherit;
+  display: flex;
+  padding: 8px;
+  border: 1px solid rgba(38, 38, 38, 0.42);
+  border-radius: 8px 0 0 8px;
+}
+
+.numInput:focus {
+  outline: unset;
+  outline: 1px solid rgba(38, 38, 38, 0.42);
+}
+
+.numInput:focus-visible {
+  border: unset;
+}
+
+.submitButton {
+  width: 75%;
+  background: rgba(17, 255, 2, 0.21);
+  border: 2px solid rgba(38, 38, 38, 0.23);
+  border-radius: 0 8px 8px 0;
+}

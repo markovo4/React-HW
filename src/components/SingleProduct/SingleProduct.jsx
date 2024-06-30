@@ -2,18 +2,15 @@ import {
     Accordion,
     AccordionDetails,
     AccordionSummary,
-    Button,
     Card,
     CardActions,
     CardContent,
     CardMedia,
     Typography
 } from "@mui/material";
+import {ExpandMore} from "@mui/icons-material";
 import PropTypes from "prop-types";
-
-function ExpandMoreIcon() {
-    return null;
-}
+import NumInput from "../UI/NumInput";
 
 const SingleProduct = ({productImg, productTitle, productDescription, productPrice}) => {
 
@@ -21,7 +18,8 @@ const SingleProduct = ({productImg, productTitle, productDescription, productPri
         backgroundSize: '200px auto',
     }
     return (
-        <Card sx={{width: 300}}>
+        <Card
+            sx={{width: 400}}>
             <CardMedia
                 style={imgSize}
                 sx={{height: 370}}
@@ -29,7 +27,11 @@ const SingleProduct = ({productImg, productTitle, productDescription, productPri
                 title={productTitle}
             />
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography
+                    style={{minHeight: 127}}
+                    gutterBottom
+                    variant="h5"
+                    component="div">
                     {productTitle}
                 </Typography>
                 <Typography gutterBottom variant="h5" component="div">
@@ -38,7 +40,7 @@ const SingleProduct = ({productImg, productTitle, productDescription, productPri
 
                 <Accordion>
                     <AccordionSummary
-                        expandIcon={<ExpandMoreIcon/>}
+                        expandIcon={<ExpandMore/>}
                         aria-controls="panel1-content"
                         id="panel1-header"
                     >
@@ -54,8 +56,7 @@ const SingleProduct = ({productImg, productTitle, productDescription, productPri
                 </Accordion>
             </CardContent>
             <CardActions>
-                <Button size="small">Share</Button>
-                <Button size="small">Learn More</Button>
+                <NumInput/>
             </CardActions>
         </Card>
     )

@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  width: 800px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/*# sourceMappingURL=createOrder.module.css.map */

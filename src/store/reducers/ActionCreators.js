@@ -13,3 +13,4 @@ export const fetchProducts = () => async (dispatch = useDispatch()) => {
         dispatch(listOfProductsSlice.actions.productsFetchingError(error))
     }
 }
+
