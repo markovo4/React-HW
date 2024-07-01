@@ -24,7 +24,7 @@ const SingleProduct = ({productImg, productTitle, productDescription, productPri
     const handleClick = (e) => {
         e.preventDefault();
         const amount = parseInt(itemCount);
-        addToCart(amount)
+        addToCart(amount, productTitle, productPrice, productImg)
     }
 
     const imgSize = {

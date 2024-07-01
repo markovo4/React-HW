@@ -1,82 +1,103 @@
 import SingleProduct from "../SingleProduct";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {fetchProducts} from "../../store/reducers/ActionCreators";
 import styles from './createOrder.module.scss';
-import ClearIcon from '@mui/icons-material/Clear';
-import {
-    Avatar,
-    Box,
-    Container,
-    IconButton,
-    List,
-    ListItem,
-    ListItemAvatar,
-    ListItemText,
-    Typography
-} from "@mui/material";
+import {Box, Button, Container, Typography} from "@mui/material";
+import CreateOrderList from "../CreateOrderList";
 
 
 const CreateOrder = () => {
     const {products} = useSelector(state => state.listOfProducts)
     const dispatch = useDispatch();
 
+    const [newOrderList, setNewOrderList] = useState([]);
+
     useEffect(() => {
         dispatch(fetchProducts())
     }, [dispatch]);
 
-    const handleAddItem = (id) => (amount) => {
-        console.log(id, amount)
+    const handleRemoveItem = (id) => () => {
+        const updatedOrderList = newOrderList.filter((_, index) => index !== id);
+        setNewOrderList(updatedOrderList);
     }
+
+    const handleAddItem = (id) => (amount, productTitle, productPrice, productImg) => {
+        const newItem = {
+            id,
+            amount,
+            productTitle,
+            productPrice,
+            productImg,
+        }
+        const updatedListOfProducts = [...newOrderList, newItem];
+        setNewOrderList(updatedListOfProducts)
+        console.log(newOrderList);
+    }
+
 
     return (
         <div className={styles.container}>
-            <Container maxWidth="sm">
-                <Box
-                    sx={{bgcolor: '#cfe8fc'}}
-                    height={'100vh'}
+            <Container
+                sx={{bgcolor: '#cfe8fc', height: '700px', maxWidth: '950px'}}
+            >
+                <Typography
+                    variant="h6"
+                    component="div"
+                    sx={{paddingTop: '10px'}}
                 >
-                    <Typography sx={{mt: 4, mb: 2}} variant="h6" component="div">
-                        Avatar with text and icon
-                    </Typography>
-                    <List>
+                    Cart
+                </Typography>
 
-                        <ListItem
-                            secondaryAction={
-                                <IconButton edge="end" aria-label="delete">
-                                    <ClearIcon/>
-                                </IconButton>
-                            }
-                        >
-                            <ListItemAvatar>
-                                <Avatar
-                                    src={products.length ? products[0].image : ''}
-                                >
-                                </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary="Single-line item"
+                <Box
+                    sx={{
+                        overflow: 'auto',
+                        bgcolor: 'rgba(255,255,255,0.56)',
+                        border: '1px solid #ccc',
+                        marginBottom: '15px',
+                        maxWidth: 'inherit',
+                        height: '590px'
+                    }}
+                >
+                    {newOrderList &&
+                        newOrderList.map((product, index) => (
+                            <CreateOrderList
+                                key={index}
+                                amount={product.amount}
+                                title={product.productTitle}
+                                price={product.productPrice}
+                                img={product.productImg}
+                                id={product.id}
+                                handleClick={handleRemoveItem(index)}
                             />
-                        </ListItem>
-                    </List>
+                        ))}
                 </Box>
+                <div className={styles.buttonGroup}>
+                    <Button
+                        variant={'success'}
+                    >Save Order</Button>
+                    <Button
+                        variant={'success'}
+                    >Cancel Order</Button>
+                </div>
+
             </Container>
+
             <div className={styles.wrapper}>
-                {products && products.map((item, index) => {
-                    return (
-                        <SingleProduct key={index}
-                                       productImg={item.image}
-                                       productTitle={item.title}
-                                       productDescription={item.description}
-                                       productPrice={`$${item.price}`}
-                                       id={item.id}
-                                       addToCart={handleAddItem(item.id)}
+                {products &&
+                    products.map((item, index) => (
+                        <SingleProduct
+                            key={index}
+                            productImg={item.image}
+                            productTitle={item.title}
+                            productDescription={item.description}
+                            productPrice={`$${item.price}`}
+                            id={item.id}
+                            addToCart={handleAddItem(item.id)}
                         />
-                    )
-                })}
+                    ))}
             </div>
         </div>
-
 
     )
 }
