@@ -1,3 +1,10 @@
+.submitButton {
+  width: 75%;
+  background: rgba(17, 255, 2, 0.21);
+  border: 2px solid rgba(38, 38, 38, 0.23);
+  border-radius: 0 8px 8px 0;
+}
+
 .wrapper {
   display: flex;
   width: 368px;
@@ -21,11 +28,4 @@
   border: unset;
 }
 
-.submitButton {
-  width: 75%;
-  background: rgba(17, 255, 2, 0.21);
-  border: 2px solid rgba(38, 38, 38, 0.23);
-  border-radius: 0 8px 8px 0;
-}
-
-/*# sourceMappingURL=numInput.module.css.map */
+/*# sourceMappingURL=singleProduct.module.css.map */

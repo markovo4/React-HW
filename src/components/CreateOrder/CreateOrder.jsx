@@ -12,6 +12,10 @@ const CreateOrder = () => {
         dispatch(fetchProducts())
     }, [dispatch]);
 
+    const handleAddItem = (id) => (amount) => {
+        console.log(id, amount)
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.wrapper}>
@@ -22,6 +26,8 @@ const CreateOrder = () => {
                                        productTitle={item.title}
                                        productDescription={item.description}
                                        productPrice={`$${item.price}`}
+                                       id={item.id}
+                                       addToCart={handleAddItem(item.id)}
                         />
                     )
                 })}
