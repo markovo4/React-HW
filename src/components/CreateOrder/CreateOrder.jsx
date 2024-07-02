@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {fetchProducts} from "../../store/reducers/ActionCreators";
 import styles from './createOrder.module.scss';
 import {Box, Button, Container, List, Typography} from "@mui/material";
-import CreateOrderList from "../CreateOrderList";
+import CreateOrderList from "../ProductList";
 import {addCurrentOrder, addToOrders} from "../../store/reducers/orders";
 import {v4 as uuidv4} from 'uuid';
 

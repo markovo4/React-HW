@@ -1,6 +1,6 @@
 import HomePage from "../pages/HomePage";
 import routerNames from "./RouterNames";
-import MyOrdersPage from "../pages/MyOrdersPage";
+import MyOrdersPage from "../pages/OrdersList";
 
 const routerConfig = () => {
     const pageComponents = [HomePage, MyOrdersPage];
