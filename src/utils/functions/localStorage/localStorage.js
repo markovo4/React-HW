@@ -1,11 +1,21 @@
-export function getOrder(key) {
-    return JSON.parse(localStorage.getItem(key));
-}
+export const saveState = (state) => {
+    try {
+        const serializedState = JSON.stringify(state);
+        localStorage.setItem('orders', serializedState);
+    } catch (error) {
+        console.error('Could not save state', error);
+    }
+};
 
-export function addOrder(key, notes) {
-    return localStorage.setItem(key, JSON.stringify(notes));
-}
-
-export function removeOrder(key) {
-    return localStorage.removeItem(key)
-}
+export const loadState = () => {
+    try {
+        const serializedState = localStorage.getItem('orders');
+        if (serializedState === null) {
+            return undefined;
+        }
+        return JSON.parse(serializedState);
+    } catch (error) {
+        console.error('Could not load state', error);
+        return undefined;
+    }
+};

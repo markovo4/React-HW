@@ -1,10 +1,20 @@
 import {configureStore} from "@reduxjs/toolkit";
 import listOfProductsReducer from "./reducers/listOfProducts";
-// import singleProductReducer from "./reducers/singleProduct";
+import ordersReducer from './reducers/orders';
+import {loadState, saveState} from "../utils/functions/localStorage/index.js";
 
-export default configureStore({
+
+const persistedState = loadState();
+
+export const store = configureStore({
     reducer: {
         listOfProducts: listOfProductsReducer,
-        // singleProduct: singleProductReducer,
-    }
+        orders: ordersReducer,
+    },
+    persistedState
 })
+
+store.subscribe(() => {
+    const state = store.getState().orders
+    saveState(state);
+});

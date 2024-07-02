@@ -28,6 +28,7 @@
     "reset-css": "^5.0.2",
     "sass": "^1.77.6",
     "styled-components": "^6.1.11",
+    "uuid": "^10.0.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {

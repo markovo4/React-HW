@@ -1,3 +1,3 @@
-import {addOrder, getOrder, removeOrder} from "./localStorage";
+import {loadState, saveState} from "./localStorage";
 
-export {getOrder, addOrder, removeOrder};
+export {saveState, loadState};

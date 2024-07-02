@@ -1,5 +1,6 @@
 import {Avatar, IconButton, List, ListItem, ListItemAvatar, ListItemText} from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
+import PropTypes from "prop-types";
 
 const CreateOrderList = ({amount, title, price, img, handleClick}) => {
 
@@ -42,6 +43,14 @@ const CreateOrderList = ({amount, title, price, img, handleClick}) => {
             </ListItem>
         </List>
     )
+}
+
+CreateOrderList.propTypes = {
+    amount: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    img: PropTypes.string.isRequired,
+    handleClick: PropTypes.func.isRequired
 }
 
 export default CreateOrderList;

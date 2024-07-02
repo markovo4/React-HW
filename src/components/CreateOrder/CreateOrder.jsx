@@ -5,21 +5,27 @@ import {fetchProducts} from "../../store/reducers/ActionCreators";
 import styles from './createOrder.module.scss';
 import {Box, Button, Container, Typography} from "@mui/material";
 import CreateOrderList from "../CreateOrderList";
+import {addCurrentOrder, addToOrders} from "../../store/reducers/orders";
+import {v4 as uuidv4} from 'uuid';
 
 
 const CreateOrder = () => {
     const {products} = useSelector(state => state.listOfProducts)
+    const {currentOrder, orders} = useSelector(state => state.orders)
+    const [currentId, setCurrentId] = useState(uuidv4())
     const dispatch = useDispatch();
-
-    const [newOrderList, setNewOrderList] = useState([]);
 
     useEffect(() => {
         dispatch(fetchProducts())
     }, [dispatch]);
 
+    useEffect(() => {
+        setCurrentId(uuidv4())
+    }, [orders])
+
     const handleRemoveItem = (id) => () => {
-        const updatedOrderList = newOrderList.filter((_, index) => index !== id);
-        setNewOrderList(updatedOrderList);
+        const updatedOrderList = currentOrder.filter((_, index) => index !== id);
+        dispatch(addCurrentOrder(updatedOrderList))
     }
 
     const handleAddItem = (id) => (amount, productTitle, productPrice, productImg) => {
@@ -30,9 +36,18 @@ const CreateOrder = () => {
             productPrice,
             productImg,
         }
-        const updatedListOfProducts = [...newOrderList, newItem];
-        setNewOrderList(updatedListOfProducts)
-        console.log(newOrderList);
+        const updatedListOfProducts = [...currentOrder, newItem];
+        dispatch(addCurrentOrder(updatedListOfProducts))
+    }
+
+    const handleAddOrder = () => {
+        const completedOrder = [currentId, currentOrder];
+        dispatch(addToOrders(completedOrder))
+        console.log(orders)
+    }
+
+    const handleCancelOrder = () => {
+        dispatch(addCurrentOrder([]))
     }
 
 
@@ -59,8 +74,8 @@ const CreateOrder = () => {
                         height: '590px'
                     }}
                 >
-                    {newOrderList &&
-                        newOrderList.map((product, index) => (
+                    {currentOrder &&
+                        currentOrder.map((product, index) => (
                             <CreateOrderList
                                 key={index}
                                 amount={product.amount}
@@ -74,9 +89,11 @@ const CreateOrder = () => {
                 </Box>
                 <div className={styles.buttonGroup}>
                     <Button
+                        onClick={handleAddOrder}
                         variant={'success'}
                     >Save Order</Button>
                     <Button
+                        onClick={handleCancelOrder}
                         variant={'success'}
                     >Cancel Order</Button>
                 </div>
