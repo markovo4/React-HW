@@ -38,7 +38,7 @@ const CreateOrderList = ({amount, title, price, img, handleClick}) => {
                 />
                 <ListItemText
                     sx={{textAlign: 'center', maxWidth: '100px'}}
-                    primary={amount}
+                    primary={` Amount: ${amount}`}
                 />
             </ListItem>
         </List>

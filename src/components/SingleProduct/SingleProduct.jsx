@@ -1,102 +1,81 @@
-import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Card,
-    CardActions,
-    CardContent,
-    CardMedia,
-    Typography
-} from "@mui/material";
-import {ExpandMore} from "@mui/icons-material";
+import {Avatar, IconButton, List, ListItem, ListItemAvatar, ListItemText} from "@mui/material";
 import PropTypes from "prop-types";
-import styles from './singleProduct.module.scss';
 import {useState} from "react";
+import AddIcon from '@mui/icons-material/Add';
+import styles from './singleProduct.module.scss'
 
-
-const SingleProduct = ({productImg, productTitle, productDescription, productPrice, id, addToCart}) => {
-    const [itemCount, setItemCount] = useState('0');
+const SingleProduct = ({productImg, productTitle, productPrice, id, addToCart}) => {
+    const [itemCount, setItemCount] = useState(1);
 
     const handleChange = (e) => {
-        setItemCount(e.target.value);
+        const {value} = e.target;
+        if (value >= 10) {
+            setItemCount(10)
+        } else if (value <= 1) {
+            setItemCount(1)
+        } else {
+            setItemCount(value)
+        }
     }
 
     const handleClick = (e) => {
         e.preventDefault();
+        if (!itemCount) return;
         const amount = parseInt(itemCount);
         addToCart(amount, productTitle, productPrice, productImg)
+        setItemCount(1)
     }
 
-    const imgSize = {
-        backgroundSize: '200px auto',
-    }
     return (
-        <form>
-            <Card
-                sx={{width: 400}}>
-                <CardMedia
-                    style={imgSize}
-                    sx={{height: 370}}
-                    image={productImg}
-                    title={productTitle}
-                />
-                <CardContent>
-                    <Typography
-                        style={{minHeight: 127}}
-                        gutterBottom
-                        variant="h5"
-                        component="div">
-                        {productTitle}
-                    </Typography>
-                    <Typography gutterBottom variant="h5" component="div">
-                        {productPrice}
-                    </Typography>
 
-                    <Accordion>
-                        <AccordionSummary
-                            expandIcon={<ExpandMore/>}
-                            aria-controls="panel1-content"
-                            id="panel1-header"
-                        >
-                            <Typography>
-                                About
-                            </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Typography>
-                                {productDescription}
-                            </Typography>
-                        </AccordionDetails>
-                    </Accordion>
-                </CardContent>
-                <CardActions>
-                    <div className={styles.wrapper}>
-                        <input
-                            className={styles.numInput}
-                            placeholder={'Choose amount'}
-                            type={"number"}
-                            min={0}
-                            max={10}
-                            value={itemCount}
-                            onChange={handleChange}
-                        />
-                        <button
-                            className={styles.submitButton}
-                            onClick={handleClick}
-                            id={id}
-                        >Add to Cart
-                        </button>
-                    </div>
-                </CardActions>
-            </Card>
-        </form>
+        <List>
+            <ListItem
+                sx={{display: 'flex', gap: '10px', bgcolor: 'rgba(255,255,255,0.75)'}}
+                secondaryAction={
+                    <IconButton
+                        sx={{bgcolor: 'rgba(147,222,138,0.46)'}}
+                        aria-label="add"
+                        onClick={handleClick}
+                        id={id}
+                    >
+                        <AddIcon/>
+                    </IconButton>
+                }>
+
+                <ListItemAvatar>
+                    <Avatar
+                        sx={{width: 56, height: 56}}
+                        src={productImg}>
+                    </Avatar>
+                </ListItemAvatar>
+
+                <div className={styles.infoGroup}>
+                    <ListItemText
+                        primary={productTitle}
+                    />
+                    <ListItemText
+                        primary={productPrice}
+                    />
+
+                    <input
+                        className={styles.amount}
+                        min={1}
+                        max={10}
+                        type={"number"}
+                        placeholder={'Choose amount'}
+                        value={itemCount}
+                        onChange={handleChange}
+                    />
+                </div>
+
+            </ListItem>
+        </List>
     )
 }
 
 SingleProduct.propTypes = {
     productImg: PropTypes.string.isRequired,
     productTitle: PropTypes.string.isRequired,
-    productDescription: PropTypes.string.isRequired,
     productPrice: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
     addToCart: PropTypes.func.isRequired,

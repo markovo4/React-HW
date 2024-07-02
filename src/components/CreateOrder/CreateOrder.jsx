@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {fetchProducts} from "../../store/reducers/ActionCreators";
 import styles from './createOrder.module.scss';
-import {Box, Button, Container, Typography} from "@mui/material";
+import {Box, Button, Container, List, Typography} from "@mui/material";
 import CreateOrderList from "../CreateOrderList";
 import {addCurrentOrder, addToOrders} from "../../store/reducers/orders";
 import {v4 as uuidv4} from 'uuid';
@@ -43,7 +43,7 @@ const CreateOrder = () => {
     const handleAddOrder = () => {
         const completedOrder = [currentId, currentOrder];
         dispatch(addToOrders(completedOrder))
-        console.log(orders)
+        dispatch(addCurrentOrder([]))
     }
 
     const handleCancelOrder = () => {
@@ -54,14 +54,19 @@ const CreateOrder = () => {
     return (
         <div className={styles.container}>
             <Container
-                sx={{bgcolor: '#cfe8fc', height: '700px', maxWidth: '950px'}}
-            >
+                sx={{
+                    bgcolor: '#cfe8fc',
+                    height: '700px',
+                    maxWidth: '950px',
+                    borderRadius: '10px 0 0 10px'
+                }}>
+
                 <Typography
                     variant="h6"
                     component="div"
-                    sx={{paddingTop: '10px'}}
-                >
-                    Cart
+                    sx={{paddingTop: '10px'}}>
+
+                    NEW ORDER
                 </Typography>
 
                 <Box
@@ -72,8 +77,8 @@ const CreateOrder = () => {
                         marginBottom: '15px',
                         maxWidth: 'inherit',
                         height: '590px'
-                    }}
-                >
+                    }}>
+
                     {currentOrder &&
                         currentOrder.map((product, index) => (
                             <CreateOrderList
@@ -89,30 +94,44 @@ const CreateOrder = () => {
                 </Box>
                 <div className={styles.buttonGroup}>
                     <Button
+                        sx={{bgcolor: 'rgba(0,127,0,0.3)'}}
                         onClick={handleAddOrder}
-                        variant={'success'}
+                        variant={'default'}
                     >Save Order</Button>
                     <Button
                         onClick={handleCancelOrder}
-                        variant={'success'}
+                        sx={{bgcolor: 'rgba(253,0,0,0.35)'}}
+                        variant={'default'}
                     >Cancel Order</Button>
                 </div>
-
             </Container>
 
             <div className={styles.wrapper}>
-                {products &&
-                    products.map((item, index) => (
-                        <SingleProduct
-                            key={index}
-                            productImg={item.image}
-                            productTitle={item.title}
-                            productDescription={item.description}
-                            productPrice={`$${item.price}`}
-                            id={item.id}
-                            addToCart={handleAddItem(item.id)}
-                        />
-                    ))}
+
+                <List>
+                    <Box sx={{
+                        overflow: 'auto',
+                        bgcolor: 'rgb(232,243,252)',
+                        border: '1px solid #ccc',
+                        marginBottom: '15px',
+                        width: '400px',
+                        height: '590px'
+                    }}>
+
+
+                        {products &&
+                            products.map((item, index) => (
+                                <SingleProduct
+                                    key={index}
+                                    productImg={item.image}
+                                    productTitle={item.title}
+                                    productPrice={`$${item.price}`}
+                                    id={item.id}
+                                    addToCart={handleAddItem(item.id)}
+                                />
+                            ))}
+                    </Box>
+                </List>
             </div>
         </div>
 
