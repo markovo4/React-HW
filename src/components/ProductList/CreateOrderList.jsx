@@ -10,9 +10,9 @@ const CreateOrderList = ({amount, title, price, img, handleClick}) => {
     return (
         <List>
             <ListItem
-                sx={{display: 'flex', justifyContent: 'space-evenly', bgcolor: 'white'}}
+                sx={{display: 'flex', justifyContent: 'space-evenly', bgcolor: 'white', gap: '20px'}}
                 secondaryAction={
-                    <IconButton
+                    handleClick && <IconButton
                         edge="end"
                         aria-label="delete"
                         onClick={handleDelete}
@@ -29,15 +29,15 @@ const CreateOrderList = ({amount, title, price, img, handleClick}) => {
                     </Avatar>
                 </ListItemAvatar>
                 <ListItemText
-                    sx={{maxWidth: '500px'}}
+                    sx={{maxWidth: '300px'}}
                     primary={title}
                 />
                 <ListItemText
-                    sx={{textAlign: 'center', maxWidth: '100px'}}
-                    primary={price}
+                    sx={{textAlign: 'center', maxWidth: '70px'}}
+                    primary={`Price: ${price}`}
                 />
                 <ListItemText
-                    sx={{textAlign: 'center', maxWidth: '100px'}}
+                    sx={{textAlign: 'center', maxWidth: '70px'}}
                     primary={` Amount: ${amount}`}
                 />
             </ListItem>
@@ -50,7 +50,7 @@ CreateOrderList.propTypes = {
     title: PropTypes.string.isRequired,
     price: PropTypes.string.isRequired,
     img: PropTypes.string.isRequired,
-    handleClick: PropTypes.func.isRequired
+    handleClick: PropTypes.func,
 }
 
 export default CreateOrderList;

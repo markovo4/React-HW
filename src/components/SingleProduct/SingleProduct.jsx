@@ -54,7 +54,7 @@ const SingleProduct = ({productImg, productTitle, productPrice, id, addToCart}) 
                         primary={productTitle}
                     />
                     <ListItemText
-                        primary={productPrice}
+                        primary={`$${productPrice}`}
                     />
 
                     <input
@@ -76,7 +76,7 @@ const SingleProduct = ({productImg, productTitle, productPrice, id, addToCart}) 
 SingleProduct.propTypes = {
     productImg: PropTypes.string.isRequired,
     productTitle: PropTypes.string.isRequired,
-    productPrice: PropTypes.string.isRequired,
+    productPrice: PropTypes.number.isRequired,
     id: PropTypes.number.isRequired,
     addToCart: PropTypes.func.isRequired,
 }

@@ -39,13 +39,15 @@ const CreateOrder = () => {
     };
 
     const handleAddItem = (id) => (amount, productTitle, productPrice, productImg) => {
+
         const newItem = {
             id,
             amount,
             productTitle,
-            productPrice,
+            productPrice: `$${productPrice * amount}`,
             productImg,
         }
+
         const updatedListOfProducts = [...currentOrder, newItem];
         dispatch(addCurrentOrder(updatedListOfProducts))
     }
@@ -65,7 +67,6 @@ const CreateOrder = () => {
     const handleCancelOrder = () => {
         dispatch(addCurrentOrder([]))
     }
-
 
     return (
         <div className={styles.container}>
@@ -108,6 +109,7 @@ const CreateOrder = () => {
                             />
                         ))}
                 </Box>
+
                 <div className={styles.buttonGroup}>
                     <Button
                         sx={{bgcolor: 'rgba(0,127,0,0.3)'}}
@@ -120,6 +122,7 @@ const CreateOrder = () => {
                         variant={'default'}
                     >Cancel Order</Button>
                 </div>
+
             </Container>
 
             <div className={styles.wrapper}>
@@ -141,7 +144,7 @@ const CreateOrder = () => {
                                     key={index}
                                     productImg={item.image}
                                     productTitle={item.title}
-                                    productPrice={`$${item.price}`}
+                                    productPrice={item.price}
                                     id={item.id}
                                     addToCart={handleAddItem(item.id)}
                                 />
