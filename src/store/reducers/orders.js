@@ -19,12 +19,16 @@ export const orderSlice = createSlice({
         addToOrders(state, {payload}) {
             state.orders.push(payload);
         },
+        updateOrders(state, {payload}) {
+            state.orders = payload;
+        }
     },
 });
 
 export const {
     addCurrentOrder,
-    addToOrders
+    addToOrders,
+    updateOrders
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

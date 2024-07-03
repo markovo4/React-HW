@@ -28,6 +28,16 @@ const CreateOrder = () => {
         dispatch(addCurrentOrder(updatedOrderList))
     }
 
+    const getFormattedDate = () => {
+        const date = new Date();
+
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+
+        return `${day}/${month}/${year}`;
+    };
+
     const handleAddItem = (id) => (amount, productTitle, productPrice, productImg) => {
         const newItem = {
             id,
@@ -41,7 +51,13 @@ const CreateOrder = () => {
     }
 
     const handleAddOrder = () => {
-        const completedOrder = [currentId, currentOrder];
+        const totalCost = currentOrder.reduce((total, itemCost) => {
+            total += parseInt(itemCost.productPrice.slice(1))
+            return total
+        }, 0)
+        const date = getFormattedDate();
+        const completedOrder = [currentId, totalCost, date, currentOrder];
+
         dispatch(addToOrders(completedOrder))
         dispatch(addCurrentOrder([]))
     }
