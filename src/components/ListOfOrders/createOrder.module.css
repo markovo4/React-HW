@@ -1,0 +1,23 @@
+.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  width: 400px;
+  background-color: #cfe8fc;
+  height: 600px;
+  padding: 33px 24px 67px;
+  border-radius: 0 10px 10px 0;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
+}
+
+/*# sourceMappingURL=createOrder.module.css.map */

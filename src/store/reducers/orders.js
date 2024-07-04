@@ -6,6 +6,7 @@ const persistedState = loadState() || [];
 
 const initialState = {
     currentOrder: persistedState.currentOrder || [],
+    currentOrderEdit: persistedState.currentOrderEdit || [],
     orders: persistedState.orders || [],
 };
 
@@ -21,6 +22,9 @@ export const orderSlice = createSlice({
         },
         updateOrders(state, {payload}) {
             state.orders = payload;
+        },
+        setOrderToEdit(state, {payload}) {
+            state.currentOrderEdit = payload;
         }
     },
 });
@@ -28,7 +32,8 @@ export const orderSlice = createSlice({
 export const {
     addCurrentOrder,
     addToOrders,
-    updateOrders
+    updateOrders,
+    setOrderToEdit
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

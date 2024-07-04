@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import CustomIconButton from "../UI/CustomIconButton";
@@ -7,9 +7,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import BasicModal from "../UI/CustomModal/customModal.jsx";
 import {setEdit, setView} from "../../store/reducers/viewOrEdit";
-import {updateOrders} from "../../store/reducers/orders.js";
+import {addCurrentOrder, setOrderToEdit, updateOrders} from "../../store/reducers/orders.js";
 import CreateOrderList from "../ProductList/index.js";
-import CreateOrder from "../CreateOrder/index.js";
+import EditOrderList from "../EditOrderList/index.js";
 
 const style = {
     overflow: 'auto',
@@ -36,6 +36,7 @@ const ListOfOrders = () => {
     const handleEdit = (order) => () => {
         setCurrentOrder(order);
         setModalType('edit');
+        dispatch(setOrderToEdit(order));
         dispatch(setEdit());
     }
 
@@ -49,13 +50,15 @@ const ListOfOrders = () => {
         setModalType(null);
         dispatch(setEdit(false));
         dispatch(setView(false));
+        dispatch(setOrderToEdit([]))
+        dispatch(addCurrentOrder([]))
     }
 
     return (
         <TableContainer component={Paper}>
             <BasicModal open={edit && modalType === 'edit'} onClose={closeModal}>
                 <Box sx={style}>
-                    <CreateOrder/>
+                    <EditOrderList handleAction={closeModal}/>
                 </Box>
             </BasicModal>
             <BasicModal open={view && modalType === 'view'} onClose={closeModal}>
