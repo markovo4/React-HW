@@ -27,6 +27,12 @@ const ListOfOrders = () => {
     const [currentOrder, setCurrentOrder] = useState(null);
     const [modalType, setModalType] = useState(null);
 
+    console.log(edit)
+
+    // useEffect(() => {
+    //     closeModal();
+    // }, [edit])
+
     const handleView = (order) => () => {
         setCurrentOrder(order);
         setModalType('view');
@@ -56,7 +62,10 @@ const ListOfOrders = () => {
 
     return (
         <TableContainer component={Paper}>
-            <BasicModal open={edit && modalType === 'edit'} onClose={closeModal}>
+            <BasicModal open={edit && modalType === 'edit'}
+                        onClose={closeModal}
+                        disableEscapeKeyDown={true}
+            >
                 <Box sx={style}>
                     <EditOrderList handleAction={closeModal}/>
                 </Box>

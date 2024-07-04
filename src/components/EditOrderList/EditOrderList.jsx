@@ -10,16 +10,19 @@ import {addCurrentOrder, updateOrders} from "../../store/reducers/orders.js";
 const EditOrderList = ({handleAction}) => {
     const {currentOrderEdit, currentOrder, orders} = useSelector(state => state.orders);
     const {products} = useSelector(state => state.listOfProducts);
+    const {edit} = useSelector(state => state.viewOrEdit);
     const currentId = currentOrderEdit.at(0);
     const dispatch = useDispatch();
-
-    // useEffect(() => {
-    //     handleAction();
-    // }, []);
 
     const handleClick = () => {
         handleAction();
     }
+
+    useEffect(() => {
+        if (!edit) {
+            handleAction();
+        }
+    }, [edit])
 
     useEffect(() => {
         dispatch(fetchProducts())

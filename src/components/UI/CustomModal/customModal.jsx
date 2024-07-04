@@ -13,22 +13,27 @@ const style = {
     p: 4,
 };
 
-export default function BasicModal({open, children}) {
+export default function BasicModal({open, children, disableEscapeKeyDown = false}) {
     const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         setIsOpen(open);
     }, [open]);
 
-    const handleClose = () => setIsOpen(false);
+
+    const handleClose = (event, reason) => {
+        if (reason !== 'backdropClick') {
+            setIsOpen(false);
+        }
+    };
 
     return (
         <div>
             <Modal
                 open={isOpen}
                 onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
+
+                disableEscapeKeyDown={disableEscapeKeyDown}
             >
                 <Box sx={style}>
                     {children}

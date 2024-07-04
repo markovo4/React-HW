@@ -53,13 +53,14 @@ const CreateOrder = () => {
     }
 
     const handleAddOrder = () => {
+        if (!currentOrder.length) return;
         const totalCost = currentOrder.reduce((total, itemCost) => {
             total += parseInt(itemCost.productPrice.slice(1))
             return total
         }, 0)
         const date = getFormattedDate();
         const completedOrder = [currentId, totalCost, date, currentOrder];
-
+        
         dispatch(addToOrders(completedOrder))
         dispatch(addCurrentOrder([]))
     }
