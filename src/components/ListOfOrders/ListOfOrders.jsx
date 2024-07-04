@@ -10,11 +10,12 @@ import {setEdit, setView} from "../../store/reducers/viewOrEdit";
 import {addCurrentOrder, setOrderToEdit, updateOrders} from "../../store/reducers/orders.js";
 import CreateOrderList from "../ProductList/index.js";
 import EditOrderList from "../EditOrderList/index.js";
+import {useSnackbar} from "notistack";
 
 const style = {
     overflow: 'auto',
-    bgcolor: 'rgba(255,255,255,0.56)',
-    border: '1px solid #ccc',
+    bgcolor: 'rgba(232,242,253,0.5)',
+    borderRadius: '10px',
     marginBottom: '15px',
     width: '1200px',
     height: '700px'
@@ -26,12 +27,7 @@ const ListOfOrders = () => {
     const dispatch = useDispatch();
     const [currentOrder, setCurrentOrder] = useState(null);
     const [modalType, setModalType] = useState(null);
-
-    console.log(edit)
-
-    // useEffect(() => {
-    //     closeModal();
-    // }, [edit])
+    const {enqueueSnackbar} = useSnackbar();
 
     const handleView = (order) => () => {
         setCurrentOrder(order);
@@ -49,6 +45,7 @@ const ListOfOrders = () => {
     const handleDelete = (id) => () => {
         const filteredOrders = orders.filter(item => item.at(0) !== id);
         dispatch(updateOrders(filteredOrders));
+        enqueueSnackbar(`Order was deleted`, {variant: 'warning'})
     }
 
     const closeModal = () => {
@@ -70,7 +67,8 @@ const ListOfOrders = () => {
                     <EditOrderList handleAction={closeModal}/>
                 </Box>
             </BasicModal>
-            <BasicModal open={view && modalType === 'view'} onClose={closeModal}>
+            <BasicModal open={view && modalType === 'view'}
+                        onClose={closeModal}>
                 <Box sx={style}>
                     {currentOrder && currentOrder.at(3).map((product, index) => (
                         <CreateOrderList

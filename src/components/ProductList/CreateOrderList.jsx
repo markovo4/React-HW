@@ -28,18 +28,22 @@ const CreateOrderList = ({amount, title, price, img, handleClick}) => {
                     >
                     </Avatar>
                 </ListItemAvatar>
+
                 <ListItemText
                     sx={{maxWidth: '300px'}}
                     primary={title}
                 />
-                <ListItemText
-                    sx={{textAlign: 'center', maxWidth: '70px'}}
-                    primary={`Price: ${price}`}
-                />
+
                 <ListItemText
                     sx={{textAlign: 'center', maxWidth: '70px'}}
                     primary={` Amount: ${amount}`}
                 />
+
+                <ListItemText
+                    sx={{textAlign: 'center', maxWidth: '70px'}}
+                    primary={`Price: ${price}`}
+                />
+
             </ListItem>
         </List>
     )

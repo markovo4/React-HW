@@ -2,21 +2,15 @@
   display: flex;
   flex-flow: row wrap;
   width: 400px;
-  background-color: rgb(207, 232, 252);
+  background-color: rgba(190, 228, 255, 0.58);
   height: 600px;
   padding: 33px 24px 67px;
   border-radius: 0 10px 10px 0;
 }
 
-html {
-  background-color: rgba(205, 230, 250, 0.32);
-}
-
 .container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  height: 90vh;
   max-width: 1400px;
   margin: 0 auto;
 }
@@ -25,3 +19,5 @@ html {
   display: flex;
   justify-content: space-between;
 }
+
+/*# sourceMappingURL=createOrder.module.css.map */

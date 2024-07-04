@@ -7,6 +7,7 @@ import {Box, Button, Container, List, Typography} from "@mui/material";
 import CreateOrderList from "../ProductList";
 import {addCurrentOrder, addToOrders} from "../../store/reducers/orders";
 import {v4 as uuidv4} from 'uuid';
+import {useSnackbar} from "notistack";
 
 
 const CreateOrder = () => {
@@ -14,6 +15,7 @@ const CreateOrder = () => {
     const {currentOrder, orders} = useSelector(state => state.orders)
     const [currentId, setCurrentId] = useState(uuidv4())
     const dispatch = useDispatch();
+    const {enqueueSnackbar} = useSnackbar();
 
     useEffect(() => {
         dispatch(fetchProducts())
@@ -60,13 +62,17 @@ const CreateOrder = () => {
         }, 0)
         const date = getFormattedDate();
         const completedOrder = [currentId, totalCost, date, currentOrder];
-        
+
         dispatch(addToOrders(completedOrder))
         dispatch(addCurrentOrder([]))
+        enqueueSnackbar(` Order was added Successfully`, {variant: 'success'})
     }
 
     const handleCancelOrder = () => {
+        if (!currentOrder.length) return;
         dispatch(addCurrentOrder([]))
+        enqueueSnackbar(` Order was Canceled `, {variant: 'warning'})
+
     }
 
     return (
@@ -91,7 +97,7 @@ const CreateOrder = () => {
                     sx={{
                         overflow: 'auto',
                         bgcolor: 'rgba(255,255,255,0.56)',
-                        border: '1px solid #ccc',
+                        borderRadius: '10px',
                         marginBottom: '15px',
                         maxWidth: 'inherit',
                         height: '590px'
@@ -132,7 +138,7 @@ const CreateOrder = () => {
                     <Box sx={{
                         overflow: 'auto',
                         bgcolor: 'rgb(232,243,252)',
-                        border: '1px solid #ccc',
+                        borderRadius: '10px',
                         marginBottom: '15px',
                         width: '400px',
                         height: '590px'

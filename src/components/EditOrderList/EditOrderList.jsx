@@ -1,4 +1,4 @@
-import styles from "../CreateOrder/createOrder.module.scss";
+import styles from './createOrder.module.scss';
 import {Box, Button, Container, List, Typography} from "@mui/material";
 import CreateOrderList from "../ProductList/index.js";
 import SingleProduct from "../SingleProduct/index.js";
@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {fetchProducts} from "../../store/reducers/ActionCreators.js";
 import {addCurrentOrder, updateOrders} from "../../store/reducers/orders.js";
+import {useSnackbar} from "notistack";
 
 const EditOrderList = ({handleAction}) => {
     const {currentOrderEdit, currentOrder, orders} = useSelector(state => state.orders);
@@ -13,9 +14,11 @@ const EditOrderList = ({handleAction}) => {
     const {edit} = useSelector(state => state.viewOrEdit);
     const currentId = currentOrderEdit.at(0);
     const dispatch = useDispatch();
+    const {enqueueSnackbar} = useSnackbar();
 
     const handleClick = () => {
         handleAction();
+        enqueueSnackbar(`Changes Canceled`, {variant: 'warning'})
     }
 
     useEffect(() => {
@@ -56,6 +59,7 @@ const EditOrderList = ({handleAction}) => {
 
         dispatch(updateOrders(updatedOrder))
         handleAction();
+        enqueueSnackbar(`Changes Saved`, {variant: 'success'})
     }
 
 
@@ -83,7 +87,7 @@ const EditOrderList = ({handleAction}) => {
         <div className={styles.container}>
             <Container
                 sx={{
-                    bgcolor: '#cfe8fc',
+                    bgcolor: '#c6e0f5',
                     height: '700px',
                     maxWidth: '950px',
                     borderRadius: '10px 0 0 10px'
@@ -100,8 +104,8 @@ const EditOrderList = ({handleAction}) => {
                 <Box
                     sx={{
                         overflow: 'auto',
-                        bgcolor: 'rgba(255,255,255,0.56)',
-                        border: '1px solid #ccc',
+                        bgcolor: 'rgba(255,255,255,0.29)',
+                        borderRadius: '10px',
                         marginBottom: '15px',
                         maxWidth: 'inherit',
                         height: '590px'
@@ -141,8 +145,8 @@ const EditOrderList = ({handleAction}) => {
                 <List>
                     <Box sx={{
                         overflow: 'auto',
-                        bgcolor: 'rgb(232,243,252)',
-                        border: '1px solid #ccc',
+                        bgcolor: 'rgba(232,243,252,0.58)',
+                        borderRadius: '10px',
                         marginBottom: '15px',
                         width: '400px',
                         height: '590px'
@@ -164,7 +168,6 @@ const EditOrderList = ({handleAction}) => {
                 </List>
             </div>
         </div>
-
     )
 }
 
