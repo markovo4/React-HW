@@ -1,8 +1,8 @@
-import {Avatar, IconButton, List, ListItem, ListItemAvatar, ListItemText} from "@mui/material";
-import PropTypes from "prop-types";
 import {useState} from "react";
+import {Avatar, IconButton, List, ListItem, ListItemAvatar, ListItemText} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
-import styles from './singleProduct.module.scss'
+import PropTypes from "prop-types";
+import styles from './singleProduct.module.scss';
 
 const SingleProduct = ({productImg, productTitle, productPrice, id, addToCart}) => {
     const [itemCount, setItemCount] = useState('');

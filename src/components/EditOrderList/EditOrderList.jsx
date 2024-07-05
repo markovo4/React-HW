@@ -1,25 +1,25 @@
-import styles from './createOrder.module.scss';
-import {Box, Button, Container, List, Typography} from "@mui/material";
-import CreateOrderList from "../ProductList/index.js";
-import SingleProduct from "../SingleProduct/index.js";
-import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {fetchProducts} from "../../store/reducers/ActionCreators.js";
-import {addCurrentOrder, updateOrders} from "../../store/reducers/orders.js";
+import {useDispatch, useSelector} from "react-redux";
+import {Box, Button, Container, List, Typography} from "@mui/material";
 import {useSnackbar} from "notistack";
+import PropTypes from "prop-types";
+
+import styles from './createOrder.module.scss';
+import CreateOrderList from "../ProductList";
+import SingleProduct from "../SingleProduct";
+import {fetchProducts} from "../../store/reducers/ActionCreators";
+import {addCurrentOrder, updateOrders} from "../../store/reducers/orders";
+import {getFormattedDate} from "../../utils/functions/currentDate";
 
 const EditOrderList = ({handleAction}) => {
-    const {currentOrderEdit, currentOrder, orders} = useSelector(state => state.orders);
-    const {products} = useSelector(state => state.listOfProducts);
-    const {edit} = useSelector(state => state.viewOrEdit);
-    const currentId = currentOrderEdit.at(0);
     const dispatch = useDispatch();
     const {enqueueSnackbar} = useSnackbar();
 
-    const handleClick = () => {
-        handleAction();
-        enqueueSnackbar(`Changes Canceled`, {variant: 'warning'})
-    }
+    const {currentOrderEdit, currentOrder, orders} = useSelector(state => state.orders);
+    const {products} = useSelector(state => state.listOfProducts);
+    const {edit} = useSelector(state => state.viewOrEdit);
+
+    const currentId = currentOrderEdit.at(0);
 
     useEffect(() => {
         if (!edit) {
@@ -32,16 +32,10 @@ const EditOrderList = ({handleAction}) => {
         dispatch(addCurrentOrder(currentOrderEdit.at(3)))
     }, [dispatch]);
 
-    const getFormattedDate = () => {
-        const date = new Date();
-
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const year = date.getFullYear();
-
-        return `${day}/${month}/${year}`;
-    };
-
+    const handleClick = () => {
+        handleAction();
+        enqueueSnackbar(`Changes Canceled`, {variant: 'warning'})
+    }
 
     const handleUpdateOrder = () => {
         const totalCost = currentOrder.reduce((total, itemCost) => {
@@ -74,7 +68,7 @@ const EditOrderList = ({handleAction}) => {
             id,
             amount,
             productTitle,
-            productPrice: `$${productPrice * amount}`,
+            productPrice: `$${(productPrice * amount).toFixed(2)}`,
             productImg,
         }
 
@@ -129,12 +123,14 @@ const EditOrderList = ({handleAction}) => {
                     <Button
                         onClick={handleUpdateOrder}
                         sx={{bgcolor: 'rgba(0,127,0,0.3)'}}
-                        variant={'default'}
+                        variant={'contained'}
+                        color={"success"}
                     >Save</Button>
                     <Button
                         onClick={handleClick}
                         sx={{bgcolor: 'rgba(253,0,0,0.35)'}}
-                        variant={'default'}
+                        variant={'contained'}
+                        color={"error"}
                     >Cancel</Button>
                 </div>
 
@@ -171,5 +167,9 @@ const EditOrderList = ({handleAction}) => {
     )
 }
 
+
+EditOrderList.propTypes = {
+    handleAction: PropTypes.func.isRequired,
+}
 
 export default EditOrderList;

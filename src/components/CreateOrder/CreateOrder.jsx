@@ -8,14 +8,17 @@ import CreateOrderList from '../ProductList';
 import {fetchProducts} from '../../store/reducers/ActionCreators';
 import {addCurrentOrder, addToOrders} from '../../store/reducers/orders';
 import styles from './createOrder.module.scss';
+import {getFormattedDate} from "../../utils/functions/currentDate.js";
 
 
 const CreateOrder = () => {
-    const {products} = useSelector((state) => state.listOfProducts);
-    const {currentOrder, orders} = useSelector((state) => state.orders);
     const dispatch = useDispatch();
     const {enqueueSnackbar} = useSnackbar();
     const [currentId, setCurrentId] = useState(uuidv4());
+
+    const {products} = useSelector((state) => state.listOfProducts);
+    const {currentOrder, orders} = useSelector((state) => state.orders);
+
 
     useEffect(() => {
         dispatch(fetchProducts())
@@ -29,11 +32,6 @@ const CreateOrder = () => {
         const updatedOrderList = currentOrder.filter((_, index) => index !== id);
         dispatch(addCurrentOrder(updatedOrderList))
     }
-
-    const getFormattedDate = () => {
-        const date = new Date();
-        return date.toLocaleDateString('en-GB');
-    };
 
     const handleAddItem = (id) => (amount, productTitle, productPrice, productImg) => {
 
@@ -65,7 +63,6 @@ const CreateOrder = () => {
         if (!currentOrder.length) return;
         dispatch(addCurrentOrder([]))
         enqueueSnackbar(` Order was Canceled `, {variant: 'warning'})
-
     }
 
     return (

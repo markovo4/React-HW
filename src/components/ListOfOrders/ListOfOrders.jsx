@@ -1,16 +1,17 @@
 import {useState} from 'react';
 import {Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import CustomIconButton from "../UI/CustomIconButton";
+import {useSnackbar} from "notistack";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+
+import CustomIconButton from "../UI/CustomIconButton";
 import BasicModal from "../UI/CustomModal/customModal.jsx";
-import {setEdit, setView} from "../../store/reducers/viewOrEdit";
-import {addCurrentOrder, setOrderToEdit, updateOrders} from "../../store/reducers/orders.js";
 import CreateOrderList from "../ProductList/index.js";
 import EditOrderList from "../EditOrderList/index.js";
-import {useSnackbar} from "notistack";
+import {setEdit, setView} from "../../store/reducers/viewOrEdit";
+import {addCurrentOrder, setOrderToEdit, updateOrders} from "../../store/reducers/orders.js";
 
 const style = {
     overflow: 'auto',
@@ -22,12 +23,13 @@ const style = {
 }
 
 const ListOfOrders = () => {
+    const dispatch = useDispatch();
+    const {enqueueSnackbar} = useSnackbar();
     const {edit, view} = useSelector(state => state.viewOrEdit);
     const {orders} = useSelector(state => state.orders);
-    const dispatch = useDispatch();
+
     const [currentOrder, setCurrentOrder] = useState(null);
     const [modalType, setModalType] = useState(null);
-    const {enqueueSnackbar} = useSnackbar();
 
     const handleView = (order) => () => {
         setCurrentOrder(order);
