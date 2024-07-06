@@ -89,13 +89,13 @@ const OrdersList = () => {
                 </Box>
             </BasicModal>
 
-            <Table sx={{minWidth: 650}} aria-label="simple table">
+            <Table aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Order ID</TableCell>
-                        <TableCell align="right">Created on</TableCell>
+                        <TableCell align="center">Order ID</TableCell>
+                        <TableCell align="right" sx={{maxWidth: '300px'}}>Created on</TableCell>
                         <TableCell align="right">Total Cost</TableCell>
-                        <TableCell align="right">Actions</TableCell>
+                        <TableCell align="right" width={'500px'}>Actions</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -105,6 +105,8 @@ const OrdersList = () => {
                             sx={{'&:last-child td, &:last-child th': {border: 0}}}>
 
                             <TableCell
+                                width={'300px'}
+                                align="center"
                                 component="th"
                                 scope="row">
                                 {order.at(0)}
@@ -121,6 +123,7 @@ const OrdersList = () => {
                             </TableCell>
 
                             <TableCell
+                                width={'500px'}
                                 align="right"
                                 sx={{display: 'flex', gap: '20px'}}>
                                 <CustomIconButton
