@@ -61,18 +61,22 @@ const OrdersList = () => {
 
     return (
         <TableContainer component={Paper}>
-            <BasicModal open={edit && modalType === 'edit'}
-                        onClose={closeModal}
-                        disableEscapeKeyDown={true}
-            >
+            <BasicModal
+                open={edit && modalType === 'edit'}
+                onClose={closeModal}
+                disableEscapeKeyDown={true}>
+
                 <Box sx={style}>
                     <OrderEditList handleAction={closeModal}/>
                 </Box>
+
             </BasicModal>
-            <BasicModal open={view && modalType === 'view'}
-                        onClose={closeModal}>
+
+            <BasicModal
+                open={view && modalType === 'view'}
+                onClose={closeModal}>
                 <Box sx={style}>
-                    {currentOrder && currentOrder.at(3).map((product, index) => (
+                    {currentOrder && currentOrder[3].map((product, index) => (
                         <OrdersListCreate
                             key={index}
                             amount={product.amount}
@@ -84,6 +88,7 @@ const OrdersList = () => {
                     ))}
                 </Box>
             </BasicModal>
+
             <Table sx={{minWidth: 650}} aria-label="simple table">
                 <TableHead>
                     <TableRow>
@@ -95,35 +100,51 @@ const OrdersList = () => {
                 </TableHead>
                 <TableBody>
                     {orders && orders.map((order, index) => (
-                        <TableRow key={index} sx={{'&:last-child td, &:last-child th': {border: 0}}}>
-                            <TableCell component="th" scope="row">
+                        <TableRow
+                            key={index}
+                            sx={{'&:last-child td, &:last-child th': {border: 0}}}>
+
+                            <TableCell
+                                component="th"
+                                scope="row">
                                 {order.at(0)}
                             </TableCell>
-                            <TableCell align="right">{order.at(2)}</TableCell>
-                            <TableCell align="right">{`$${order.at(1)}`}</TableCell>
-                            <TableCell align="right" sx={{display: 'flex', gap: '20px'}}>
+
+                            <TableCell
+                                align="right">
+                                {order[2]}
+                            </TableCell>
+
+                            <TableCell
+                                align="right">
+                                {`$${order[1].toFixed(2)}`}
+                            </TableCell>
+
+                            <TableCell
+                                align="right"
+                                sx={{display: 'flex', gap: '20px'}}>
                                 <CustomIconButton
                                     color={'rgba(224,1,1,0.47)'}
                                     label={'delete'}
-                                    handleAction={handleDelete(order.at(0))}
-                                >
+                                    handleAction={handleDelete(order.at(0))}>
                                     <DeleteIcon/>
                                 </CustomIconButton>
+
                                 <CustomIconButton
                                     color={'rgba(0,127,0,0.24)'}
                                     label={'edit'}
-                                    handleAction={handleEdit(order)}
-                                >
+                                    handleAction={handleEdit(order)}>
                                     <EditIcon/>
                                 </CustomIconButton>
+
                                 <CustomIconButton
                                     color={'rgba(0,127,253,0.13)'}
                                     label={'view'}
-                                    handleAction={handleView(order)}
-                                >
+                                    handleAction={handleView(order)}>
                                     <VisibilityIcon/>
                                 </CustomIconButton>
                             </TableCell>
+
                         </TableRow>
                     ))}
                 </TableBody>

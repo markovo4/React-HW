@@ -9,13 +9,7 @@ const OrderTemplate = ({productImg, productTitle, productPrice, id, addToCart}) 
 
     const handleChange = (e) => {
         const {value} = e.target;
-        if (value >= 10) {
-            setItemCount(10)
-        } else if (value <= 1) {
-            setItemCount(1)
-        } else {
-            setItemCount(value)
-        }
+        value >= 10 ? setItemCount(10) : value <= 1 ? setItemCount(1) : setItemCount(value)
     }
 
     const handleClick = (e) => {

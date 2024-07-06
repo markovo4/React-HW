@@ -36,7 +36,7 @@ const OrdersListCreate = ({amount, title, price, img, handleClick}) => {
 
                 <ListItemText
                     sx={{textAlign: 'center', maxWidth: '70px'}}
-                    primary={` Amount: ${amount}`}
+                    primary={` Amount: ${amount.toFixed(2)}`}
                 />
 
                 <ListItemText
