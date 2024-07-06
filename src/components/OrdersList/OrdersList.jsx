@@ -8,8 +8,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import CustomIconButton from "../UI/CustomIconButton";
 import BasicModal from "../UI/CustomModal/customModal.jsx";
-import CreateOrderList from "../ProductList/index.js";
-import EditOrderList from "../EditOrderList/index.js";
+import OrdersListCreate from "../OrdersListCreate/index.js";
+import OrderEditList from "../OrderEditList/index.js";
 import {setEdit, setView} from "../../store/reducers/viewOrEdit";
 import {addCurrentOrder, setOrderToEdit, updateOrders} from "../../store/reducers/orders.js";
 
@@ -22,7 +22,7 @@ const style = {
     height: '700px'
 }
 
-const ListOfOrders = () => {
+const OrdersList = () => {
     const dispatch = useDispatch();
     const {enqueueSnackbar} = useSnackbar();
     const {edit, view} = useSelector(state => state.viewOrEdit);
@@ -66,14 +66,14 @@ const ListOfOrders = () => {
                         disableEscapeKeyDown={true}
             >
                 <Box sx={style}>
-                    <EditOrderList handleAction={closeModal}/>
+                    <OrderEditList handleAction={closeModal}/>
                 </Box>
             </BasicModal>
             <BasicModal open={view && modalType === 'view'}
                         onClose={closeModal}>
                 <Box sx={style}>
                     {currentOrder && currentOrder.at(3).map((product, index) => (
-                        <CreateOrderList
+                        <OrdersListCreate
                             key={index}
                             amount={product.amount}
                             title={product.productTitle}
@@ -132,4 +132,4 @@ const ListOfOrders = () => {
     );
 }
 
-export default ListOfOrders;
+export default OrdersList;

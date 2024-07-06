@@ -1,5 +1,5 @@
 import BaseTemplate from "../../../templates/BaseTemplate";
-import CreateOrder from "../../../components/CreateOrder";
+import OrderCreate from "../../../components/OrderCreate";
 import Nav from "../../../components/Nav";
 
 const HomePage = () => {
@@ -8,7 +8,7 @@ const HomePage = () => {
             <BaseTemplate.Header>
                 <Nav/>
             </BaseTemplate.Header>
-            <CreateOrder/>
+            <OrderCreate/>
         </BaseTemplate>
     )
 }

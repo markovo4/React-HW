@@ -2,9 +2,9 @@ import {useState} from "react";
 import {Avatar, IconButton, List, ListItem, ListItemAvatar, ListItemText} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import PropTypes from "prop-types";
-import styles from './singleProduct.module.scss';
+import styles from './orderTemplate.module.scss';
 
-const SingleProduct = ({productImg, productTitle, productPrice, id, addToCart}) => {
+const OrderTemplate = ({productImg, productTitle, productPrice, id, addToCart}) => {
     const [itemCount, setItemCount] = useState('');
 
     const handleChange = (e) => {
@@ -73,7 +73,7 @@ const SingleProduct = ({productImg, productTitle, productPrice, id, addToCart}) 
     )
 }
 
-SingleProduct.propTypes = {
+OrderTemplate.propTypes = {
     productImg: PropTypes.string.isRequired,
     productTitle: PropTypes.string.isRequired,
     productPrice: PropTypes.number.isRequired,
@@ -81,4 +81,4 @@ SingleProduct.propTypes = {
     addToCart: PropTypes.func.isRequired,
 }
 
-export default SingleProduct;
+export default OrderTemplate;

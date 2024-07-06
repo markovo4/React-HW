@@ -4,14 +4,14 @@ import {Box, Button, Container, List, Typography} from "@mui/material";
 import {useSnackbar} from "notistack";
 import PropTypes from "prop-types";
 
-import styles from './createOrder.module.scss';
-import CreateOrderList from "../ProductList";
-import SingleProduct from "../SingleProduct";
+import styles from './orderEdit.module.scss';
+import OrdersListCreate from "../OrdersListCreate";
+import OrderTemplate from "../OrderTemplate";
 import {fetchProducts} from "../../store/reducers/ActionCreators";
 import {addCurrentOrder, updateOrders} from "../../store/reducers/orders";
 import {getFormattedDate} from "../../utils/functions/currentDate";
 
-const EditOrderList = ({handleAction}) => {
+const OrderEditList = ({handleAction}) => {
     const dispatch = useDispatch();
     const {enqueueSnackbar} = useSnackbar();
 
@@ -107,7 +107,7 @@ const EditOrderList = ({handleAction}) => {
 
                     {currentOrder &&
                         currentOrder.map((product, index) => (
-                            <CreateOrderList
+                            <OrdersListCreate
                                 key={index}
                                 amount={product.amount}
                                 title={product.productTitle}
@@ -151,7 +151,7 @@ const EditOrderList = ({handleAction}) => {
 
                         {products &&
                             products.map((item, index) => (
-                                <SingleProduct
+                                <OrderTemplate
                                     key={index}
                                     productImg={item.image}
                                     productTitle={item.title}
@@ -168,8 +168,8 @@ const EditOrderList = ({handleAction}) => {
 }
 
 
-EditOrderList.propTypes = {
+OrderEditList.propTypes = {
     handleAction: PropTypes.func.isRequired,
 }
 
-export default EditOrderList;
+export default OrderEditList;

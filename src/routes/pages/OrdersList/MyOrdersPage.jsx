@@ -1,6 +1,6 @@
 import BaseTemplate from "../../../templates/BaseTemplate";
 import Nav from "../../../components/Nav";
-import ListOfOrders from "../../../components/ListOfOrders";
+import OrdersList from "../../../components/OrdersList";
 
 const MyOrdersPage = () => {
     return (
@@ -8,7 +8,7 @@ const MyOrdersPage = () => {
             <BaseTemplate.Header>
                 <Nav/>
             </BaseTemplate.Header>
-            <ListOfOrders/>
+            <OrdersList/>
         </BaseTemplate>
     )
 }

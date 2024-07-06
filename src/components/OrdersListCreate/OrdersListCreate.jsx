@@ -2,7 +2,7 @@ import {Avatar, IconButton, List, ListItem, ListItemAvatar, ListItemText} from "
 import ClearIcon from '@mui/icons-material/Clear';
 import PropTypes from "prop-types";
 
-const CreateOrderList = ({amount, title, price, img, handleClick}) => {
+const OrdersListCreate = ({amount, title, price, img, handleClick}) => {
 
     const handleDelete = () => {
         handleClick()
@@ -49,7 +49,7 @@ const CreateOrderList = ({amount, title, price, img, handleClick}) => {
     )
 }
 
-CreateOrderList.propTypes = {
+OrdersListCreate.propTypes = {
     amount: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     price: PropTypes.string.isRequired,
@@ -57,4 +57,4 @@ CreateOrderList.propTypes = {
     handleClick: PropTypes.func,
 }
 
-export default CreateOrderList;
+export default OrdersListCreate;

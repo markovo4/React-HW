@@ -3,15 +3,15 @@ import {useDispatch, useSelector} from 'react-redux';
 import {v4 as uuidv4} from 'uuid';
 import {Box, Button, Container, List, Typography} from '@mui/material';
 import {useSnackbar} from 'notistack';
-import SingleProduct from '../SingleProduct';
-import CreateOrderList from '../ProductList';
+import OrderTemplate from '../OrderTemplate';
+import OrdersListCreate from '../OrdersListCreate';
 import {fetchProducts} from '../../store/reducers/ActionCreators';
 import {addCurrentOrder, addToOrders} from '../../store/reducers/orders';
-import styles from './createOrder.module.scss';
+import styles from './orderCreate.module.scss';
 import {getFormattedDate} from "../../utils/functions/currentDate.js";
 
 
-const CreateOrder = () => {
+const OrderCreate = () => {
     const dispatch = useDispatch();
     const {enqueueSnackbar} = useSnackbar();
     const [currentId, setCurrentId] = useState(uuidv4());
@@ -90,7 +90,7 @@ const CreateOrder = () => {
                     }}
                 >
                     {currentOrder.map((product, index) => (
-                        <CreateOrderList
+                        <OrdersListCreate
                             key={index}
                             amount={product.amount}
                             title={product.productTitle}
@@ -135,7 +135,7 @@ const CreateOrder = () => {
                         }}
                     >
                         {products.map((item, index) => (
-                            <SingleProduct
+                            <OrderTemplate
                                 key={index}
                                 productImg={item.image}
                                 productTitle={item.title}
@@ -151,4 +151,4 @@ const CreateOrder = () => {
     );
 }
 
-export default CreateOrder;
+export default OrderCreate;
